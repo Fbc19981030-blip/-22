@@ -1,0 +1,537 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>玩具大比拼 V4.9</title><style>*{box-sizing:border-box}body{margin:0;background:#c9e5f6;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;overflow:hidden;touch-action:none}canvas{display:block;touch-action:none}#top{position:fixed;top:env(safe-area-inset-top,12px);left:12px;right:12px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none}#top>*{pointer-events:auto}.pill{background:#172b46e8;color:#fff;padding:10px 13px;border-radius:16px;box-shadow:0 5px 16px #1a335344;font-size:13px}.pill b{font-size:17px}.pill small{color:#ffd279}button{border:0;border-radius:12px;background:#344e70;color:white;padding:10px 12px;font-size:14px;font-weight:600;cursor:pointer}#top>div:last-child{max-width:62vw;overflow-x:auto;white-space:nowrap;display:flex!important;scrollbar-width:none}#top>div:last-child button{flex:0 0 auto}button.active{background:#f2a72b;color:#172033}#panel{max-height:58dvh;overflow-y:auto;overscroll-behavior:contain;position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);left:10px;right:10px;background:#14243beF;border:1px solid #ffffff35;border-radius:22px;color:#fff;padding:12px;box-shadow:0 10px 30px #1b30465e}#panel .line{display:flex;gap:7px;margin-bottom:9px}#panel .line button{flex:1;min-width:0;padding:10px 5px}#library{display:flex;gap:7px;overflow:auto;scrollbar-width:none;padding-bottom:5px}#library button{flex:0 0 78px;height:72px;font-size:12px;line-height:1.5}#library .emoji{display:block;font-size:27px}#colors{display:flex;gap:10px;margin:9px 0;overflow:auto}#colors button{flex:0 0 30px;height:30px;border:3px solid #ffffff90;border-radius:50%;padding:0}#colors button.active{outline:2px solid #ffc95c;outline-offset:2px}#hint{font-size:12px;color:#c7d5e9;margin-top:7px;line-height:1.5}#status{font-size:12px;color:#ffd279;min-height:16px;margin:5px 0}#power{width:100%;accent-color:#f2a72b}#powerline{display:flex;align-items:center;gap:10px;font-size:12px}#powerline input{flex:1}#loader{position:fixed;inset:0;display:grid;place-items:center;background:#d5ebf8;color:#173450;z-index:20}#loader.hide{display:none}#loader span{font-weight:bold;font-size:20px}#count{font-size:12px;color:#f4c56c}#panel.collapsed #details{display:none}#panel.collapsed{max-height:44px;padding:5px 12px;overflow:hidden}#panel button:active{transform:scale(.97)}#collapse{padding:7px 12px;background:#2b4564}#matchHUD{position:fixed;top:calc(env(safe-area-inset-top,12px) + 93px);left:12px;background:#14243bdc;color:white;padding:9px 12px;border-radius:13px;font-size:12px;pointer-events:none;line-height:1.6}#matchHUD strong{color:#ffd36c}#panel .line button#tournament{background:#e77b36;color:#fff}#panel .line button#tournament.active{background:#ffd16d;color:#14243b}#driveControls{display:none;position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);left:12px;right:12px;z-index:8;pointer-events:none;align-items:end;justify-content:space-between}#driveControls.on{display:flex}#driveControls button{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;background:#18344ee8;border:2px solid #ffffff88;border-radius:18px;min-width:58px;min-height:56px;font-size:17px}#driveControls button.pressed{background:#ffbf48;color:#13233b}#driveControls .steer{display:flex;gap:8px}#driveControls .throttle{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}#driveBanner{display:none;position:fixed;top:calc(env(safe-area-inset-top,12px) + 172px);left:12px;background:#10243ddd;color:#fff;padding:9px;border-radius:12px;z-index:5;font-size:12px}#driveBanner.on{display:block}body.driving #panel{max-height:44px;padding:5px 12px;overflow:hidden}body.driving #panel #details{display:none}</style></head><body><div id="loader"><span>🧸 玩具大比拼 · 加载3D竞技场…</span></div><div id="top"><div class="pill"><b>🧸 玩具大比拼 V4.9</b><br><small id="modeLabel">自由沙盒 · 精细玩具</small><br><span id="count">场上 0 个玩具</span></div><div style="display:flex;gap:6px"><button id="theme">🌈 糖果擂台</button><button id="quality">🎨 高清</button><button id="camera">📷 视角</button><button id="focus">🎯 聚焦</button><button id="showroom">✨ 展示</button><button id="toyFinish" class="active">💎 玩具质感：开</button><button id="chassis" class="active">🚗 动态底盘：开</button><button id="garage">🔍 玩具展示</button><button id="snapshot">📸 拍照</button><button id="saveScene">💾 保存场景</button><button id="loadScene">📂 读取场景</button><button id="collapse">收起面板</button></div></div><div id="matchHUD">🏁 <strong id="matchState">自由试玩</strong><br>⏱ <span id="matchTime">00:00</span> · 淘汰 <span id="koCount">0</span> · 剩余 <span id="survivors">4</span><br><span id="challengeInfo">选择新玩法开始挑战</span></div><div id="rankingPanel" style="display:none;position:fixed;right:12px;top:calc(env(safe-area-inset-top,12px) + 93px);width:180px;max-height:42vh;overflow:auto;background:#14243be8;color:#fff;padding:10px;border-radius:14px;font-size:12px;z-index:7;line-height:1.75;pointer-events:none"></div><div id="driveBanner">🎮 你正在驾驶 <b id="driveToy">玩具</b><br><span id="driveStats">速度 0</span> · <span id="driveHealth">存活</span><br><button id="exitDrive" style="padding:5px 9px;margin-top:5px">退出驾驶</button></div><div id="driveControls"><div class="steer"><button data-drive="left">◀ 左转</button><button data-drive="right">右转 ▶</button></div><div class="throttle"><button data-drive="forward">⬆ 加速</button><button data-drive="boost">💥 冲撞</button><button data-drive="back">⬇ 倒车</button><button data-drive="brake">⛔ 刹车</button></div></div><div id="panel"><div id="details"><div class="line"><button id="sandbox" class="active">自由沙盒</button><button id="battle">圆圈淘汰</button><button id="reset">重置场地</button></div><div class="line"><button id="auto">⚡ 自动混战：关闭</button><button id="fill">🎲 加入12个玩具</button><button id="clear">🧹 清空</button></div><div class="line"><button id="tournament">🏆 一键开始淘汰赛</button><button id="replay">🔁 再来一局</button></div><div class="line"><button id="survival">🔥 缩圈生存赛</button><button id="scoreBattle">💥 60秒撞击积分赛</button></div><div class="line"><button id="kingBattle">👑 中心争夺赛 · 75秒</button><button id="rulesBtn">📖 玩法说明</button></div><div class="line"><button id="itemBattle">🎁 道具争夺赛 · 90秒</button><button id="itemRules">⚡ 道具说明</button></div><div class="line"><button id="healthBattle">❤️ 生命值乱斗 · 90秒</button><button id="rankToggle">🏅 排行榜</button></div><div class="line"><button id="playerBattle">🎮 我来驾驶 · 1对11</button><button id="driveSelected">🚗 驾驶选中玩具</button></div><div class="line"><button id="importGLB">📦 导入3D玩具(GLB)</button><button id="restoreToy">↩ 恢复原模型</button><button id="armPose">🚜 操作机械臂</button></div><input id="glbFile" type="file" accept=".glb,model/gltf-binary" hidden><div class="line"><button id="undo">↩️ 撤销放置</button><button id="pause">⏸ 暂停</button><button id="orbit">🎥 环绕镜头</button></div><div class="line"><button id="sound">🔊 音效：开启</button><button id="slow">⏱ 慢动作：关闭</button><button id="effects">✨ 特效：开启</button></div><div id="library"></div><div id="colors"></div><div class="line" id="tools"><button data-tool="grab" class="active">✋ 抓取</button><button data-tool="push">👉 推动</button><button data-tool="launch">🚀 弹射</button><button data-tool="rotate">🔄 旋转</button></div><div id="powerline"><span>弹射力度</span><input id="power" type="range" min="20" max="100" value="65"><span id="pv">65%</span></div><div id="status"></div><div id="selectionInfo" style="font-size:12px;color:#ffdd82;margin:4px 0">点选玩具查看名称与速度</div><div id="modelProgress" style="font-size:11px;color:#9de7cf;margin:4px 0">精细模型正在准备…</div><div id="powerline"><span>混战速度</span><input id="speed" type="range" min="1" max="5" value="3"><span id="sv">3档</span></div><div id="hint">V4.9新增玩具属性差异；原有中心争夺赛；V4.5保留缩圈生存赛和60秒撞击积分赛；原有玩具材质质感切换、轮胎纹理与展示灯光优化；保留场景存档与读取；原有动态底盘、转向车轮、碰撞悬挂回弹和挖掘机机械臂操作；保留V3.6碰撞稳定性改进。双指缩放镜头；点选玩具后点“聚焦”近距离查看；点击场地放置玩具；开启自动混战后玩具会主动追逐碰撞。V3.6内置5款独立GLB模型，首次加载需要网络；同时支持本地GLB模型导入：先放入玩具，再导入GLB替换最近一个玩具的外观。模型只在当前浏览器会话使用，不会上传服务器。原有圆形碰撞地面与物理稳定性：玩具可以真实侧翻、倒扣、互相碰撞；支持抓取、推动和弹射。修复出圈后无法坠落、重置后残留隐形碰撞体等问题。</div></div></div><script type="importmap">{"imports":{"three":"https://esm.sh/three@0.170.0"}}</script><script type="module">
+import * as THREE from 'three';
+import * as CANNON from 'https://esm.sh/cannon-es@0.20.0';
+import {GLTFLoader} from 'https://esm.sh/three@0.170.0/examples/jsm/loaders/GLTFLoader.js?external=three';
+const $=id=>document.getElementById(id), scene=new THREE.Scene();scene.background=new THREE.Color('#c9e5f6');scene.fog=new THREE.Fog('#c9e5f6',24,58);
+const camera=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,.1,100);let cameraMode=0;function setCamera(){const poses=[[0,15,19],[0,24,2],[17,12,16]];camera.position.set(...poses[cameraMode]);camera.lookAt(0,0,0)}setCamera();const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.4;document.body.prepend(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xffffff,0x7896a8,2.2));const sun=new THREE.DirectionalLight(0xffffff,3);sun.position.set(-7,15,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-15;sun.shadow.camera.right=15;sun.shadow.camera.top=15;sun.shadow.camera.bottom=-15;scene.add(sun);
+const mat=(c,metal=0,rough=.42)=>new THREE.MeshStandardMaterial({color:c,metalness:metal,roughness:rough});const dark=mat('#202b36',.08,.85),glass=mat('#253e57',.22,.16),silver=mat('#d8e2e8',.7,.25),yellow=mat('#ffc544',.35,.26);function mesh(parent,geo,m,x=0,y=0,z=0){const o=new THREE.Mesh(geo,m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}function box(p,w,h,d,m,x=0,y=0,z=0){return mesh(p,new THREE.BoxGeometry(w,h,d),m,x,y,z)}function sphere(p,r,m,x=0,y=0,z=0){return mesh(p,new THREE.SphereGeometry(r,16,12),m,x,y,z)}function cyl(p,r1,r2,h,m,x=0,y=0,z=0){return mesh(p,new THREE.CylinderGeometry(r1,r2,h,18),m,x,y,z)}
+const floor=mesh(scene,new THREE.PlaneGeometry(120,120),mat('#d4e7ef',0,.95));floor.rotation.x=-Math.PI/2;floor.position.y=-.13;floor.receiveShadow=true;const grid=new THREE.GridHelper(70,70,'#b4cbd4','#c6dbe2');grid.position.y=-.105;scene.add(grid);const arena=mesh(scene,new THREE.CylinderGeometry(8.4,8.4,.42,96),mat('#485d71',.18,.7),0,.02,0);arena.receiveShadow=true;const top=mesh(scene,new THREE.CylinderGeometry(8.32,8.32,.06,96),mat('#526b7e',.1,.65),0,.26,0);top.receiveShadow=true;const rim=mesh(scene,new THREE.TorusGeometry(8.38,.11,10,110),mat('#f4ae30',.65,.25),0,.31,0);rim.rotation.x=Math.PI/2;const circle=mesh(scene,new THREE.RingGeometry(7.75,7.81,96),mat('#ffffff',.05,.7),0,.303,0);circle.rotation.x=-Math.PI/2;
+// Colorful tabletop arena with molded concentric tracks and safety markings.
+const centerDisk=mesh(scene,new THREE.CylinderGeometry(3.1,3.1,.012,96),mat('#315e87',.16,.48),0,.304,0);centerDisk.receiveShadow=true;
+for(const [r,c] of [[3.18,'#f8c84c'],[5.5,'#58d7e5'],[7.08,'#f4f7ff']]){const ring=mesh(scene,new THREE.TorusGeometry(r,.045,8,96),mat(c,.25,.3),0,.323,0);ring.rotation.x=Math.PI/2;ring.castShadow=false;}
+for(let i=0;i<24;i++){const a=i*Math.PI/12,r=7.46;const mark=box(scene,.16,.015,.44,mat(i%2?'#ffd650':'#ffffff',.12,.5),Math.cos(a)*r,.328,Math.sin(a)*r);mark.rotation.y=-a;mark.castShadow=false;}
+const badge=mesh(scene,new THREE.CylinderGeometry(1.08,1.08,.025,48),mat('#f4ae30',.35,.32),0,.327,0);badge.receiveShadow=true;
+for(let i=0;i<8;i++){const a=i*Math.PI/4;const dot=sphere(scene,.10,mat(i%2?'#ffffff':'#ffdf6d',.2,.3),Math.cos(a)*.83,.355,Math.sin(a)*.83);dot.castShadow=false;}
+
+// V3.0 miniature tabletop scenery: corner blocks, decals and colorful props outside the arena.
+const sceneProps=new THREE.Group();scene.add(sceneProps);
+for(let i=0;i<16;i++){
+ const a=i*Math.PI*2/16,r=10.2+(i%3)*.55,x=Math.cos(a)*r,z=Math.sin(a)*r;
+ const c=mat(['#fa6e76','#53c8ea','#ffd166','#7bcf9d'][i%4],.08,.38);
+ const prop=box(sceneProps,.65,.42,.65,c,x,.12,z);prop.rotation.y=a*.7;
+ for(const sx of [-.17,.17])for(const sz of [-.17,.17])cyl(sceneProps,.075,.075,.045,c,x+sx,.36,z+sz);
+}
+const displayRing=mesh(scene,new THREE.TorusGeometry(8.55,.14,10,96),mat('#ffda60',.6,.21),0,.07,0);displayRing.rotation.x=Math.PI/2;
+// V4.0: three tabletop environments. All themes use the same physical arena.
+const arenaThemes=[
+ {name:'🌈 糖果擂台',sky:'#c9e5f6',ground:'#d4e7ef',center:'#315e87',rim:'#ffda60',fog:'#c9e5f6',light:1.4},
+ {name:'🌌 星空擂台',sky:'#152544',ground:'#243653',center:'#34477b',rim:'#69e8ff',fog:'#152544',light:1.65},
+ {name:'🏖️ 阳光沙滩',sky:'#b5ecff',ground:'#f1dba7',center:'#37a6b4',rim:'#ff9c4d',fog:'#b5ecff',light:1.35}
+];
+let themeIndex=0;
+const themeButton=document.getElementById('theme');
+function applyTheme(index){
+ const theme=arenaThemes[index];scene.background.set(theme.sky);scene.fog.color.set(theme.fog);
+ floor.material.color.set(theme.ground);centerDisk.material.color.set(theme.center);
+ displayRing.material.color.set(theme.rim);renderer.toneMappingExposure=theme.light;
+ themeButton.textContent=theme.name;
+ themeButton.classList.toggle('active',index!==0);
+ document.getElementById('status').textContent='已切换'+theme.name+'，玩具和物理状态保持不变';
+}
+themeButton.addEventListener('click',()=>{themeIndex=(themeIndex+1)%arenaThemes.length;applyTheme(themeIndex)});
+
+// V3.6: showroom lighting with subtle ground spotlight, switchable on iPhone.
+const showLightA=new THREE.PointLight(0x83ddff,30,17,2);showLightA.position.set(-5,7,-4);showLightA.visible=false;scene.add(showLightA);
+const showLightB=new THREE.PointLight(0xffb76c,25,17,2);showLightB.position.set(5,6,5);showLightB.visible=false;scene.add(showLightB);
+const showStage=new THREE.Mesh(new THREE.TorusGeometry(3.3,.075,10,96),new THREE.MeshBasicMaterial({color:0x71dafa,transparent:true,opacity:.85}));showStage.rotation.x=Math.PI/2;showStage.position.y=.355;showStage.visible=false;scene.add(showStage);
+let showroom=false;document.getElementById('showroom').onclick=()=>{showroom=!showroom;showLightA.visible=showroom;showLightB.visible=showroom;showStage.visible=showroom;document.getElementById('showroom').classList.toggle('active',showroom);document.getElementById('status').textContent=showroom?'✨ 展示灯光开启：建议选中玩具并点击聚焦':'已返回普通竞技场灯光'};
+
+function wheel(p,x,z,r=.34){const tire=cyl(p,r,r,.2,dark,x,.36,z);tire.rotation.z=Math.PI/2;(p.userData.wheels??=[]).push(tire);const hub=cyl(p,r*.49,r*.49,.215,silver,x,.36,z);hub.rotation.z=Math.PI/2;return tire}function detailLights(g,w,d){box(g,.14,.14,.2,yellow,-w/2+.02,.48,-d/2+.05);box(g,.14,.14,.2,yellow,w/2-.02,.48,-d/2+.05);box(g,.14,.11,.18,mat('#e74746'),-w/2+.02,.45,d/2-.04);box(g,.14,.11,.18,mat('#e74746'),w/2-.02,.45,d/2-.04)}
+const defs=[['🏎️','越野赛车','buggy'],['🚙','怪兽卡车','monster'],['🚗','跑车','sport'],['🚜','挖掘机','excavator'],['🚚','运输卡车','truck'],['🚓','警车','police'],['🚕','出租车','taxi'],['🚒','消防车','fire'],['🚌','校车','bus'],['🚂','小火车','train'],['🛻','皮卡','pickup'],['🏁','方程式','formula'],['🚑','救护车','ambulance'],['🚛','货柜车','lorry'],['🚐','面包车','van'],['🚘','轿车','sedan'],['🚜','拖拉机','tractor'],['🏍️','摩托车','bike'],['🤖','机器人','robot'],['🦖','恐龙','dino'],['⚽','足球','ball'],['🧱','积木','block'],['🚁','直升机','heli'],['✈️','飞机','plane'],['🛸','飞碟','ufo'],['🐻','玩具熊','bear'],['🚀','火箭','rocket'],['🚢','小轮船','boat'],['🎳','保龄球','pin'],['⭐','星星','star']];let selected=0,selectedColor='#f04455',tool='grab',mode='sandbox',power=65;const items=[];const colors=['#f04455','#2585ee','#ffd33d','#2ac889','#aa55e9','#ff8a30','#f8f9f5','#252b37'];
+function createToy(type,color){
+ const g=new THREE.Group(),paint=mat(color,.27,.27),trim=mat('#f1f4f8',.36,.29),rubber=mat('#171c25',.05,.92),chrome=mat('#b9c7d4',.78,.23),light=mat('#fff4b2',.12,.2),red=mat('#ef334d',.1,.25);let radius=.85,mass=1.5;
+ const rounded=(p,w,h,d,m,x,y,z,r=.15)=>{const shape=new THREE.Shape();const hw=w/2,hd=d/2,rr=Math.min(r,hw*.8,hd*.8);shape.moveTo(-hw+rr,-hd);shape.lineTo(hw-rr,-hd);shape.quadraticCurveTo(hw,-hd,hw,-hd+rr);shape.lineTo(hw,hd-rr);shape.quadraticCurveTo(hw,hd,hw-rr,hd);shape.lineTo(-hw+rr,hd);shape.quadraticCurveTo(-hw,hd,-hw,hd-rr);shape.lineTo(-hw,-hd+rr);shape.quadraticCurveTo(-hw,-hd,-hw+rr,-hd);const geo=new THREE.ExtrudeGeometry(shape,{depth:h,bevelEnabled:true,bevelSegments:2,steps:1,bevelSize:.045,bevelThickness:.04,curveSegments:4});geo.rotateX(-Math.PI/2);const o=mesh(p,geo,m,x,y-h/2,z);return o};
+ const wheelPro=(x,z,r)=>{const pivot=new THREE.Group();pivot.position.set(x,.37,z);g.add(pivot);const tire=mesh(pivot,new THREE.CylinderGeometry(r,r,.23,24),rubber);tire.rotation.z=Math.PI/2;const hub=mesh(pivot,new THREE.CylinderGeometry(r*.53,r*.53,.245,16),chrome);hub.rotation.z=Math.PI/2;const center=mesh(pivot,new THREE.CylinderGeometry(r*.22,r*.22,.27,12),trim);center.rotation.z=Math.PI/2;
+ for(let j=0;j<8;j++){const a=j*Math.PI/4;const tread=box(pivot,.27,.065,.12,rubber,0,Math.cos(a)*r,Math.sin(a)*r);tread.rotation.x=a;}
+ for(let j=0;j<5;j++){const a=j*Math.PI*2/5;const bolt=sphere(pivot,.035,chrome,-.14,Math.cos(a)*r*.33,Math.sin(a)*r*.33);bolt.castShadow=false;}
+ (g.userData.wheels??=[]).push(pivot);return pivot};
+ const eyes=(y,z)=>{for(const x of [-.15,.15])sphere(g,.065,rubber,x,y,z)};
+ const vehicle=!['robot','dino','bear','pin','rocket','star','ball','ufo','plane','heli','boat','block'].includes(type);
+ if(vehicle){const big=['monster','truck','lorry','fire','bus','excavator','tractor','train'].includes(type);let w=big?1.38:1.15,d=big?2.13:1.82;radius=big?1.1:.88;mass=big?2.5:1.5;const monster=type==='monster';const lift=monster?.24:0;
+ rounded(g,w,.33,d,paint,0,.56+lift,0,.22);rounded(g,w*.92,.15,d*.38,paint,0,.76+lift,-d*.28,.12);
+ // Two-tone hood stripe and molded side accents.
+ const accent=mat(['police','ambulance','fire'].includes(type)?'#ffffff':'#ffe8a5',.24,.31);
+ if(['buggy','sport','formula','monster','pickup'].includes(type)){
+ box(g,w*.17,.017,d*.47,accent,0,.756+lift,-d*.23);
+ for(const side of [-1,1])box(g,.025,.075,d*.38,accent,side*w*.505,.66+lift,0);
+ }
+ for(const side of [-1,1]){const handle=box(g,.045,.035,.15,chrome,side*w*.465,.94+lift,.16);handle.castShadow=false;}
+
+ let cabZ=.16,cabY=1.02+lift,cabD=.83,cabW=w*.76,cabH=.44;
+ if(['truck','lorry','fire','bus','van','ambulance','excavator','train'].includes(type)){cabZ=-.29;cabD=.8;cabH=.69;cabY=1.12+lift}
+ if(type==='sport'||type==='formula'){cabH=.26;cabY=.92;cabZ=.14}
+ rounded(g,cabW,cabH,cabD,paint,0,cabY,cabZ,.18);
+ // individual glass panels and molded pillars
+ box(g,cabW*.83,cabH*.61,.045,glass,0,cabY+.025,cabZ-cabD*.51);box(g,cabW*.83,cabH*.52,.045,glass,0,cabY+.02,cabZ+cabD*.51);
+ for(const side of [-1,1]){box(g,.04,cabH*.54,cabD*.56,glass,side*cabW*.51,cabY+.01,cabZ);box(g,.055,cabH*.5,.05,chrome,side*cabW*.51,cabY,cabZ+.03)}
+ for(const side of [-1,1]){box(g,.21,.13,.065,light,side*w*.34,.68+lift,-d*.505);box(g,.21,.12,.055,red,side*w*.34,.68+lift,d*.505);box(g,.11,.12,.2,chrome,side*w*.52,.85+lift,-.2)}
+ box(g,w*.73,.09,.06,chrome,0,.49+lift,-d*.51);box(g,w*.73,.09,.06,chrome,0,.49+lift,d*.51);
+ if(type==='sport'||type==='buggy'){for(const side of [-1,1]){const vent=box(g,.22,.016,.22,rubber,side*w*.29,.777+lift,-d*.34);vent.rotation.y=side*.12;}}
+ const r=monster?.49:big?.38:.31;for(const x of [-w*.53,w*.53])for(const z of [-d*.32,d*.32])wheelPro(x,z,r);
+ if(type==='monster'){rounded(g,w*.65,.16,d*.6,trim,0,1.5,.1);box(g,.68,.14,.18,chrome,0,1.56,-.65)}
+ if(['sport','formula','buggy'].includes(type)){box(g,w*.86,.08,.24,rubber,0,.93,d*.53);for(const x of [-.42,.42])box(g,.065,.18,.07,chrome,x,.89,d*.49)}
+ if(type==='police'||type==='ambulance'||type==='fire'){box(g,.48,.11,.22,red,0,cabY+cabH*.65,0);box(g,.22,.115,.23,mat('#2689ff'),-.13,cabY+cabH*.65,0)}
+ if(type==='taxi'){box(g,.48,.19,.2,trim,0,cabY+cabH*.65,0)}
+ if(type==='pickup'){rounded(g,w*.85,.11,d*.37,rubber,0,.81,d*.3)}
+ if(type==='excavator'){const arm=box(g,.22,.22,1.25,paint,.46,1.48,-.65);arm.rotation.x=-.48;const bucket=box(g,.65,.35,.3,chrome,.46,1.1,-1.43);bucket.rotation.x=.35}
+ if(type==='fire'){for(const x of [-.34,.34])box(g,.09,.1,.85,chrome,x,1.32,.38)}
+ if(type==='bus'||type==='van'){for(let i=0;i<3;i++)for(const side of [-1,1])box(g,.045,.25,.24,glass,side*cabW*.52,1.15,-.1+i*.3)}
+ if(type==='train'){cyl(g,.32,.32,.7,chrome,0,1.22,-.42)}
+ if(type==='tractor'){for(const z of [.56])for(const x of [-w*.55,w*.55])wheelPro(x,z,.46)}
+ if(type==='bike'){rounded(g,.28,.16,1.05,paint,0,.95,0);box(g,.8,.08,.08,chrome,0,1.13,-.38)}
+ }else if(type==='robot'){rounded(g,.83,.83,.6,paint,0,.91,0);rounded(g,.68,.57,.55,chrome,0,1.64,0);box(g,.5,.2,.05,glass,0,1.7,-.3);eyes(1.7,-.34);for(const x of [-.56,.56]){sphere(g,.18,chrome,x,1.21,0);box(g,.22,.6,.27,paint,x,.88,0)}for(const x of [-.24,.24])box(g,.23,.53,.3,chrome,x,.26,0);radius=.8;mass=1.7;
+ }else if(type==='dino'){sphere(g,.51,paint,0,.9,.1);sphere(g,.36,paint,0,1.44,-.3);sphere(g,.27,paint,0,1.36,-.62);eyes(1.52,-.57);for(const x of [-.35,.35]){box(g,.26,.55,.31,paint,x,.3,.22);box(g,.19,.31,.2,paint,x,1.02,-.3)}const tail=mesh(g,new THREE.ConeGeometry(.33,1.3,16),paint,0,.83,.91);tail.rotation.x=Math.PI/2;for(let i=0;i<4;i++){const s=mesh(g,new THREE.ConeGeometry(.17,.35,6),trim,0,1.29-i*.1,.35+i*.23);s.rotation.x=-.4}radius=.92;mass=1.6;
+ }else if(type==='bear'){sphere(g,.48,paint,0,.9,0);sphere(g,.36,paint,0,1.53,-.12);for(const x of [-.27,.27]){sphere(g,.17,paint,x,1.8,-.05);sphere(g,.2,paint,x,.35,-.1);sphere(g,.17,paint,x*.98,1.03,-.33)}sphere(g,.18,trim,0,1.43,-.43);sphere(g,.075,rubber,0,1.48,-.58);eyes(1.61,-.41);radius=.78;mass=1.1;
+ }else if(type==='ball'){const ball=mesh(g,new THREE.SphereGeometry(.68,24,16),paint,0,.82,0);for(let i=0;i<6;i++){const stripe=mesh(g,new THREE.TorusGeometry(.685,.024,6,48),i%2?trim:chrome,0,.82,0);stripe.rotation.set(i*.44,i*.57,i*.36)}radius=.7;mass=.8;
+ }else if(type==='block'){rounded(g,1.16,1.05,1.16,paint,0,.82,0,.12);for(const x of [-.32,.32])for(const z of [-.32,.32])cyl(g,.18,.18,.13,paint,x,1.42,z);radius=.83;mass=1.5;
+ }else if(type==='plane'||type==='heli'||type==='boat'){rounded(g,.65,.42,1.8,paint,0,.7,0,.2);rounded(g,2.3,.11,.44,trim,0,.81,.1,.1);rounded(g,.65,.25,.6,glass,0,1.03,-.3,.12);if(type==='plane'){rounded(g,1.1,.1,.24,paint,0,.93,.74,.06);box(g,.12,.48,.24,paint,0,1.13,.74)}if(type==='heli'){const rotor=box(g,2.5,.06,.12,rubber,0,1.46,0);rotor.name='rotor';g.userData.rotor=rotor;box(g,.09,.35,.09,chrome,0,1.26,0)}if(type==='boat'){rounded(g,.95,.19,1.7,chrome,0,.45,0,.25)}radius=1.06;mass=1.4;
+ }else if(type==='ufo'){const saucer=mesh(g,new THREE.SphereGeometry(.95,24,12),chrome,0,.78,0);saucer.scale.y=.24;const dome=sphere(g,.48,glass,0,1.01,0);dome.scale.y=.65;for(let i=0;i<8;i++){const a=i*Math.PI/4;sphere(g,.075,mat(i%2?'#ffb53d':'#5de7fa'),Math.cos(a)*.81,.76,Math.sin(a)*.81)}radius=.91;mass=1;
+ }else if(type==='rocket'||type==='pin'){cyl(g,.34,.42,1.27,paint,0,.95,0);const tip=mesh(g,new THREE.ConeGeometry(.35,.65,20),type==='rocket'?red:trim,0,1.88,0);if(type==='rocket')for(let i=0;i<3;i++){const a=i*Math.PI*2/3;box(g,.13,.46,.36,chrome,Math.cos(a)*.37,.45,Math.sin(a)*.37)}radius=.62;mass=1.1;
+ }else if(type==='star'){const shape=new THREE.Shape();for(let i=0;i<10;i++){const a=i*Math.PI/5-Math.PI/2,r=i%2?.38:.84;const x=Math.cos(a)*r,y=Math.sin(a)*r;if(i===0)shape.moveTo(x,y);else shape.lineTo(x,y)}shape.closePath();const star=mesh(g,new THREE.ExtrudeGeometry(shape,{depth:.25,bevelEnabled:true,bevelSize:.06,bevelThickness:.06,bevelSegments:2}),paint,0,1.03,0);radius=.78;mass=1}
+
+ // V3.0: molded plastic highlights, toy-specific details and display-grade finish.
+ const pearl=new THREE.MeshPhysicalMaterial({color:0xffffff,metalness:.15,roughness:.2,clearcoat:1,clearcoatRoughness:.12});
+ const ink=mat('#162331',.1,.72);
+ if(vehicle){
+   // Distinct wheel arches and chrome axle caps; physically attached to each toy.
+   for(const side of [-1,1])for(const zz of [-.58,.58]){
+     const arch=mesh(g,new THREE.TorusGeometry(type==='monster'?.52:.37,.035,6,18,Math.PI),ink,side*(type==='monster'?.72:.61),.47,zz);
+     arch.rotation.y=side*Math.PI/2;arch.rotation.z=Math.PI;arch.castShadow=false;
+   }
+   // White molded registration plate and chrome grille.
+   box(g,.39,.105,.026,pearl,0,.55,-1.075);
+   for(let j=0;j<5;j++)box(g,.065,.10,.026,ink,-.18+j*.09,.59,-1.083);
+   // Two tiny rear reflectors, like miniature die-cast cars.
+   for(const side of [-1,1])box(g,.12,.055,.022,red,side*.32,.60,1.08);
+   if(type==='monster'||type==='pickup'||type==='buggy'){
+     for(const side of [-1,1]){
+       box(g,.045,.15,.045,chrome,side*.43,1.30,-.16);
+       sphere(g,.065,pearl,side*.43,1.39,-.16);
+     }
+   }
+   if(type==='sport'||type==='formula'){
+     box(g,.68,.065,.11,ink,0,1.01,.87);
+     for(const side of [-1,1])box(g,.045,.18,.07,chrome,side*.3,.93,.87);
+   }
+ }
+ if(type==='robot'){
+   for(let i=0;i<3;i++)sphere(g,.048,mat(['#42e6ff','#ffcf50','#fd6c94'][i],.12,.3),-.22+i*.22,1.03,-.32);
+   const antenna=cyl(g,.028,.028,.24,chrome,0,2.05,0);sphere(g,.085,red,0,2.2,0);
+ }
+ if(type==='dino'){
+   for(let i=0;i<4;i++){
+     const spike=mesh(g,new THREE.ConeGeometry(.13,.25,5),trim,0,1.18-i*.12,.05+i*.22);
+     spike.rotation.x=-.5;
+   }
+ }
+ if(type==='bear'){sphere(g,.09,ink,0,1.45,-.61);}
+ g.traverse(o=>{if(o.isMesh&&o.material===paint){o.material=new THREE.MeshPhysicalMaterial({color:color,metalness:.12,roughness:.29,clearcoat:.82,clearcoatRoughness:.19})}});
+ return {g,radius,mass};}
+const physics=new CANNON.World({gravity:new CANNON.Vec3(0,-12,0),allowSleep:true});physics.solver.iterations=12;physics.defaultContactMaterial.friction=.55;physics.defaultContactMaterial.restitution=.23;
+const groundBody=new CANNON.Body({mass:0,shape:new CANNON.Cylinder(8.25,8.25,.42,48),position:new CANNON.Vec3(0,.02,0)});physics.addBody(groundBody);
+const bodies=new Map();let collisionLast=0;let rankingVisible=false,rankingClock=0;
+function disposeToy(a){if(a===playerToy)exitDrive();if(selectedToy===a)selectedToy=null;if(a.body){physics.removeBody(a.body);bodies.delete(a.body.id)}scene.remove(a.g);a.dead=true}
+// V3.6: type-aware collision footprints; heavy trucks are longer, robots are taller.
+// V4.9: per-class gameplay balance (relative values, not real-world measurements).
+const BALANCE={monster:[145,1.35,.78,1.35],truck:[130,1.25,.85,1.22],lorry:[135,1.3,.75,1.2],excavator:[140,1.4,.65,1.18],tank:[150,1.45,.64,1.3],sport:[85,.9,1.5,1.0],race:[80,.85,1.6,1.0],formula:[75,.8,1.7,.9],robot:[105,1,1.22,1.1],dino:[120,1.15,1.05,1.2],bike:[70,.65,1.5,.8],ball:[75,.7,1.3,.85]};
+function statsFor(type){const [hp,weight,speed,attack]=BALANCE[type]||[100,1,1,1];return {hp,weight,speed,attack}}
+function describeStats(a){const s=a.stats||statsFor(a.type);return `❤️${Math.round(a.hp??s.hp)}/${s.hp} · ⚖️${s.weight.toFixed(2)} · ⚡${s.speed.toFixed(2)} · 💥${s.attack.toFixed(2)}`}
+function addRigidBody(o,x,z){
+ const tall=['robot','dino','bear','rocket','pin'].includes(o.type);
+ const long=['truck','lorry','bus','train','fire','excavator','plane','boat'].includes(o.type);
+ const tiny=['bike','star','ufo'].includes(o.type);
+ const halfX=o.type==='monster'?.85:tiny?.38:long?.66:Math.max(.43,o.radius*.66);
+ const halfZ=long?1.05:o.type==='monster'?.83:tiny?.43:Math.max(.43,o.radius*.75);
+ const h=tall?.88:tiny?.38:o.type==='monster'?.76:.58;
+ const shape=o.type==='ball'?new CANNON.Sphere(.68):new CANNON.Box(new CANNON.Vec3(halfX,h,halfZ));
+ const body=new CANNON.Body({mass:o.mass*o.stats.weight,shape,position:new CANNON.Vec3(x,.32+h+.08,z),linearDamping:.3,angularDamping:.45,allowSleep:true,sleepSpeedLimit:.12,sleepTimeLimit:1.3});body.quaternion.setFromEuler(0,Math.random()*Math.PI*2,0);physics.addBody(body);o.body=body;bodies.set(body.id,o);body.addEventListener('collide',ev=>{const other=bodies.get(ev.body.id);if(!other||o.dead||other.dead)return;const now=performance.now();if(now-collisionLast<140)return;const strength=Math.abs(ev.contact.getImpactVelocityAlongNormal());if(strength>2.5){if((challenge==='score'||challenge==='king'||challenge==='items')&&matchActive){hitScores.set(o,(hitScores.get(o)||0)+Math.round(strength*10*(o.powerUp==='impact'?2:1)));hitScores.set(other,(hitScores.get(other)||0)+Math.round(strength*5*(other.powerUp==='impact'?2:1)));}if(challenge==='health'&&matchActive){
+ const damage=Math.max(1,Math.min(30,Math.round((strength-2.3)*3)));
+ for(const victim of [o,other]){if(victim.falling||victim.dead)continue;victim.hp=Math.max(0,(victim.hp??100)-Math.round(damage*(victim.powerUp==='shield'?.4:1)*((victim===o?other:o).stats.attack)/Math.sqrt(victim.stats.weight)));if(victim.hp===0){victim.falling=true;koCount++;victim.body.collisionFilterMask=0;victim.body.velocity.y+=5;victim.body.velocity.x*=1.8;victim.body.velocity.z*=1.8;victim.body.wakeUp();$('status').textContent='💥 '+toyLabel(victim)+' 生命值归零！';}}
+ updateCount();checkHealthWinner();
+ }if(o.powerUp==='shield')o.body.velocity.scale(.65,o.body.velocity);if(other.powerUp==='shield')other.body.velocity.scale(.65,other.body.velocity);collisionLast=now;burst(o.g.position.x,o.g.position.z,Math.min(strength,12));hitSound(strength);$('status').textContent='💥 真实刚体碰撞 · 强度 '+Math.round(strength*10);shake=Math.min(.18,strength*.01)}});return body}
+let playerToy=null,driveMode=false,driveBoostCooldown=0;const driveKeys={left:false,right:false,forward:false,back:false,brake:false,boost:false};
+function exitDrive(){driveMode=false;playerToy=null;Object.keys(driveKeys).forEach(k=>driveKeys[k]=false);document.body.classList.remove('driving');$('driveControls').classList.remove('on');$('driveBanner').classList.remove('on');document.querySelectorAll('[data-drive]').forEach(b=>b.classList.remove('pressed'));}
+function beginDrive(toy){if(!toy||toy.dead||toy.falling){$('status').textContent='先选择一辆仍在场上的玩具';return}exitDrive();playerToy=toy;driveMode=true;selectedToy=toy;orbitOn=false;garageOn=false;$('driveControls').classList.add('on');$('driveBanner').classList.add('on');document.body.classList.add('driving');$('driveToy').textContent=defs.find(d=>d[2]===toy.type)?.[1]||toy.type;$('status').textContent='🎮 左右转向、加速、倒车、刹车，冲撞有冷却时间';}
+$('exitDrive').onclick=exitDrive;
+for(const btn of document.querySelectorAll('[data-drive]')){const key=btn.dataset.drive;const press=e=>{e.preventDefault();e.stopPropagation();driveKeys[key]=true;btn.classList.add('pressed');try{btn.setPointerCapture(e.pointerId)}catch(_){}};const release=e=>{e.preventDefault();driveKeys[key]=false;btn.classList.remove('pressed')};btn.addEventListener('pointerdown',press);btn.addEventListener('pointerup',release);btn.addEventListener('pointercancel',release);btn.addEventListener('lostpointercapture',release)}
+window.addEventListener('keydown',e=>{const k={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'forward',ArrowDown:'back',' ':'boost',Shift:'brake'}[e.key];if(k&&driveMode){driveKeys[k]=true;e.preventDefault()}});window.addEventListener('keyup',e=>{const k={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'forward',ArrowDown:'back',' ':'boost',Shift:'brake'}[e.key];if(k)driveKeys[k]=false});
+function updateDriving(dt){if(!driveMode||!playerToy)return;if(playerToy.dead||playerToy.falling){$('driveHealth').textContent='已淘汰';exitDrive();return}if(paused||matchEnded)return;const b=playerToy.body;if(b.type!==CANNON.Body.DYNAMIC)return;const q=new THREE.Quaternion(b.quaternion.x,b.quaternion.y,b.quaternion.z,b.quaternion.w);const f=new THREE.Vector3(0,0,-1).applyQuaternion(q);f.y=0;f.normalize();const speed=Math.hypot(b.velocity.x,b.velocity.z);const steering=(driveKeys.left?1:0)-(driveKeys.right?1:0);if(steering){b.angularVelocity.y+=steering*dt*6;b.wakeUp()}const accel=(driveKeys.forward?1:0)-(driveKeys.back?.65:0);if(accel){const force=accel*b.mass*11*dt*playerToy.stats.speed*(playerToy.powerUp==='speed'?1.85:1);b.applyImpulse(new CANNON.Vec3(f.x*force,0,f.z*force),b.position);b.wakeUp()}if(driveKeys.brake){b.velocity.x*=Math.max(0,1-dt*7);b.velocity.z*=Math.max(0,1-dt*7)}driveBoostCooldown=Math.max(0,driveBoostCooldown-dt);if(driveKeys.boost&&driveBoostCooldown<=0){driveBoostCooldown=2.5;const force=b.mass*8*playerToy.stats.attack;b.applyImpulse(new CANNON.Vec3(f.x*force,1.1*b.mass,f.z*force),new CANNON.Vec3(b.position.x,b.position.y+.3,b.position.z));burst(b.position.x,b.position.z,6);b.wakeUp()}$('driveHealth').textContent=describeStats(playerToy);$('driveStats').textContent='速度 '+speed.toFixed(1)+' · 冲撞 '+(driveBoostCooldown>0?driveBoostCooldown.toFixed(1)+'秒':'就绪');}
+$('driveSelected').onclick=()=>beginDrive(selectedToy);
+$('playerBattle').onclick=()=>{exitDrive();startTournament();const a=items.find(v=>!v.dead);beginDrive(a);$('matchState').textContent='🎮 玩家 VS 11个AI';$('challengeInfo').textContent='你驾驶一辆玩具，撞出其他11辆，争夺冠军';};
+let matchActive=false,matchEnded=false,matchSeconds=0,koCount=0,matchTotal=0,matchSeed=0;let challenge="normal",safeRadius=8.18;const hitScores=new Map();
+function toyLabel(a){return defs.find(d=>d[2]===a.type)?.[1]||a.type}
+function checkHealthWinner(){if(challenge!=='health'||!matchActive)return;const alive=items.filter(a=>!a.dead&&!a.falling);if(alive.length<=1){matchActive=false;matchEnded=true;autoBattle=false;$('auto').classList.remove('active');$('auto').textContent='⚡ 自动混战：关闭';$('matchState').textContent=alive.length?'🏆 生存冠军：'+toyLabel(alive[0]):'🤝 全员淘汰';$('challengeInfo').textContent='比赛结束 · 点击再来一局';}}
+function renderRanking(){if(!rankingVisible)return;const sorted=items.filter(a=>!a.dead).sort((a,b)=>challenge==='health'?(b.hp??b.stats.hp)-(a.hp??a.stats.hp):(hitScores.get(b)||0)-(hitScores.get(a)||0));$('rankingPanel').innerHTML='<b>🏅 实时排行榜</b><br>'+sorted.slice(0,12).map((a,i)=>`${i+1}. ${toyLabel(a)} ${a.falling?'❌':challenge==='health'?'❤️ '+Math.round(a.hp??a.stats.hp):(hitScores.get(a)||0)+'分'}`).join('<br>');}
+$('rankToggle').onclick=()=>{rankingVisible=!rankingVisible;$('rankingPanel').style.display=rankingVisible?'block':'none';$('rankToggle').classList.toggle('active',rankingVisible);renderRanking()};
+$('healthBattle').onclick=()=>{startTournament();challenge='health';for(const a of items)a.hp=a.stats.hp;$('matchState').textContent='❤️ 生命值乱斗';$('challengeInfo').textContent='撞击造成伤害 · 90秒决胜';$('status').textContent='❤️ 不同玩具拥有不同生命值、速度、重量和攻击力，碰撞会扣血，血量归零淘汰';renderRanking()};
+// V4.3: Procedural micro-textures for molded rubber and painted toy plastic.
+// Generated locally on a canvas; no external images or extra downloads required.
+function makeToyTexture(kind){
+ const c=document.createElement('canvas');c.width=c.height=256;
+ const ctx=c.getContext('2d');
+ ctx.fillStyle=kind==='rubber'?'#a6a6a6':'#ffffff';ctx.fillRect(0,0,256,256);
+ if(kind==='rubber'){
+  ctx.strokeStyle='#747474';ctx.lineWidth=5;
+  for(let y=-32;y<288;y+=24){for(let x=-32;x<288;x+=42){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+16,y+12);ctx.lineTo(x+32,y);ctx.stroke();}}
+ }else{
+  for(let y=0;y<256;y+=4){for(let x=0;x<256;x+=4){const a=(Math.sin(x*12.9898+y*78.233)*43758.5453)%1;ctx.fillStyle='rgba(120,120,120,'+(Math.abs(a)*.045)+')';ctx.fillRect(x,y,2,2);}}
+ }
+ const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(kind==='rubber'?2:1,kind==='rubber'?2:1);tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),4);return tex;
+}
+const toyRubberBump=makeToyTexture('rubber'),toyPaintBump=makeToyTexture('paint');
+let toyFinishOn=true;
+function upgradeToyMaterial(m){
+ if(!m||!m.isMeshStandardMaterial)return m;
+ const clone=m.clone();clone.userData.v42Base={roughness:m.roughness,metalness:m.metalness,bumpMap:m.bumpMap,bumpScale:m.bumpScale};const name=(clone.name||'').toLowerCase();
+ const rubber=/tire|rubber|wheel|tyre/.test(name);
+ const glassy=/glass|window|windshield/.test(name);
+ if(rubber){clone.roughness=.93;clone.metalness=0;clone.bumpMap=toyRubberBump;clone.bumpScale=.035;}
+ else if(glassy){clone.roughness=.12;clone.metalness=Math.min(.3,clone.metalness||0);}
+ else if((clone.metalness||0)<.6){clone.roughness=Math.min(.31,clone.roughness??.5);clone.metalness=Math.max(.08,clone.metalness||0);clone.bumpMap=toyPaintBump;clone.bumpScale=.008;}
+ clone.needsUpdate=true;return clone;
+}
+function refreshToyFinish(){
+ for(const item of items){if(!item||!item.g)continue;
+  item.g.traverse(n=>{if(!n.isMesh||!n.material)return;
+   const list=Array.isArray(n.material)?n.material:[n.material];
+   for(const m of list){if(!m||!m.isMeshStandardMaterial)continue;
+    if(!m.userData.v42Base)m.userData.v42Base={roughness:m.roughness,metalness:m.metalness,bumpMap:m.bumpMap,bumpScale:m.bumpScale};
+    const base=m.userData.v42Base;
+    if(toyFinishOn){const name=(m.name||'').toLowerCase();const rubber=/tire|rubber|wheel|tyre/.test(name);
+     m.roughness=rubber?.92:Math.min(.33,base.roughness);m.bumpMap=rubber?toyRubberBump:toyPaintBump;m.bumpScale=rubber?.035:.008;
+    }else{m.roughness=base.roughness;m.metalness=base.metalness;m.bumpMap=base.bumpMap;m.bumpScale=base.bumpScale;}
+    m.needsUpdate=true;
+   }
+  });
+ }
+}
+$('toyFinish').onclick=()=>{toyFinishOn=!toyFinishOn;$('toyFinish').classList.toggle('active',toyFinishOn);$('toyFinish').textContent=toyFinishOn?'💎 玩具质感：开':'💎 玩具质感：关';refreshToyFinish();$('status').textContent=toyFinishOn?'已启用塑料微纹理、橡胶轮胎质感':'已恢复基础材质';};
+const builtInGLBs={sport:'sport',monster:'monster',excavator:'excavator',robot:'robot',dino:'dino'};
+const builtInCache=new Map();let modelFailures=0;const builtInPending=new Map();const builtInLoader=new GLTFLoader();
+// Preload all bundled models once, while keeping the procedural fallback usable.
+let modelsReady=0;
+for(const kind of Object.values(builtInGLBs)){
+ const task=builtInLoader.loadAsync('./models/'+kind+'.glb').then(g=>{
+  builtInCache.set(kind,g.scene);modelsReady++;
+  const el=document.getElementById('modelProgress');if(el)el.textContent=`精细模型 ${modelsReady}/5 已就绪`;
+  return g.scene;
+ }).catch(err=>{modelFailures++;const el=document.getElementById('modelProgress');if(el)el.textContent=`模型 ${modelsReady}/5 就绪 · ${modelFailures}个使用备用造型`;console.warn('内置模型不可用:',kind,err);return null});
+ builtInPending.set(kind,task);
+}
+
+async function applyBuiltInModel(toy){
+ const kind=builtInGLBs[toy.type];if(!kind)return;
+ try{
+  let template=builtInCache.get(kind);
+  if(!template){
+   if(!builtInPending.has(kind))builtInPending.set(kind,builtInLoader.loadAsync('./models/'+kind+'.glb').then(g=>g.scene));
+   template=await builtInPending.get(kind);if(template)builtInCache.set(kind,template);
+  }
+  if(!template||toy.dead||toy.falling||toy.userImported)return;
+  const root=template.clone(true),bounds=new THREE.Box3().setFromObject(root),size=bounds.getSize(new THREE.Vector3());
+  const scale=Math.min(2.5/Math.max(size.x,size.z,.01),2.1/Math.max(size.y,.01));
+  const center=bounds.getCenter(new THREE.Vector3());
+  root.position.set(-center.x*scale,-bounds.min.y*scale,-center.z*scale);root.scale.setScalar(scale);
+  root.traverse(n=>{if(n.isMesh){n.castShadow=true;n.receiveShadow=true;
+   // Clone materials per toy: a new color never changes other instances sharing the GLB.
+   if(n.material){const decorate=m=>{const c=m.clone();if(c.color&&c.name!=='glass'&&c.name!=='tire'&&c.metalness<.65){c.color.lerp(new THREE.Color(toy.color||'#ffffff'),.12)}if('envMapIntensity' in c)c.envMapIntensity=.9;return toyFinishOn?upgradeToyMaterial(c):c};n.material=Array.isArray(n.material)?n.material.map(decorate):decorate(n.material)}
+  }});
+  const visual=new THREE.Group();visual.position.y=-.62;visual.add(root);
+  // Add removable, lightweight 3D accessories above the original GLB geometry.
+  // All geometry belongs to this toy instance; nothing is shared with other toys.
+  const extra=new THREE.Group();visual.add(extra);
+  const accent=new THREE.MeshPhysicalMaterial({color:toy.color||'#ffbd39',metalness:.28,roughness:.25,clearcoat:1});
+  const chrome=new THREE.MeshStandardMaterial({color:'#e3edf5',metalness:.8,roughness:.22});
+  const black=new THREE.MeshStandardMaterial({color:'#1c2634',roughness:.85});
+  const glow=new THREE.MeshBasicMaterial({color:'#8feaff'});
+  const addBox=(w,h,d,m,x,y,z)=>{const a=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);a.position.set(x,y,z);a.castShadow=true;extra.add(a);return a};
+  const addBall=(r,m,x,y,z)=>{const a=new THREE.Mesh(new THREE.SphereGeometry(r,12,8),m);a.position.set(x,y,z);a.castShadow=true;extra.add(a);return a};
+  // V4.3: model-specific dimensional accessories; meshes are attached to the
+  // visual root, so they participate in camera focus, physics poses and snapshots.
+  const detailRubber=new THREE.MeshStandardMaterial({color:'#151b23',roughness:.96});
+  const detailHub=new THREE.MeshStandardMaterial({color:'#d5e4ee',metalness:.78,roughness:.24});
+  const detailGold=new THREE.MeshPhysicalMaterial({color:'#f9bf36',metalness:.38,roughness:.25,clearcoat:1});
+  const addWheel=(x,z,r)=>{
+   const assembly=new THREE.Group();assembly.position.set(x,r+.11,z);extra.add(assembly);
+   const tire=new THREE.Mesh(new THREE.CylinderGeometry(r,r,.24,24),detailRubber);
+   tire.rotation.z=Math.PI/2;tire.castShadow=true;assembly.add(tire);
+   const hub=new THREE.Mesh(new THREE.CylinderGeometry(r*.53,r*.53,.253,16),detailHub);
+   hub.rotation.z=Math.PI/2;assembly.add(hub);
+   for(let k=0;k<6;k++){
+    const ang=k*Math.PI/3;
+    const bolt=new THREE.Mesh(new THREE.SphereGeometry(.025,6,5),detailGold);
+    bolt.position.set(.132,Math.cos(ang)*r*.34,Math.sin(ang)*r*.34);assembly.add(bolt);
+   }
+   // Spin the complete assembly around its local X axle.
+   (visual.userData.wheels??=[]).push(assembly);
+   assembly.userData.baseY=assembly.position.y;
+   return assembly;
+  };
+  if(kind==='sport'||kind==='monster'){
+   const monster=kind==='monster',r=monster?.39:.28;
+   for(const x of [-1,1])for(const z of [-1,1])addWheel(x*(monster?.91:.72),z*(monster?.77:.79),r);
+   // Molded side skirt, contrasting stripes and visible exhaust tips.
+   for(const x of [-1,1]){
+    addBox(.09,.11,1.18,black,x*(monster?.77:.63),.39,0);
+    const exhaust=new THREE.Mesh(new THREE.CylinderGeometry(.065,.065,.28,12),chrome);
+    exhaust.rotation.x=Math.PI/2;exhaust.position.set(x*.35,.4,.98);extra.add(exhaust);
+   }
+   if(!monster){
+    for(const x of [-.18,.18])addBox(.11,.018,1.45,detailGold,x,.93,-.05);
+   }else{
+    addBox(1.24,.09,.16,detailGold,0,1.32,.15);
+   }
+  }
+  if(kind==='excavator'){
+   // Hydraulic piston and track roller caps.
+   for(const x of [-.63,.63]){
+    for(const z of [-.55,0,.55])addBall(.13,detailHub,x,.28,z);
+    addBox(.08,.08,1.42,detailRubber,x,.19,0);
+   }
+  }
+  if(kind==='robot'){
+   for(const x of [-.51,.51])addBall(.14,detailHub,x,1.35,0);
+   addBox(.42,.09,.08,detailGold,0,1.18,-.4);
+  }
+  if(kind==='dino'){
+   for(const x of [-.18,.18]){
+    addBall(.07,detailHub,x,1.5,-.52);
+    addBall(.035,detailRubber,x,1.51,-.57);
+   }
+  }
+  if(kind==='sport'){
+   addBox(1.22,.07,.18,black,0,1.02,.83);addBox(.05,.21,.08,chrome,-.49,.92,.83);addBox(.05,.21,.08,chrome,.49,.92,.83);
+   for(const x of [-.42,.42]){addBall(.075,glow,x,.51,-1.05);addBall(.05,chrome,x,.57,1.03)}
+  }else if(kind==='monster'){
+   addBox(1.38,.13,.22,chrome,0,1.5,-.38);for(const x of [-.48,0,.48])addBall(.10,glow,x,1.52,-.51);
+   addBox(.95,.12,.18,black,0,.52,-1.12);
+  }else if(kind==='excavator'){
+   addBox(.75,.12,.22,chrome,.36,1.14,-.92);addBall(.12,black,.36,1.14,-.9);
+   for(const x of [-.35,.35])addBall(.065,glow,x,.62,-.86);
+  }else if(kind==='robot'){
+   for(const x of [-.17,0,.17])addBall(.07,glow,x,1.06,-.38);
+   addBox(.48,.08,.07,chrome,0,1.68,-.32);
+  }else if(kind==='dino'){
+   for(let i=0;i<5;i++){const spike=new THREE.Mesh(new THREE.ConeGeometry(.11,.26,5),accent);spike.position.set(0,1.38-i*.13,.12+i*.2);spike.rotation.x=-.35;spike.castShadow=true;extra.add(spike)}
+   for(const x of [-.22,.22])addBall(.055,black,x,1.51,-.48);
+  }
+
+  // V3.8: independently animated articulated toy accessories.
+  // Pivot groups belong to the visual and follow the Cannon rigid body.
+  const jointMat=new THREE.MeshPhysicalMaterial({color:toy.color||'#ff9f35',metalness:.18,roughness:.3,clearcoat:.9});
+  const jointMetal=new THREE.MeshStandardMaterial({color:'#b9c8d4',metalness:.72,roughness:.3});
+  const jointBox=(p,w,h,d,m,x,y,z)=>{const a=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);a.position.set(x,y,z);a.castShadow=true;p.add(a);return a};
+  if(kind==='excavator'){
+   const boom=new THREE.Group();boom.position.set(.25,1.08,-.23);visual.add(boom);
+   jointBox(boom,.22,.24,1.05,jointMat,0,.18,-.47);
+   const elbow=new THREE.Group();elbow.position.set(0,.25,-.94);boom.add(elbow);
+   jointBox(elbow,.18,.2,.75,jointMetal,0,-.08,-.37);
+   const bucket=jointBox(elbow,.65,.4,.3,jointMat,0,-.28,-.76);bucket.rotation.x=.25;
+   addBall(.08,jointMetal,.25,1.08,-.23);
+   toy.animParts={kind,boom,elbow};
+  }else if(kind==='robot'){
+   const arms=[];
+   for(const side of [-1,1]){
+    const arm=new THREE.Group();arm.position.set(side*.52,1.36,0);visual.add(arm);
+    jointBox(arm,.2,.58,.23,jointMat,side*.08,-.31,0);
+    addBall(.12,jointMetal,side*.52,1.36,0);arms.push(arm);
+   }
+   toy.animParts={kind,arms};
+  }else if(kind==='dino'){
+   const tail=new THREE.Group();tail.position.set(0,.85,.66);visual.add(tail);
+   const cone=new THREE.Mesh(new THREE.ConeGeometry(.2,.95,10),jointMat);cone.rotation.x=Math.PI/2;cone.position.z=.43;cone.castShadow=true;tail.add(cone);
+   toy.animParts={kind,tail};
+  }else if(kind==='monster'||kind==='sport'){
+   const lamps=[];
+   for(const x of [-.37,.37]){const l=addBall(.06,glow,x,.59,-1.07);lamps.push(l)}
+   toy.animParts={kind,lamps};
+  }
+  toy.g.remove(toy.visual);toy.g.add(visual);toy.visual=visual;toy.builtIn=true;
+ }catch(err){console.warn('GLB加载失败，继续使用程序玩具',kind,err);}
+}
+function spawn(x,z){const dist=Math.hypot(x,z);if(dist>7.15){x=x/dist*7.15;z=z/dist*7.15}if(items.filter(a=>!a.dead).length>=30){$('status').textContent='场上最多30个玩具';return}const type=defs[selected][2],t=createToy(type,selectedColor);const visual=t.g;const holder=new THREE.Group();visual.position.y=-.62;holder.add(visual);scene.add(holder);const o={...t,g:holder,visual,type,color:selectedColor,stats:statsFor(type),dead:false,falling:false,fallTime:0};o.hp=o.stats.hp;items.push(o);addRigidBody(o,x,z);updateCount();applyBuiltInModel(o);return o}
+function updateCount(){const n=items.filter(a=>!a.dead&&!a.falling).length;$('count').textContent=`场上 ${n} 个玩具`;$('survivors').textContent=n}function refreshMatchHUD(){const t=Math.floor(matchSeconds);$('matchTime').textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');$('koCount').textContent=koCount;updateCount()}function startTournament(){exitDrive();challenge='normal';safeRadius=8.18;hitScores.clear();$('challengeInfo').textContent='标准淘汰赛';for(const a of items)disposeToy(a);items.length=0;mode='battle';changeMode('battle');matchActive=true;matchEnded=false;matchSeconds=0;koCount=0;matchTotal=12;matchSeed++;paused=false;$('pause').textContent='⏸ 暂停';autoBattle=true;$('auto').classList.add('active');$('auto').textContent='⚡ 自动混战：开启';for(let i=0;i<12;i++){selected=i%defs.length;selectedColor=colors[i%colors.length];const angle=i*Math.PI*2/12,rad=3.2+(i%3)*.65;const a=spawn(Math.cos(angle)*rad,Math.sin(angle)*rad);if(a){a.g.rotation.y=angle;a.vx=-Math.sin(angle)*(.3+i%3*.2);a.vz=Math.cos(angle)*(.3+i%3*.2)}}$('matchState').textContent='淘汰赛进行中';$('tournament').classList.add('active');$('status').textContent='🏁 12个玩具入场！最后留在圈内的玩具获胜';refreshMatchHUD()}$('tournament').onclick=startTournament;$('replay').onclick=()=>{if(challenge==='survival')startChallenge('survival');else if(challenge==='score')startChallenge('score');else if(challenge==='king')startChallenge('king');else if(challenge==='health')$('healthBattle').click();else if(challenge==='items')$('itemBattle').click();else startTournament()};
+function startChallenge(kind){clearPickups();startTournament();challenge=kind;kingTick=0;safeRadius=8.18;hitScores.clear();$('matchState').textContent=kind==='survival'?'🔥 缩圈生存赛':kind==='king'?'👑 中心争夺赛':'💥 撞击积分赛';$('challengeInfo').textContent=kind==='survival'?'安全半径 8.2米':kind==='king'?'占领中心圈，每秒获得积分':'60秒内累计撞击积分';$('status').textContent=kind==='survival'?'🔥 圈会持续缩小！留在圈内直到最后':kind==='king'?'👑 冲到中心金圈占领区域，75秒后积分最高者获胜':'💥 撞击其他玩具赚积分，60秒后排名';}
+$('survival').onclick=()=>startChallenge('survival');$('scoreBattle').onclick=()=>startChallenge('score');$('kingBattle').onclick=()=>startChallenge('king');$('rulesBtn').onclick=()=>{$('status').textContent='👑 中心争夺：在中心半径2.6米内每秒得2分；撞击也能得分；75秒决胜。';};
+function endScoreBattle(){matchActive=false;matchEnded=true;autoBattle=false;$('auto').classList.remove('active');$('auto').textContent='⚡ 自动混战：关闭';const ranking=[...hitScores.entries()].filter(([a])=>!a.dead).sort((a,b)=>b[1]-a[1]);const best=ranking[0];const name=best?(defs.find(d=>d[2]===best[0].type)?.[1]||best[0].type):'无';$('matchState').textContent='🏆 积分冠军：'+name;$('challengeInfo').textContent='冠军 '+(best?.[1]||0)+'分 · 点击再来一局';$('status').textContent='🏆 比赛结束！冠军：'+name;}
+$('library').innerHTML=defs.map(([emoji,name],i)=>`<button data-index="${i}" class="${i===0?'active':''}"><span class="emoji">${emoji}</span>${name}</button>`).join('');$('library').onclick=e=>{const b=e.target.closest('[data-index]');if(!b)return;selected=+b.dataset.index;document.querySelectorAll('#library button').forEach(v=>v.classList.toggle('active',v===b));$('status').textContent=`已选择：${defs[selected][1]}，点击场地放置`};$('colors').innerHTML=colors.map((c,i)=>`<button data-color="${c}" style="background:${c}" class="${i===0?'active':''}" aria-label="颜色${i+1}"></button>`).join('');$('colors').onclick=e=>{const b=e.target.closest('[data-color]');if(!b)return;selectedColor=b.dataset.color;document.querySelectorAll('#colors button').forEach(v=>v.classList.toggle('active',v===b))};document.querySelectorAll('#tools button').forEach(b=>b.onclick=()=>{tool=b.dataset.tool;document.querySelectorAll('#tools button').forEach(x=>x.classList.toggle('active',x===b))});$('power').oninput=e=>{$('pv').textContent=e.target.value+'%';power=+e.target.value};function changeMode(m){if(m==='sandbox'){challenge='normal';safeRadius=8.18;matchActive=false;matchEnded=false;$('matchState').textContent='自由试玩';$('tournament').classList.remove('active')}mode=m;$('sandbox').classList.toggle('active',m==='sandbox');$('battle').classList.toggle('active',m==='battle');$('modeLabel').textContent=m==='sandbox'?'自由沙盒 · 精细玩具':'圆圈淘汰 · 最后冠军';$('status').textContent=m==='battle'?'把玩具撞出金色圆圈！':'自由摆放并推动玩具'}$('sandbox').onclick=()=>changeMode('sandbox');$('battle').onclick=()=>changeMode('battle');$('auto').onclick=()=>{autoBattle=!autoBattle;$('auto').classList.toggle('active',autoBattle);$('auto').textContent=autoBattle?'⚡ 自动混战：开启':'⚡ 自动混战：关闭';$('status').textContent=autoBattle?'玩具开始自动寻找对手并碰撞！':'自动混战已暂停'};$('speed').oninput=e=>{speedLevel=+e.target.value;$('sv').textContent=speedLevel+'档'};$('fill').onclick=()=>{let added=0;for(let i=0;i<12&&items.filter(a=>!a.dead).length<30;i++){selected=Math.floor(Math.random()*defs.length);selectedColor=colors[Math.floor(Math.random()*colors.length)];const ang=Math.random()*Math.PI*2,rad=1+Math.sqrt(Math.random())*5.7;spawn(Math.cos(ang)*rad,Math.sin(ang)*rad);added++}updateCount();$('status').textContent='🎲 新增 '+added+' 个玩具，最多30个'};$('clear').onclick=()=>{$('reset').click()};$('reset').onclick=()=>{clearPickups();exitDrive();for(const o of items)disposeToy(o);items.length=0;matchActive=false;matchEnded=false;autoBattle=false;koCount=0;matchSeconds=0;challenge='normal';safeRadius=8.18;hitScores.clear();$('challengeInfo').textContent='选择新玩法开始挑战';$('auto').classList.remove('active');$('auto').textContent='⚡ 自动混战：关闭';$('matchState').textContent='自由试玩';refreshMatchHUD();selectedToy=null;garageOn=false;$('garage').classList.remove('active');$('garage').textContent='🔍 玩具展示';selectionRing.visible=false;$('selectionInfo').textContent='点选玩具查看名称与速度';$('status').textContent='场地已重置'};$('camera').onclick=()=>{orbitOn=false;$('orbit').classList.remove('active');cameraMode=(cameraMode+1)%3;setCamera()};$('collapse').onclick=()=>{$('panel').classList.toggle('collapsed');$('collapse').textContent=$('panel').classList.contains('collapsed')?'展开面板':'收起面板'};
+let pinchStart=0;renderer.domElement.addEventListener('touchstart',e=>{if(e.touches.length===2){pinchStart=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY)}},{passive:true});renderer.domElement.addEventListener('touchmove',e=>{if(e.touches.length!==2||!pinchStart)return;const distance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);const ratio=Math.max(.85,Math.min(1.15,pinchStart/Math.max(1,distance)));camera.position.multiplyScalar(ratio);camera.position.clampLength(9,35);camera.lookAt(0,0,0);pinchStart=distance},{passive:true});renderer.domElement.addEventListener('touchend',e=>{if(e.touches.length<2)pinchStart=0},{passive:true});
+let selectedToy=null;const selectionRing=new THREE.Mesh(new THREE.RingGeometry(.84,1.01,40),new THREE.MeshBasicMaterial({color:0xffe18a,side:THREE.DoubleSide,transparent:true,opacity:.8,depthWrite:false}));selectionRing.rotation.x=-Math.PI/2;selectionRing.visible=false;scene.add(selectionRing);$('focus').onclick=()=>{if(!selectedToy||selectedToy.dead){$('status').textContent='请先点选一个玩具';return}orbitOn=false;$('orbit').classList.remove('active');const pos=selectedToy.g.position;camera.position.set(pos.x+5,pos.y+5.5,pos.z+7);camera.lookAt(pos.x,pos.y,pos.z)};const ray=new THREE.Raycaster(),mouse=new THREE.Vector2(),plane=new THREE.Plane(new THREE.Vector3(0,1,0),-.32);function world(e){const r=renderer.domElement.getBoundingClientRect();mouse.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(mouse,camera);const p=new THREE.Vector3();return ray.ray.intersectPlane(plane,p)}function picked(e){const r=renderer.domElement.getBoundingClientRect();mouse.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(mouse,camera);const hit=ray.intersectObjects(items.filter(a=>!a.dead).map(a=>a.g),true);if(!hit.length)return null;let obj=hit[0].object;while(obj.parent&&!items.some(a=>a.g===obj))obj=obj.parent;return items.find(a=>a.g===obj)||null}let autoBattle=false, autoTick=0, speedLevel=3, impactCooldown=0, kingTick=0;
+let soundOn=true,slowOn=false,effectsOn=true,audioCtx=null,shake=0,paused=false,orbitOn=false,orbitAngle=0;
+let highQuality=true;
+$('quality').onclick=()=>{highQuality=!highQuality;renderer.setPixelRatio(Math.min(devicePixelRatio,highQuality?1.6:1));renderer.shadowMap.enabled=highQuality;sun.castShadow=highQuality;$('quality').textContent=highQuality?'🎨 高清':'⚡ 流畅';$('status').textContent=highQuality?'高清模式：更细腻的阴影':'流畅模式：减少渲染负担';};
+$('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'▶️ 继续':'⏸ 暂停';};
+$('orbit').onclick=()=>{orbitOn=!orbitOn;$('orbit').classList.toggle('active',orbitOn);};
+// V3.7: close-up toy turntable camera. This is a viewing mode, not a change to physics.
+let garageOn=false,garageAngle=0;
+$('garage').onclick=()=>{
+ if(!garageOn && (!selectedToy||selectedToy.dead)){$('status').textContent='先点击场上的玩具，再开启玩具展示';return;}
+ garageOn=!garageOn;garageAngle=0;
+ if(garageOn){orbitOn=false;$('orbit').classList.remove('active');}
+ $('garage').classList.toggle('active',garageOn);
+ $('garage').textContent=garageOn?'🔍 退出展示':'🔍 玩具展示';
+ $('status').textContent=garageOn?'展示镜头正在围绕选中的玩具旋转，点按钮退出':'已退出玩具展示';
+};
+$('snapshot').onclick=async()=>{
+ try{
+  renderer.render(scene,camera);
+  const canvas=renderer.domElement;
+  const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
+  if(!blob)throw new Error('截图失败');
+  const file=new File([blob],'toy-battle-v41.png',{type:'image/png'});
+  if(navigator.canShare?.({files:[file]})&&navigator.share){
+   await navigator.share({files:[file],title:'玩具大比拼 V4.9'});
+  }else{
+   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
+  }
+  $('status').textContent='游戏画面已生成，可保存到相册或文件';
+ }catch(e){if(e.name!=='AbortError')$('status').textContent='截图未完成，请使用手机系统截图';}
+};
+
+// V3.1: import a user-owned .glb toy mesh, replacing the latest live toy's visual only.
+// The Cannon body remains active, so the imported toy can still collide and flip.
+const glbLoader=new GLTFLoader();let lastImport=null;
+$('importGLB').onclick=()=>$('glbFile').click();
+$('glbFile').addEventListener('change',async e=>{
+ const file=e.target.files?.[0];e.target.value='';if(!file)return;
+ const toy=[...items].reverse().find(a=>!a.dead&&!a.falling);
+ if(!toy){$('status').textContent='请先在场上放一个玩具';return}
+ if(!file.name.toLowerCase().endsWith('.glb')){$('status').textContent='目前只支持 .glb 格式';return}
+ if(file.size>20*1024*1024){$('status').textContent='模型超过20MB，手机可能卡顿，请换小一点的GLB';return}
+ $('status').textContent='正在读取3D模型：'+file.name;
+ try{
+  const buffer=await file.arrayBuffer();
+  const gltf=await new Promise((resolve,reject)=>glbLoader.parse(buffer,'',resolve,reject));
+  const root=gltf.scene;root.updateMatrixWorld(true);
+  const bounds=new THREE.Box3().setFromObject(root),size=bounds.getSize(new THREE.Vector3());
+  if(!Number.isFinite(size.x)||Math.max(size.x,size.y,size.z)<.001)throw Error('模型尺寸异常');
+  const factor=Math.min(2.5/Math.max(size.x,size.z,.001),2.1/Math.max(size.y,.001));
+  const center=bounds.getCenter(new THREE.Vector3());
+  root.position.set(-center.x*factor,-bounds.min.y*factor,-center.z*factor);root.scale.setScalar(factor);
+  const visual=new THREE.Group();visual.add(root);visual.position.y=-.62;
+  root.traverse(n=>{if(n.isMesh){n.castShadow=true;n.receiveShadow=true;
+   // Clone materials per toy: a new color never changes other instances sharing the GLB.
+   if(n.material){const decorate=m=>{const c=m.clone();if(c.color&&c.name!=='glass'&&c.name!=='tire'&&c.metalness<.65){c.color.lerp(new THREE.Color(toy.color||'#ffffff'),.12)}if('envMapIntensity' in c)c.envMapIntensity=.9;return toyFinishOn?upgradeToyMaterial(c):c};n.material=Array.isArray(n.material)?n.material.map(decorate):decorate(n.material)}
+  }});
+  toy.userImported=true;toy.g.remove(toy.visual);toy.g.add(visual);
+  lastImport={toy,original:toy.visual};toy.visual=visual;
+  $('status').textContent='✅ 已替换最新玩具外观：'+file.name+'（仍使用简化碰撞体）';
+ }catch(err){console.error(err);$('status').textContent='GLB读取失败，请确认文件完整且无外部贴图依赖'}
+});
+$('restoreToy').onclick=()=>{
+ if(!lastImport||lastImport.toy.dead){$('status').textContent='没有可恢复的模型';return}
+ const {toy,original}=lastImport;toy.g.remove(toy.visual);toy.g.add(original);toy.visual=original;lastImport=null;
+ toy.userImported=false;applyBuiltInModel(toy);$('status').textContent='已恢复内置玩具外观';
+};
+$('undo').onclick=()=>{const a=[...items].reverse().find(o=>!o.dead);if(!a)return;disposeToy(a);updateCount();$('status').textContent='已撤销最近一个玩具';};
+$('sound').onclick=()=>{soundOn=!soundOn;$('sound').textContent=soundOn?'🔊 音效：开启':'🔇 音效：关闭';if(soundOn){try{audioCtx??=new (window.AudioContext||window.webkitAudioContext)();audioCtx.resume()}catch(e){}}};
+$('slow').onclick=()=>{slowOn=!slowOn;$('slow').classList.toggle('active',slowOn);$('slow').textContent=slowOn?'⏱ 慢动作：开启':'⏱ 慢动作：关闭'};
+$('effects').onclick=()=>{effectsOn=!effectsOn;$('effects').textContent=effectsOn?'✨ 特效：开启':'✨ 特效：关闭'};
+function hitSound(strength){if(!soundOn)return;try{audioCtx??=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const osc=audioCtx.createOscillator(),gain=audioCtx.createGain(),now=audioCtx.currentTime;osc.type='triangle';osc.frequency.setValueAtTime(Math.min(340,95+strength*14),now);osc.frequency.exponentialRampToValueAtTime(45,now+.14);gain.gain.setValueAtTime(Math.min(.12,.018+strength*.006),now);gain.gain.exponentialRampToValueAtTime(.001,now+.17);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(now);osc.stop(now+.18)}catch(e){}}
+const sparks=[];const sparkMat=new THREE.MeshBasicMaterial({color:'#ffca52'});
+function burst(x,z,strength){if(!effectsOn)return;for(let i=0;i<Math.min(13,5+Math.floor(strength));i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.045+Math.random()*.05,6,4),sparkMat);m.position.set(x,.65,z);scene.add(m);const a=Math.random()*Math.PI*2,v=2+Math.random()*4;sparks.push({m,vx:Math.cos(a)*v,vz:Math.sin(a)*v,vy:2+Math.random()*3,life:.35+Math.random()*.25})}}
+function updateSparks(dt){for(let i=sparks.length-1;i>=0;i--){const p=sparks[i];p.life-=dt;p.m.position.x+=p.vx*dt;p.m.position.z+=p.vz*dt;p.m.position.y+=p.vy*dt;p.vy-=12*dt;p.m.scale.setScalar(Math.max(.1,p.life*2));if(p.life<=0){scene.remove(p.m);p.m.geometry.dispose();sparks.splice(i,1)}}}
+// V4.8: collectible power-ups are visual meshes, not Cannon collision bodies.
+const pickups=[];let pickupClock=0,pickupSerial=0;
+const pickupTypes=[{id:'speed',label:'⚡ 加速',color:0x55e6ff},{id:'shield',label:'🛡️ 护盾',color:0x62ff9d},{id:'impact',label:'💥 强化',color:0xffa33e}];
+function clearPickups(){for(const p of pickups){scene.remove(p.group);p.group.traverse(o=>{if(o.isMesh){o.geometry.dispose();o.material.dispose()}})}pickups.length=0;pickupClock=0;for(const a of items){a.powerUp=null;a.powerTime=0}}
+function spawnPickup(){if(pickups.length>=5||challenge!=='items'||!matchActive)return;const type=pickupTypes[pickupSerial++%3];const a=Math.random()*Math.PI*2,r=1.5+Math.random()*4.9;const group=new THREE.Group();group.position.set(Math.cos(a)*r,.85,Math.sin(a)*r);const body=new THREE.Mesh(new THREE.OctahedronGeometry(.36),new THREE.MeshStandardMaterial({color:type.color,emissive:type.color,emissiveIntensity:.45,metalness:.25,roughness:.22}));group.add(body);const halo=new THREE.Mesh(new THREE.TorusGeometry(.48,.045,8,32),new THREE.MeshBasicMaterial({color:type.color,transparent:true,opacity:.85}));halo.rotation.x=Math.PI/2;group.add(halo);scene.add(group);pickups.push({group,type,age:0})}
+function updatePickups(dt){if(challenge!=='items'||!matchActive){if(pickups.length)clearPickups();return}pickupClock+=dt;if(pickupClock>5){pickupClock=0;spawnPickup()}for(const a of items){if(a.powerTime>0){a.powerTime=Math.max(0,a.powerTime-dt);if(!a.powerTime)a.powerUp=null}}for(let i=pickups.length-1;i>=0;i--){const p=pickups[i];p.age+=dt;p.group.rotation.y+=dt*1.9;p.group.position.y=.86+Math.sin(p.age*3)*.16;let collector=null;for(const a of items){if(a.dead||a.falling)continue;if(Math.hypot(a.body.position.x-p.group.position.x,a.body.position.z-p.group.position.z)<.9){collector=a;break}}if(collector){collector.powerUp=p.type.id;collector.powerTime=8;const name=defs.find(d=>d[2]===collector.type)?.[1]||'玩具';$('status').textContent=name+' 获得 '+p.type.label+'（8秒）';hitScores.set(collector,(hitScores.get(collector)||0)+10)}if(collector||p.age>20){scene.remove(p.group);p.group.traverse(o=>{if(o.isMesh){o.geometry.dispose();o.material.dispose()}});pickups.splice(i,1)}}}
+$('itemBattle').onclick=()=>{startChallenge('items');clearPickups();$('matchState').textContent='🎁 道具争夺赛';$('challengeInfo').textContent='收集道具+10分 · 90秒积分决胜';spawnPickup()};
+$('itemRules').onclick=()=>{$('status').textContent='⚡ 加速：移动更快；🛡️ 护盾：减少被撞飞；💥 强化：碰撞积分翻倍。道具持续8秒，拾取加10分。'};
+const kingZone=new THREE.Mesh(new THREE.RingGeometry(2.48,2.60,80),new THREE.MeshBasicMaterial({color:0xffd45e,transparent:true,opacity:.85,side:THREE.DoubleSide,depthWrite:false}));kingZone.rotation.x=-Math.PI/2;kingZone.position.y=.40;kingZone.visible=false;scene.add(kingZone);
+const aimMat=new THREE.LineBasicMaterial({color:0x80ff8b,depthTest:false});const aimGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(),new THREE.Vector3()]);const aimLine=new THREE.Line(aimGeo,aimMat);aimLine.visible=false;aimLine.renderOrder=20;scene.add(aimLine);function updateAim(start,end){aimGeo.setFromPoints([new THREE.Vector3(start.x,.75,start.z),new THREE.Vector3(end.x,.75,end.z)]);aimLine.visible=true;}let gesture=null;let multiTouch=false;
+renderer.domElement.addEventListener('pointerdown',e=>{e.preventDefault();if(e.pointerType==='touch'&&e.isPrimary===false){multiTouch=true;if(gesture?.item?.body){const b=gesture.item.body;if(b.type===CANNON.Body.KINEMATIC){b.type=CANNON.Body.DYNAMIC;b.updateMassProperties();b.wakeUp()}}gesture=null;aimLine.visible=false;return}const p=world(e);if(!p)return;const item=picked(e);gesture={item,start:p.clone(),last:p.clone(),moved:false};if(item){selectedToy=item;const name=defs.find(d=>d[2]===item.type)?.[1]||item.type;$('selectionInfo').textContent='🎯 已选：'+name+' · 点击聚焦可近距离查看'}if(item&&tool==='grab'){item.body.type=CANNON.Body.KINEMATIC;item.body.velocity.setZero();item.body.angularVelocity.setZero();item.body.wakeUp()}renderer.domElement.setPointerCapture(e.pointerId)});
+renderer.domElement.addEventListener('pointermove',e=>{if(!gesture)return;const p=world(e);if(!p)return;const d=p.clone().sub(gesture.last);if(p.distanceTo(gesture.start)>.15)gesture.moved=true;const a=gesture.item;if(a&&!a.dead){if(tool==='grab'){a.body.position.x=THREE.MathUtils.clamp(p.x,-8.5,8.5);a.body.position.z=THREE.MathUtils.clamp(p.z,-8.5,8.5);a.body.position.y=1.6}else if(tool==='rotate'){const q=new CANNON.Quaternion();q.setFromAxisAngle(new CANNON.Vec3(0,1,0),d.x*1.8+d.z*.7);a.body.quaternion=q.mult(a.body.quaternion);a.body.wakeUp()}}if(a&&(tool==='push'||tool==='launch'))updateAim(gesture.start,p);gesture.last.copy(p)});
+renderer.domElement.addEventListener('pointerup',e=>{if(multiTouch){multiTouch=false;gesture=null;aimLine.visible=false;return}if(!gesture)return;aimLine.visible=false;const p=world(e)||gesture.last;const a=gesture.item,dx=p.x-gesture.start.x,dz=p.z-gesture.start.z;if(a&&!a.dead){if(tool==='grab'){a.body.type=CANNON.Body.DYNAMIC;a.body.updateMassProperties();a.body.wakeUp();if(gesture.moved){a.body.velocity.set(dx*1.3,0,dz*1.3)}}else if(tool==='push'||tool==='launch'){const scale=tool==='launch'?power*.16:7;const ix=dx*scale,iz=dz*scale;a.body.applyImpulse(new CANNON.Vec3(ix,tool==='launch'?Math.min(5,Math.hypot(ix,iz)*.14):.3,iz),new CANNON.Vec3(0,.6,0));a.body.wakeUp()}}else if(!gesture.moved&&Math.hypot(p.x,p.z)<7.7)spawn(p.x,p.z);gesture=null});
+renderer.domElement.addEventListener('pointercancel',()=>{if(gesture?.item?.body){const b=gesture.item.body;b.type=CANNON.Body.DYNAMIC;b.updateMassProperties()}gesture=null;aimLine.visible=false});
+// V4.0: independent chassis visual response, never moves the Cannon collision body.
+let chassisEnabled=true, armManual=false;
+$('chassis').onclick=()=>{chassisEnabled=!chassisEnabled;$('chassis').classList.toggle('active',chassisEnabled);$('chassis').textContent=chassisEnabled?'🚗 动态底盘：开':'🚗 动态底盘：关';$('status').textContent=chassisEnabled?'已启用车轮转向与悬挂视觉反馈':'已关闭动态底盘效果'};
+$('armPose').onclick=()=>{const a=selectedToy;if(!a||a.dead||a.animParts?.kind!=='excavator'){$('status').textContent='请先点选一辆挖掘机，再操作机械臂';return}a.armPose=(a.armPose||0)+1;a.armPose%=3;armManual=true;$('status').textContent=['🚜 机械臂：收起','🚜 机械臂：抬高','🚜 机械臂：挖掘'][a.armPose]};
+function animateChassis(a,dt){const wheels=a.visual?.userData?.wheels;if(!wheels?.length)return;const b=a.body;
+ const speed=Math.hypot(b.velocity.x,b.velocity.z),t=performance.now()*.001;
+ // Local forward is -Z. Convert world velocity to body-local velocity.
+ const q=new THREE.Quaternion(b.quaternion.x,b.quaternion.y,b.quaternion.z,b.quaternion.w);
+ const localV=new THREE.Vector3(b.velocity.x,0,b.velocity.z).applyQuaternion(q.clone().invert());
+ const roll=-localV.z*dt/.34;
+ const steer=THREE.MathUtils.clamp(Math.atan2(localV.x,Math.abs(localV.z)+1)*.5,-.35,.35);
+ if(a.suspensionY===undefined)a.suspensionY=0;
+ const impact=Math.min(1.0,Math.abs(b.velocity.y)*.035+Math.abs(b.angularVelocity.x)*.045+Math.abs(b.angularVelocity.z)*.045);
+ a.suspensionY=THREE.MathUtils.lerp(a.suspensionY,impact,Math.min(1,dt*7));
+ wheels.forEach((w,i)=>{if(w.userData.baseY===undefined)w.userData.baseY=w.position.y;
+  if(chassisEnabled){w.rotation.x+=roll;w.rotation.y=THREE.MathUtils.lerp(w.rotation.y,w.position.z<0?steer:0,Math.min(1,dt*8));
+    w.position.y=w.userData.baseY+Math.sin(t*8+i*1.7)*Math.min(.025,speed*.003)-a.suspensionY*.055;
+  }else{w.rotation.y=0;w.position.y=w.userData.baseY;}
+ });
+}
+function simulate(dt){kingZone.visible=challenge==='king'&&matchActive;if(matchActive&&!matchEnded){matchSeconds+=dt;
+if(challenge==='survival'){safeRadius=Math.max(2.3,8.18-matchSeconds*.055);$('challengeInfo').textContent='🔥 安全半径 '+safeRadius.toFixed(1)+'米 · 坚持到最后';}
+if(challenge==='king'){kingTick+=dt;while(kingTick>=1){kingTick-=1;for(const a of items){if(a.dead||a.falling)continue;const b=a.body;if(Math.hypot(b.position.x,b.position.z)<2.6){hitScores.set(a,(hitScores.get(a)||0)+2);}}}const sorted=[...hitScores.values()].sort((a,b)=>b-a);$('challengeInfo').textContent='👑 剩余 '+Math.max(0,Math.ceil(75-matchSeconds))+'秒 · 最高 '+(sorted[0]||0)+'分';if(matchSeconds>=75)endScoreBattle();}
+if(challenge==='items'){const sorted=[...hitScores.values()].sort((a,b)=>b-a);$('challengeInfo').textContent='🎁 剩余 '+Math.max(0,Math.ceil(90-matchSeconds))+'秒 · 最高 '+(sorted[0]||0)+'分';if(matchSeconds>=90)endScoreBattle();}
+if(challenge==='health'){if(matchSeconds>=90){const alive=items.filter(a=>!a.dead&&!a.falling).sort((a,b)=>(b.hp??b.stats.hp)-(a.hp??a.stats.hp));matchActive=false;matchEnded=true;autoBattle=false;$('auto').classList.remove('active');$('auto').textContent='⚡ 自动混战：关闭';$('matchState').textContent=alive.length?'🏆 血量冠军：'+toyLabel(alive[0]):'🤝 全员淘汰';$('challengeInfo').textContent='90秒结束 · 点击再来一局'}else $('challengeInfo').textContent='❤️ 剩余 '+Math.ceil(90-matchSeconds)+'秒 · 存活 '+items.filter(a=>!a.dead&&!a.falling).length+'辆';}
+if(challenge==='score'){const sorted=[...hitScores.values()].sort((a,b)=>b-a);$('challengeInfo').textContent='剩余 '+Math.max(0,Math.ceil(60-matchSeconds))+'秒 · 最高 '+(sorted[0]||0)+'分';if(matchSeconds>=60)endScoreBattle();}
+refreshMatchHUD();if(challenge==='normal'&&matchSeconds>180){matchActive=false;matchEnded=true;autoBattle=false;$('auto').classList.remove('active');$('auto').textContent='⚡ 自动混战：关闭';$('matchState').textContent='⏱ 比赛结束';$('status').textContent='本局达到3分钟上限，可点击再来一局'}}autoTick+=dt;const alive=items.filter(a=>!a.dead&&!a.falling);if(autoBattle&&autoTick>.4){autoTick=0;for(const a of alive){if(driveMode&&a===playerToy)continue;if(Math.random()>.76||a.body.type!==CANNON.Body.DYNAMIC)continue;let target=null,best=1e9;for(const b of alive){if(a===b)continue;const dx=b.body.position.x-a.body.position.x,dz=b.body.position.z-a.body.position.z,d=dx*dx+dz*dz;if(d<best){best=d;target=b}}if(target){const dx=target.body.position.x-a.body.position.x,dz=target.body.position.z-a.body.position.z,dist=Math.hypot(dx,dz)||1;const force=(.9+Math.random()*.8)*speedLevel*a.mass*a.stats.speed;a.body.applyImpulse(new CANNON.Vec3(dx/dist*force,.15,dz/dist*force),new CANNON.Vec3(0,.4,0));a.body.wakeUp()}}}
+updatePickups(dt);updateDriving(dt);physics.step(1/60,Math.min(dt,.05),5);
+for(const a of items){if(a.dead)continue;const b=a.body;a.g.position.set(b.position.x,b.position.y,b.position.z);a.g.quaternion.set(b.quaternion.x,b.quaternion.y,b.quaternion.z,b.quaternion.w);const v=b.velocity.length();animateChassis(a,dt);if(a.animParts){const j=a.animParts,tm=performance.now()*.001+a.body.id*.3;
+ if(j.kind==='excavator'){const poses=[[-.2,.35],[-.68,.7],[.25,-.22]];const pose=a.armPose===undefined?null:poses[a.armPose];j.boom.rotation.x=THREE.MathUtils.lerp(j.boom.rotation.x,pose?pose[0]:-.2+Math.sin(tm*.85)*.28,Math.min(1,dt*5));j.elbow.rotation.x=THREE.MathUtils.lerp(j.elbow.rotation.x,pose?pose[1]:.35+Math.sin(tm*.85+1)*.27,Math.min(1,dt*5))}
+ if(j.kind==='robot')j.arms.forEach((arm,i)=>{arm.rotation.x=Math.sin(tm*1.8+i*Math.PI)*(.13+Math.min(v*.04,.3))});
+ if(j.kind==='dino')j.tail.rotation.y=Math.sin(tm*2.1)*(.12+Math.min(v*.035,.2));
+ if(j.lamps)j.lamps.forEach((l,i)=>{l.visible=Math.sin(tm*3+i*1.2)>.1});
+}if(a.visual.userData.rotor)a.visual.userData.rotor.rotation.y+=dt*12;
+const dist=Math.hypot(b.position.x,b.position.z);if(!a.falling&&mode==='battle'&&challenge!=='score'&&challenge!=='items'&&challenge!=='health'&&dist>safeRadius){a.falling=true;koCount++;b.linearDamping=.04;b.collisionFilterMask=0;b.wakeUp();updateCount();$('status').textContent='💥 玩具掉出竞技场！';const remaining=items.filter(v=>!v.dead&&!v.falling);if(remaining.length===1){const winner=defs.find(d=>d[2]===remaining[0].type)?.[1]||'玩具';$('status').textContent='🏆 冠军：'+winner;if(matchActive){matchEnded=true;matchActive=false;autoBattle=false;$('auto').classList.remove('active');$('auto').textContent='⚡ 自动混战：关闭';$('matchState').textContent='🏆 冠军：'+winner;$('tournament').classList.remove('active')}}}
+if((mode==='sandbox'||challenge==='score'||challenge==='king'||challenge==='items'||challenge==='health')&&dist>7.7){const n=dist||1;b.position.x*=7.7/n;b.position.z*=7.7/n;b.velocity.x*=-.45;b.velocity.z*=-.45;b.wakeUp()}
+if(a.falling&&b.position.y< -4)disposeToy(a);
+}
+if(selectedToy&&!selectedToy.dead&&!selectedToy.falling){const b=selectedToy.body;selectionRing.visible=true;selectionRing.position.set(b.position.x,.39,b.position.z);const name=defs.find(d=>d[2]===selectedToy.type)?.[1]||selectedToy.type;const speed=Math.hypot(b.velocity.x,b.velocity.z);$('selectionInfo').textContent=`🎯 ${name} · ${describeStats(selectedToy)} · ${challenge==='health'?'生命值 '+Math.round(selectedToy.hp??selectedToy.stats.hp)+' · ':''}速度 ${speed.toFixed(1)} · ${selectedToy.builtIn?(selectedToy.animParts?'动态GLB模型':'内置GLB'):'程序模型'}`;}else{selectionRing.visible=false}
+}
+// V4.1: Persist the toy arena locally on this device (no account or server required).
+// Imported user GLBs are intentionally not serialized: only built-in toy identity and physics pose are saved.
+const SCENE_SAVE_KEY='toy-battle-arena-v41';
+$('saveScene').onclick=()=>{
+ try{
+  const snapshot={version:1,theme:themeIndex,mode,toys:items.filter(a=>!a.dead&&!a.falling).map(a=>({
+   type:a.type,color:a.color,
+   pos:[a.body.position.x,a.body.position.y,a.body.position.z],
+   rot:[a.body.quaternion.x,a.body.quaternion.y,a.body.quaternion.z,a.body.quaternion.w]
+  }))};
+  localStorage.setItem(SCENE_SAVE_KEY,JSON.stringify(snapshot));
+  $('status').textContent='💾 已在本机保存 '+snapshot.toys.length+' 个玩具；关闭网页后仍可读取';
+ }catch(err){$('status').textContent='保存失败：浏览器可能禁止本地存储';}
+};
+$('loadScene').onclick=()=>{
+ let snapshot;
+ try{snapshot=JSON.parse(localStorage.getItem(SCENE_SAVE_KEY)||'null');}
+ catch(err){$('status').textContent='存档损坏，无法读取';return;}
+ if(!snapshot||snapshot.version!==1||!Array.isArray(snapshot.toys)){$('status').textContent='没有找到本机存档，请先保存场景';return;}
+ const saved=snapshot.toys.slice(0,30).filter(t=>t&&defs.some(d=>d[2]===t.type)&&colors.includes(t.color)&&Array.isArray(t.pos)&&t.pos.length===3&&t.pos.every(Number.isFinite)&&Array.isArray(t.rot)&&t.rot.length===4&&t.rot.every(Number.isFinite));
+ for(const a of items)disposeToy(a);items.length=0;
+ selectedToy=null;selectionRing.visible=false;matchActive=false;matchEnded=false;autoBattle=false;koCount=0;matchSeconds=0;challenge='normal';safeRadius=8.18;hitScores.clear();$('challengeInfo').textContent='选择新玩法开始挑战';
+ $('auto').classList.remove('active');$('auto').textContent='⚡ 自动混战：关闭';
+ changeMode(snapshot.mode==='battle'?'battle':'sandbox');
+ if(Number.isInteger(snapshot.theme)&&snapshot.theme>=0&&snapshot.theme<arenaThemes.length){themeIndex=snapshot.theme;applyTheme(themeIndex)}
+ const oldSelected=selected,oldColor=selectedColor;
+ for(const t of saved){selected=defs.findIndex(d=>d[2]===t.type);selectedColor=t.color;
+  const x=THREE.MathUtils.clamp(t.pos[0],-7.1,7.1),z=THREE.MathUtils.clamp(t.pos[2],-7.1,7.1);
+  const a=spawn(x,z);if(!a)continue;
+  a.body.position.set(x,THREE.MathUtils.clamp(t.pos[1],.7,5),z);
+  const len=Math.hypot(...t.rot)||1;
+  a.body.quaternion.set(t.rot[0]/len,t.rot[1]/len,t.rot[2]/len,t.rot[3]/len);
+  a.body.velocity.setZero();a.body.angularVelocity.setZero();a.body.wakeUp();
+ }
+ selected=oldSelected;selectedColor=oldColor;refreshMatchHUD();
+ $('status').textContent='📂 已恢复 '+saved.length+' 个玩具及竞技场主题（自定义导入模型不包含在存档内）';
+};
+let setTimeoutCamera=false;let last=performance.now();function animate(t){requestAnimationFrame(animate);const rawDt=Math.min((t-last)/1000,.033);last=t;const dt=paused?0:rawDt*(slowOn?.28:1);if(dt>0){simulate(dt);updateSparks(dt);rankingClock+=dt;if(rankingClock>.35){rankingClock=0;renderRanking();}}if(driveMode&&playerToy&&!playerToy.dead){const p=playerToy.g.position;const q=playerToy.g.quaternion;const back=new THREE.Vector3(0,5.8,9).applyQuaternion(q);back.y=5.8;const target=p.clone().add(back);camera.position.lerp(target,Math.min(1,rawDt*4));camera.lookAt(p.x,p.y+.6,p.z)}if(orbitOn){orbitAngle+=rawDt*.22;camera.position.set(Math.sin(orbitAngle)*20,15,Math.cos(orbitAngle)*20);camera.lookAt(0,0,0);}if(garageOn){if(!selectedToy||selectedToy.dead){garageOn=false;$('garage').classList.remove('active');$('garage').textContent='🔍 玩具展示';}else{garageAngle+=rawDt*.38;const p=selectedToy.g.position;camera.position.set(p.x+Math.sin(garageAngle)*5.2,p.y+3.5,p.z+Math.cos(garageAngle)*5.2);camera.lookAt(p.x,p.y+.45,p.z);}}if(shake>.002){const ox=camera.position.x,oy=camera.position.y;camera.position.x+=(Math.random()-.5)*shake;camera.position.y+=(Math.random()-.5)*shake;renderer.render(scene,camera);camera.position.x=ox;camera.position.y=oy;shake*=.8;}else{renderer.render(scene,camera)}}for(let i=0;i<4;i++){selected=i;selectedColor=colors[i];const a=i*Math.PI/2;spawn(Math.cos(a)*2.8,Math.sin(a)*2.8)}selected=0;selectedColor=colors[0];requestAnimationFrame(animate);$('loader').classList.add('hide');window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+</script></body></html>
