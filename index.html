@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>玩具大比拼 V9.0</title><style>*{box-sizing:border-box}body{margin:0;background:#c9e5f6;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;overflow:hidden;touch-action:none}canvas{display:block;touch-action:none}#top{position:fixed;top:env(safe-area-inset-top,12px);left:12px;right:12px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none}#top>*{pointer-events:auto}.pill{background:#172b46e8;color:#fff;padding:10px 13px;border-radius:16px;box-shadow:0 5px 16px #1a335344;font-size:13px}.pill b{font-size:17px}.pill small{color:#ffd279}button{border:0;border-radius:12px;background:#344e70;color:white;padding:10px 12px;font-size:14px;font-weight:600;cursor:pointer}#top>div:last-child{max-width:62vw;overflow-x:auto;white-space:nowrap;display:flex!important;scrollbar-width:none}#top>div:last-child button{flex:0 0 auto}button.active{background:#f2a72b;color:#172033}#panel{max-height:58dvh;overflow-y:auto;overscroll-behavior:contain;position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);left:10px;right:10px;background:#14243beF;border:1px solid #ffffff35;border-radius:22px;color:#fff;padding:12px;box-shadow:0 10px 30px #1b30465e}#panel .line{display:flex;gap:7px;margin-bottom:9px}#panel .line button{flex:1;min-width:0;padding:10px 5px}#library{display:flex;gap:7px;overflow:auto;scrollbar-width:none;padding-bottom:5px}#library button{flex:0 0 78px;height:72px;font-size:12px;line-height:1.5}#library .emoji{display:block;font-size:27px}#colors{display:flex;gap:10px;margin:9px 0;overflow:auto}#colors button{flex:0 0 30px;height:30px;border:3px solid #ffffff90;border-radius:50%;padding:0}#colors button.active{outline:2px solid #ffc95c;outline-offset:2px}#hint{font-size:12px;color:#c7d5e9;margin-top:7px;line-height:1.5}#status{font-size:12px;color:#ffd279;min-height:16px;margin:5px 0}#power{width:100%;accent-color:#f2a72b}#powerline{display:flex;align-items:center;gap:10px;font-size:12px}#powerline input{flex:1}#loader{position:fixed;inset:0;display:grid;place-items:center;background:#d5ebf8;color:#173450;z-index:20}#loader.hide{display:none}#loader span{font-weight:bold;font-size:20px}#count{font-size:12px;color:#f4c56c}#panel.collapsed #details{display:none}#panel.collapsed{max-height:44px;padding:5px 12px;overflow:hidden}#panel button:active{transform:scale(.97)}#collapse{padding:7px 12px;background:#2b4564}#matchHUD{position:fixed;top:calc(env(safe-area-inset-top,12px) + 93px);left:12px;background:#14243bdc;color:white;padding:9px 12px;border-radius:13px;font-size:12px;pointer-events:none;line-height:1.6}#matchHUD strong{color:#ffd36c}#panel .line button#tournament{background:#e77b36;color:#fff}#panel .line button#tournament.active{background:#ffd16d;color:#14243b}#driveControls{display:none;position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);left:12px;right:12px;z-index:8;pointer-events:none;align-items:end;justify-content:space-between}#driveControls.on{display:flex}#driveControls button{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;background:#18344ee8;border:2px solid #ffffff88;border-radius:18px;min-width:58px;min-height:56px;font-size:17px}#driveControls button[data-drive="skill"]{background:#8b39ddee;border-color:#e9baff}#driveControls button.pressed{background:#ffbf48;color:#13233b}#driveControls .steer{display:flex;gap:8px}#driveControls .throttle{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}#driveBanner{display:none;position:fixed;top:calc(env(safe-area-inset-top,12px) + 172px);left:12px;background:#10243ddd;color:#fff;padding:9px;border-radius:12px;z-index:5;font-size:12px}#driveBanner.on{display:block}body.driving #panel{max-height:44px;padding:5px 12px;overflow:hidden}body.driving #panel #details{display:none}#battleFx{position:fixed;inset:0;pointer-events:none;z-index:6;overflow:hidden} .damagePop{position:absolute;color:#fff;font-weight:900;font-size:22px;text-shadow:0 2px 2px #3b1111,0 0 8px #f44;animation:damageFloat .85s ease-out forwards;white-space:nowrap} .damagePop.crit{color:#ffe267;font-size:28px} @keyframes damageFloat{from{opacity:1;transform:translate(-50%,-10px) scale(.8)}to{opacity:0;transform:translate(-50%,-75px) scale(1.25)}}.hpTag{position:absolute;transform:translate(-50%,-50%);width:56px;height:7px;background:#260c16bb;border:1px solid #fff9;border-radius:8px;overflow:hidden}.hpTag>i{display:block;height:100%;background:#5beb86;width:100%;transition:width .15s}.hpTag.low>i{background:#ff5b59}#victoryScreen{display:none;position:fixed;inset:0;z-index:12;align-items:center;justify-content:center;background:#071b37aa;pointer-events:none}#victoryScreen.show{display:flex}#victoryCard{background:linear-gradient(150deg,#253f72,#17233e);color:white;border:2px solid #ffdd83;border-radius:24px;padding:24px 26px;text-align:center;box-shadow:0 0 45px #ffbd48aa;max-width:85vw;animation:victoryEnter .55s cubic-bezier(.2,1.5,.4,1)}#victoryTitle{font-size:30px;font-weight:900;color:#ffdf79}#victorySub{font-size:16px;margin-top:10px}#victoryScreen button{pointer-events:auto;margin-top:15px;background:#f2b743;color:#172033}@keyframes victoryEnter{from{transform:scale(.5) rotate(-6deg);opacity:0}to{transform:scale(1);opacity:1}}
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>主角生存决战 V9.1 · 九大3D英雄</title><style>*{box-sizing:border-box}body{margin:0;background:#c9e5f6;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;overflow:hidden;touch-action:none}canvas{display:block;touch-action:none}#top{position:fixed;top:env(safe-area-inset-top,12px);left:12px;right:12px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none}#top>*{pointer-events:auto}.pill{background:#172b46e8;color:#fff;padding:10px 13px;border-radius:16px;box-shadow:0 5px 16px #1a335344;font-size:13px}.pill b{font-size:17px}.pill small{color:#ffd279}button{border:0;border-radius:12px;background:#344e70;color:white;padding:10px 12px;font-size:14px;font-weight:600;cursor:pointer}#top>div:last-child{max-width:62vw;overflow-x:auto;white-space:nowrap;display:flex!important;scrollbar-width:none}#top>div:last-child button{flex:0 0 auto}button.active{background:#f2a72b;color:#172033}#panel{max-height:58dvh;overflow-y:auto;overscroll-behavior:contain;position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);left:10px;right:10px;background:#14243beF;border:1px solid #ffffff35;border-radius:22px;color:#fff;padding:12px;box-shadow:0 10px 30px #1b30465e}#panel .line{display:flex;gap:7px;margin-bottom:9px}#panel .line button{flex:1;min-width:0;padding:10px 5px}#library{display:flex;gap:7px;overflow:auto;scrollbar-width:none;padding-bottom:5px}#library button{flex:0 0 78px;height:72px;font-size:12px;line-height:1.5}#library .emoji{display:block;font-size:27px}#colors{display:flex;gap:10px;margin:9px 0;overflow:auto}#colors button{flex:0 0 30px;height:30px;border:3px solid #ffffff90;border-radius:50%;padding:0}#colors button.active{outline:2px solid #ffc95c;outline-offset:2px}#hint{font-size:12px;color:#c7d5e9;margin-top:7px;line-height:1.5}#status{font-size:12px;color:#ffd279;min-height:16px;margin:5px 0}#power{width:100%;accent-color:#f2a72b}#powerline{display:flex;align-items:center;gap:10px;font-size:12px}#powerline input{flex:1}#loader{position:fixed;inset:0;display:grid;place-items:center;background:#d5ebf8;color:#173450;z-index:20}#loader.hide{display:none}#loader span{font-weight:bold;font-size:20px}#count{font-size:12px;color:#f4c56c}#panel.collapsed #details{display:none}#panel.collapsed{max-height:44px;padding:5px 12px;overflow:hidden}#panel button:active{transform:scale(.97)}#collapse{padding:7px 12px;background:#2b4564}#matchHUD{position:fixed;top:calc(env(safe-area-inset-top,12px) + 93px);left:12px;background:#14243bdc;color:white;padding:9px 12px;border-radius:13px;font-size:12px;pointer-events:none;line-height:1.6}#matchHUD strong{color:#ffd36c}#panel .line button#tournament{background:#e77b36;color:#fff}#panel .line button#tournament.active{background:#ffd16d;color:#14243b}#driveControls{display:none;position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);left:12px;right:12px;z-index:8;pointer-events:none;align-items:end;justify-content:space-between}#driveControls.on{display:flex}#driveControls button{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;background:#18344ee8;border:2px solid #ffffff88;border-radius:18px;min-width:58px;min-height:56px;font-size:17px}#driveControls button[data-drive="skill"]{background:#8b39ddee;border-color:#e9baff}#driveControls button.pressed{background:#ffbf48;color:#13233b}#driveControls .steer{display:flex;gap:8px}#driveControls .throttle{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}#driveBanner{display:none;position:fixed;top:calc(env(safe-area-inset-top,12px) + 172px);left:12px;background:#10243ddd;color:#fff;padding:9px;border-radius:12px;z-index:5;font-size:12px}#driveBanner.on{display:block}body.driving #panel{max-height:44px;padding:5px 12px;overflow:hidden}body.driving #panel #details{display:none}#battleFx{position:fixed;inset:0;pointer-events:none;z-index:6;overflow:hidden} .damagePop{position:absolute;color:#fff;font-weight:900;font-size:22px;text-shadow:0 2px 2px #3b1111,0 0 8px #f44;animation:damageFloat .85s ease-out forwards;white-space:nowrap} .damagePop.crit{color:#ffe267;font-size:28px} @keyframes damageFloat{from{opacity:1;transform:translate(-50%,-10px) scale(.8)}to{opacity:0;transform:translate(-50%,-75px) scale(1.25)}}.hpTag{position:absolute;transform:translate(-50%,-50%);width:56px;height:7px;background:#260c16bb;border:1px solid #fff9;border-radius:8px;overflow:hidden}.hpTag>i{display:block;height:100%;background:#5beb86;width:100%;transition:width .15s}.hpTag.low>i{background:#ff5b59}#victoryScreen{display:none;position:fixed;inset:0;z-index:12;align-items:center;justify-content:center;background:#071b37aa;pointer-events:none}#victoryScreen.show{display:flex}#victoryCard{background:linear-gradient(150deg,#253f72,#17233e);color:white;border:2px solid #ffdd83;border-radius:24px;padding:24px 26px;text-align:center;box-shadow:0 0 45px #ffbd48aa;max-width:85vw;animation:victoryEnter .55s cubic-bezier(.2,1.5,.4,1)}#victoryTitle{font-size:30px;font-weight:900;color:#ffdf79}#victorySub{font-size:16px;margin-top:10px}#victoryScreen button{pointer-events:auto;margin-top:15px;background:#f2b743;color:#172033}@keyframes victoryEnter{from{transform:scale(.5) rotate(-6deg);opacity:0}to{transform:scale(1);opacity:1}}
 /* V5.3 landscape-first compact unified battle */
 #rotateTip{display:none;position:fixed;inset:0;z-index:50;background:linear-gradient(145deg,#142e50,#071b33);color:white;align-items:center;justify-content:center;text-align:center;padding:26px}
 #rotateTip .rotateCard{max-width:350px;font-size:17px;line-height:1.9}#rotateTip .rotateIcon{font-size:62px;display:block;animation:rotatePhone 2s ease-in-out infinite alternate}@keyframes rotatePhone{to{transform:rotate(90deg)}}
@@ -522,7 +522,53 @@ body #gameRoot.hero-match #victoryScreen {position:absolute;z-index:38}
 body #gameRoot.hero-match #victoryCard {background:#1d2b2aef;border-color:#b99e70}
 body #gameRoot.hero-match #heroReplay {background:#efbd76;color:#28251d;font-weight:800}
 body #gameRoot.hero-match #battleFx {position:absolute}
-</style></head><body class="virtual-landscape"><div id="gameRoot" tabindex="-1"><div id="heroSkillPanel"><div class="skillPanelHead"><b>✨ 主角技能装备库 · 36种</b><button id="heroSkillClose">✕ 返回战斗</button></div><button id="v89HudSettingsToggle" type="button" aria-expanded="false">🎛️ 操作布局设置</button>
+</style><style id="v91AnimalStyle">
+/* V9.1 animal hero selection and HUD, resilient in iPhone horizontal layouts. */
+#animalChooseAgain[hidden]{display:none!important}
+#animalSelect{display:none;position:absolute;inset:0;z-index:65;background:rgba(7,18,31,.93);color:#f0f7ff;align-items:center;justify-content:center;padding:10px;overflow-y:auto;touch-action:pan-y}
+#animalSelect.open{display:flex}
+.animalSelectSurface{width:min(960px,98%);max-height:98%;display:flex;flex-direction:column;background:linear-gradient(145deg,#1e3647,#111d2c);border:1px solid #6387a1;border-radius:18px;box-shadow:0 12px 44px #0009;overflow:hidden}
+.animalSelectHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 15px;border-bottom:1px solid #65809955}
+.animalSelectHeader strong{font-size:18px;color:#ffe0a5}
+.animalSelectHeader p{margin:3px 0 0;font-size:11px;color:#a9c1d1}
+#animalSelectClose{padding:5px 12px;background:#355067;color:#fff;border:1px solid #7590a2;font-size:17px}
+.animalSelectMain{display:grid;grid-template-columns:minmax(230px,.91fr) minmax(300px,1.09fr);gap:11px;min-height:0;overflow-y:auto;padding:12px;overscroll-behavior:contain}
+.animalHeroGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:8px;min-height:0}
+.animalHeroCard{min-height:68px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;border:1px solid #8da7b657!important;background:linear-gradient(140deg,#233c4e,#1b2c3e)!important;border-radius:12px;color:#fff;transition:background .12s,transform .12s;touch-action:manipulation}
+.animalHeroCard.selected{border:2px solid var(--animal-color)!important;box-shadow:inset 0 0 20px #ffffff16,0 0 13px #f2da8b45;background:linear-gradient(140deg,#455366,#1c314b)!important}
+.animalHeroCard .animalEmoji{font-size:27px;line-height:1.1}
+.animalCardName{font-size:13px;font-weight:800}
+.animalHeroCard small{font-size:10px;color:#a6c6d7}
+.animalSelectDetails{min-width:0;display:grid;grid-template-columns:150px minmax(130px,1fr);grid-template-rows:1fr auto;align-items:center;gap:10px}
+.animalPreviewFrame{display:flex;align-items:center;justify-content:center;align-self:stretch;overflow:hidden;border:1px solid #64849966;border-radius:13px;background:radial-gradient(ellipse at center,#3c668b 0,#182839 80%);min-height:130px}
+#animalPreview{display:block;width:100%;height:auto;max-height:202px;object-fit:contain}
+.animalHeroInfo{align-self:start;min-width:0;font-size:12px;max-height:220px;overflow-y:auto;overscroll-behavior:contain}
+.animalHeroInfo strong{font-size:17px;color:#ffe1a4;display:block;margin-bottom:5px}
+.animalHeroInfo>span{display:block;color:#80e0cf;font-size:11px}
+.animalHeroInfo p{color:#c0d2e3;font-size:11px;margin:7px 0}
+.animalHeroInfo ul{padding-left:16px;margin:5px 0;color:#dae3ec;font-size:11px;line-height:1.6}
+.animalSelectActions{grid-column:1/-1;display:flex;flex-direction:column;align-items:stretch;gap:4px}
+#animalStartBattle{background:linear-gradient(110deg,#ffe4a1,#e9a34b);color:#382614;padding:10px;border-radius:12px;font-size:15px;font-weight:900;touch-action:manipulation}
+.animalSelectActions small{text-align:center;color:#a4c6dc;font-size:10px}
+#animalChooseAgain{background:#47698a;color:#fff}
+#gameRoot.hero-match #heroWeaponDock{display:none!important}
+#gameRoot.hero-match #heroActions .hero-slot:has(#heroS5){display:none!important}
+#gameRoot.hero-match #heroHud .heroHudTitle strong{font-size:12px;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-height:440px){.animalSelectSurface{max-height:96%}.animalSelectHeader{padding:6px 10px}.animalSelectHeader strong{font-size:14px}.animalSelectMain{padding:8px;gap:8px}.animalHeroGrid{gap:5px}.animalHeroCard{min-height:57px;padding:4px}.animalHeroCard .animalEmoji{font-size:22px}.animalSelectDetails{grid-template-columns:130px minmax(130px,1fr);gap:6px}.animalHeroInfo{max-height:135px}.animalHeroInfo strong{font-size:13px}.animalHeroInfo ul{font-size:10px}.animalHeroInfo p{margin:4px 0}.animalPreviewFrame{min-height:102px}#animalPreview{max-height:135px}#animalStartBattle{padding:6px}.animalSelectActions small{font-size:9px}}
+@media(max-width:540px){.animalSelectMain{grid-template-columns:1fr;overflow-y:auto}.animalHeroGrid{grid-template-rows:repeat(3,64px)}.animalSelectDetails{grid-template-columns:38% 1fr}.animalHeroInfo{max-height:165px}.animalPreviewFrame{min-height:140px}.animalSelectActions{grid-column:1/-1}}
+</style></head><body class="virtual-landscape"><div id="gameRoot" tabindex="-1"><div id="animalSelect" role="dialog" aria-modal="true" aria-label="选择动物英雄" aria-hidden="true">
+ <div class="animalSelectSurface">
+  <div class="animalSelectHeader"><div><strong>主角生存决战 · 九大3D英雄</strong><p>选择你的角色，击败敌人、解锁技能、活到最后</p></div><button id="animalSelectClose" type="button" title="关闭选择窗口">✕</button></div>
+  <div class="animalSelectMain">
+   <div id="animalHeroGrid" class="animalHeroGrid" aria-label="九个可选动物英雄"></div>
+   <div class="animalSelectDetails"><div class="animalPreviewFrame"><canvas id="animalPreview" width="300" height="220" aria-label="当前角色三维预览"></canvas></div>
+    <div class="animalHeroInfo"><strong id="animalInfoTitle"></strong><span id="animalInfoRole"></span><p id="animalInfoTrait"></p><ul id="animalInfoSkills"></ul></div>
+    <div class="animalSelectActions"><button id="animalStartBattle" type="button">⚔ 开始生存决战</button><small>击杀1个解锁技能③ · 击杀3个解锁大招 · 击杀获得升级点</small></div>
+   </div>
+  </div>
+ </div>
+</div>
+<div id="heroSkillPanel"><div class="skillPanelHead"><b>✨ 主角技能装备库 · 36种</b><button id="heroSkillClose">✕ 返回战斗</button></div><button id="v89HudSettingsToggle" type="button" aria-expanded="false">🎛️ 操作布局设置</button>
 <div id="v89HudSettings" hidden>
   <label>技能键大小 <span id="v89SkillScaleText">100%</span><input id="v89SkillScale" type="range" min="85" max="110" step="5" value="100"></label>
   <label>按钮透明度 <span id="v89HudOpacityText">100%</span><input id="v89HudOpacity" type="range" min="65" max="100" step="5" value="100"></label>
@@ -567,7 +613,7 @@ body #gameRoot.hero-match #battleFx {position:absolute}
   <div id="heroRewardOptions"></div>
  </div>
 </div>
-<div id="screenTools"><button id="landscapeToggle">↔ 横屏显示</button><button id="fullScreenBtn">⛶ 全屏</button><button id="screenHelpBtn">📱 横屏帮助</button></div><div id="screenNotice" role="dialog" aria-label="横屏帮助"><b>苹果手机横屏说明</b><div id="screenNoticeText"></div><button id="closeScreenNotice">知道了</button></div><div id="rotateTip"><div class="rotateCard"><span class="rotateIcon">📱</span><b>请将手机横过来</b><div>《玩具大比拼》使用横屏竞技场<br>旋转手机后即可开始游戏</div><small>iPhone请先关闭竖屏方向锁定；Safari网页无法强制系统旋转。</small></div></div><div id="quickBar"><button id="v83ModeToggle" type="button" aria-label="展开或收起模式菜单">☰ 模式</button><button id="heroSurvivalStart">🦸 主角生存决战</button><button id="freeWorldStart">🌍 70角色无限乱斗</button><button id="animalWorldStart">🐾 10动物无限乱斗</button><button id="fantasyWorldStart">👻 10怪物无限乱斗</button><button id="objectWorldStart">🏠 20物品无限乱斗</button><button id="unifiedStart">⚔️ 全能乱斗 · 开始</button><button id="unifiedReplay">🔁 重开</button><button id="godToggle">👁️ 上帝视角</button><button id="creatorToggle">✨ 创造角色</button><button id="quickRank">🏅 排名</button><button id="quickPause">⏸ 暂停</button><button id="quickMenu">⚙️ 功能</button><button id="immersiveToggle" aria-pressed="false">🎬 沉浸</button></div><div id="godTools" aria-label="上帝视角控制"><button data-god="up">⬆</button><button data-god="left">⬅</button><button data-god="down">⬇</button><button data-god="right">➡</button><button data-god="in">🔍＋</button><button data-god="out">🔍－</button><button data-god="home">🎯</button></div><div id="creatorPanel"><b>✨ 自由创造新角色</b><label>角色名字</label><input id="creatorName" maxlength="18" value="彩虹怪兽" placeholder="给角色起名字"><label>基础造型</label><select id="creatorBase"><option value="abstract_dragon">🐉 抽象龙</option><option value="abstract_rabbit">🐰 抽象兔</option><option value="abstract_shark">🦈 抽象鲨鱼</option><option value="abstract_pig">🐷 抽象猪</option><option value="abstract_dog">🐶 抽象狗</option><option value="abstract_lizard">🦎 抽象蜥蜴</option><option value="abstract_deer">🦌 抽象鹿</option><option value="object_phone">📱 抽象手机</option><option value="object_computer">💻 抽象电脑</option><option value="object_tv">📺 抽象电视机</option><option value="object_fridge">🧊 抽象电冰箱</option><option value="object_microwave">♨️ 抽象微波炉</option><option value="object_washer">🫧 抽象洗衣机</option><option value="object_cooker">🍚 抽象电饭煲</option><option value="object_heater">🚿 抽象热水器</option><option value="object_fan">🌀 抽象电风扇</option><option value="object_vacuum">🧹 抽象吸尘器</option><option value="object_bed">🛏️ 抽象床</option><option value="object_sofa">🛋️ 抽象沙发</option><option value="object_table">🍽️ 抽象餐桌</option><option value="object_chair">🪑 抽象椅子</option><option value="object_wardrobe">🚪 抽象衣柜</option><option value="object_desk">🖥️ 抽象书桌</option><option value="object_bookshelf">📚 抽象书柜</option><option value="object_coffee_table">☕ 抽象茶几</option><option value="object_tvstand">📺 抽象电视柜</option><option value="object_nightstand">🗄️ 抽象床头柜</option><option value="fantasy_devil">😈 抽象魔鬼</option><option value="fantasy_zombie">🧟 抽象僵尸</option><option value="fantasy_ghost">👻 抽象幽灵</option><option value="fantasy_demon">👹 抽象恶魔</option><option value="fantasy_alien">👽 抽象外星人</option><option value="fantasy_vampire">🧛 抽象吸血鬼</option><option value="fantasy_werewolf">🐺 抽象狼人</option><option value="fantasy_skeleton">💀 抽象骷髅</option><option value="fantasy_ultraman">🦸 抽象光之巨人</option><option value="fantasy_ogre">👺 抽象食人魔</option><option value="robot">🤖 机器人</option><option value="dino">🦖 恐龙</option></select><label>身体颜色</label><input id="creatorColor" type="color" value="#e967ed"><label>搞怪装饰</label><select id="creatorPart"><option value="horn">彩虹双角</option><option value="ears">超长耳朵</option><option value="wings">夸张翅膀</option><option value="crown">国王皇冠</option><option value="antenna">弹簧触角</option></select><label>身体比例（宽度）</label><input id="creatorWidth" type="range" min="65" max="170" value="100"><label>身体比例（高度）</label><input id="creatorTall" type="range" min="65" max="175" value="100"><label>额外装饰（可叠加）</label><div class="creatorChecks"><label><input id="creatorExtraHorns" type="checkbox"> 双角</label><label><input id="creatorExtraWings" type="checkbox"> 翅膀</label><label><input id="creatorExtraTail" type="checkbox"> 长尾巴</label><label><input id="creatorExtraEyes" type="checkbox"> 大眼睛</label></div><div class="actions"><button id="creatorSave">💾 保存蓝图</button><button id="creatorLoad">📂 读取蓝图</button><button id="creatorRandom">🎲 随机捏怪</button></div><label>已保存角色</label><select id="creatorPresets"><option value="">请选择蓝图</option></select><label>角色大小</label><input id="creatorSize" type="range" min="70" max="145" value="100"><div class="actions"><button id="creatorSpawn">➕ 投放地图</button><button id="creatorDrive">🎮 创造并驾驶</button><button id="creatorClose">关闭</button></div><div class="note">上帝视角可俯瞰自由乱斗。新角色使用现有3D动物造型组合，可持续加入战斗，最多65个同时存活。角色仅保存在当前游戏中。</div></div><div id="loader"><span>🧸 玩具大比拼 · 加载3D竞技场…</span></div><div id="top"><div class="pill"><b>🧸 玩具大比拼 V8.9</b><br><small id="modeLabel">自由沙盒 · 精细玩具</small><br><span id="count">场上 0 个玩具</span></div><div style="display:flex;gap:6px"><button id="theme">🌈 糖果擂台</button><button id="quality">🎨 高清</button><button id="autoPerf" aria-pressed="true">⚡ 智能帧率：开</button><button id="camera">📷 视角</button><button id="focus">🎯 聚焦</button><button id="showroom">✨ 展示</button><button id="toyFinish" class="active">💎 玩具质感：开</button><button id="chassis" class="active">🚗 动态底盘：开</button><button id="garage">🔍 玩具展示</button><button id="snapshot">📸 拍照</button><button id="saveScene">💾 保存场景</button><button id="loadScene">📂 读取场景</button><button id="collapse">收起面板</button></div></div><div id="matchHUD">🏁 <strong id="matchState">自由试玩</strong><br>⏱ <span id="matchTime">00:00</span> · 淘汰 <span id="koCount">0</span> · 剩余 <span id="survivors">4</span><br><span id="challengeInfo">点击「全能乱斗」一键体验所有玩法</span></div><div id="combatInfo"><div id="combatName">🎮 玩家</div><div class="healthTrack"><i id="combatHealthFill"></i></div><div class="miniStats"><span id="combatHp">生命 100/100</span><span id="combatScore">积分 0</span></div><div id="combatAbility">技能就绪</div></div><div id="miniMapBox"><canvas id="miniMap" width="224" height="224"></canvas></div><div id="rankingPanel" style="display:none;position:fixed;right:12px;top:calc(env(safe-area-inset-top,12px) + 93px);width:180px;max-height:42vh;overflow:auto;background:#14243be8;color:#fff;padding:10px;border-radius:14px;font-size:12px;z-index:7;line-height:1.75;pointer-events:none"></div><div id="driveBanner">🎮 你正在驾驶 <b id="driveToy">玩具</b><br><span id="driveStats">速度 0</span> · <span id="driveHealth">存活</span><br><button id="exitDrive" style="padding:5px 9px;margin-top:5px">退出驾驶</button></div><div id="driveSettings"><button id="camDrive">📷 追尾镜头</button><button id="camHigh">🛰️ 俯视镜头</button><button id="driveFeel">🎮 操控：标准</button></div><div id="driveControls"><div class="steer"><button data-drive="left">◀ 左转</button><button data-drive="right">右转 ▶</button></div><div class="throttle"><button data-drive="forward">⬆ 加速</button><button data-drive="boost">💥 冲撞</button><button data-drive="back">⬇ 倒车</button><button data-drive="brake">⛔ 刹车</button><button data-drive="skill" id="skillButton">✨ 专属技能</button><button id="gagButton" type="button">🤪 搞怪</button><button id="photoButton" type="button">📸 拍照</button></div></div><div id="battleFx"></div><div id="photoFlash"></div><div id="victoryScreen"><div id="victoryCard"><div id="victoryTitle">🏆 冠军诞生！</div><div id="victorySub">比赛结束</div><button id="heroReplay" type="button" hidden>再来一局</button> <button id="victoryClose">继续玩</button></div></div><div id="panel" class="collapsed"><div id="details"><div class="line"><button id="freeWorldPanel">🌍 70角色无限乱斗</button><button id="animalWorldPanel">🐾 10动物无限乱斗</button><button id="fantasyWorldPanel">👻 10怪物无限乱斗</button><button id="objectWorldPanel">🏠 20物品无限乱斗</button><button id="unifiedPanelStart">⚔️ 全能乱斗（综合模式）</button></div><div class="line"><button id="sandbox" class="active">自由沙盒</button><button id="battle">圆圈淘汰</button><button id="reset">重置场地</button></div><div class="line"><button id="auto">⚡ 自动混战：关闭</button><button id="fill">🎲 加入12个玩具</button><button id="clear">🧹 清空</button></div><div class="line"><button id="tournament">🏆 一键开始淘汰赛</button><button id="replay">🔁 再来一局</button></div><div class="line"><button id="survival">🔥 缩圈生存赛</button><button id="scoreBattle">💥 60秒撞击积分赛</button></div><div class="line"><button id="kingBattle">👑 中心争夺赛 · 75秒</button><button id="rulesBtn">📖 玩法说明</button></div><div class="line"><button id="itemBattle">🎁 道具争夺赛 · 90秒</button><button id="itemRules">⚡ 道具说明</button></div><div class="line"><button id="healthBattle">❤️ 生命值乱斗 · 90秒</button><button id="rankToggle">🏅 排行榜</button></div><div class="line"><button id="playerBattle">🎮 我来驾驶 · 1对11</button><button id="driveSelected">🚗 驾驶选中玩具</button></div><div class="line"><button id="importGLB">📦 导入3D玩具(GLB)</button><button id="restoreToy">↩ 恢复原模型</button><button id="armPose">🚜 操作机械臂</button></div><input id="glbFile" type="file" accept=".glb,model/gltf-binary" hidden><div class="line"><button id="undo">↩️ 撤销放置</button><button id="pause">⏸ 暂停</button><button id="orbit">🎥 环绕镜头</button></div><div class="line"><button id="sound">🔊 音效：开启</button><button id="slow">⏱ 慢动作：关闭</button><button id="effects">✨ 特效：开启</button></div><div id="library"></div><div id="colors"></div><div class="line" id="tools"><button data-tool="grab" class="active">✋ 抓取</button><button data-tool="push">👉 推动</button><button data-tool="launch">🚀 弹射</button><button data-tool="rotate">🔄 旋转</button></div><div id="powerline"><span>弹射力度</span><input id="power" type="range" min="20" max="100" value="65"><span id="pv">65%</span></div><div id="status"></div><div id="selectionInfo" style="font-size:12px;color:#ffdd82;margin:4px 0">点选玩具查看名称与速度</div><div id="modelProgress" style="font-size:11px;color:#9de7cf;margin:4px 0">程序模型已就绪</div><div id="powerline"><span>混战速度</span><input id="speed" type="range" min="1" max="5" value="3"><span id="sv">3档</span></div><div id="hint">V7.7新增10种抽象电器和10种抽象家具、60角色混战与20物品专场；V7.4新增多部件怪兽编辑、角色蓝图保存、上帝镜头移动缩放；V7.3新增上帝视角和自定义角色创造；V7.2新增动物专场无限乱斗：10只抽象动物同时登场、AI持续复活、保留60角色混战入口；V7.1新增动物动态表情、张嘴、吐舌和搞怪摇头；V7.0新增10种抽象动物专属技能；V6.8新增10种抽象动物玩具，70种角色全部上场；V6.7新增跳跃平台、加速平台、四种地貌主题与地图事件；V6.6新增可碰撞建筑、路障、坡道和AI避障；V6.5新增智能帧率：自动在清晰、均衡、流畅三档间调整渲染分辨率和阴影，40个玩具同时上场时优先保持操作流畅；V6.0重新修复模拟横屏的画布尺寸与布局，默认收起排行榜；V5.6修复iPhone竖屏遮挡：竖屏可直接游玩，横屏自动适配；V5.5新增横屏驾驶追尾/俯视镜头切换、三档操控灵敏度和触屏按钮布局优化；V5.1新增伤害数字、头顶血条、技能闪光与冠军庆祝；V4.9新增玩具属性差异；原有中心争夺赛；V4.5保留缩圈生存赛和60秒撞击积分赛；原有玩具材质质感切换、轮胎纹理与展示灯光优化；保留场景存档与读取；原有动态底盘、转向车轮、碰撞悬挂回弹和挖掘机机械臂操作；保留V3.6碰撞稳定性改进。双指缩放镜头；点选玩具后点“聚焦”近距离查看；点击场地放置玩具；开启自动混战后玩具会主动追逐碰撞。V3.6内置5款独立GLB模型，首次加载需要网络；同时支持本地GLB模型导入：先放入玩具，再导入GLB替换最近一个玩具的外观。模型只在当前浏览器会话使用，不会上传服务器。原有圆形碰撞地面与物理稳定性：玩具可以真实侧翻、倒扣、互相碰撞；支持抓取、推动和弹射。修复出圈后无法坠落、重置后残留隐形碰撞体等问题。</div></div></div></div><script id="toyLibraries">
+<div id="screenTools"><button id="landscapeToggle">↔ 横屏显示</button><button id="fullScreenBtn">⛶ 全屏</button><button id="screenHelpBtn">📱 横屏帮助</button></div><div id="screenNotice" role="dialog" aria-label="横屏帮助"><b>苹果手机横屏说明</b><div id="screenNoticeText"></div><button id="closeScreenNotice">知道了</button></div><div id="rotateTip"><div class="rotateCard"><span class="rotateIcon">📱</span><b>请将手机横过来</b><div>《玩具大比拼》使用横屏竞技场<br>旋转手机后即可开始游戏</div><small>iPhone请先关闭竖屏方向锁定；Safari网页无法强制系统旋转。</small></div></div><div id="quickBar"><button id="v83ModeToggle" type="button" aria-label="展开或收起模式菜单">☰ 模式</button><button id="heroSurvivalStart">🦸 主角生存决战</button><button id="freeWorldStart">🌍 70角色无限乱斗</button><button id="animalWorldStart">🐾 10动物无限乱斗</button><button id="fantasyWorldStart">👻 10怪物无限乱斗</button><button id="objectWorldStart">🏠 20物品无限乱斗</button><button id="unifiedStart">⚔️ 全能乱斗 · 开始</button><button id="unifiedReplay">🔁 重开</button><button id="godToggle">👁️ 上帝视角</button><button id="creatorToggle">✨ 创造角色</button><button id="quickRank">🏅 排名</button><button id="quickPause">⏸ 暂停</button><button id="quickMenu">⚙️ 功能</button><button id="immersiveToggle" aria-pressed="false">🎬 沉浸</button></div><div id="godTools" aria-label="上帝视角控制"><button data-god="up">⬆</button><button data-god="left">⬅</button><button data-god="down">⬇</button><button data-god="right">➡</button><button data-god="in">🔍＋</button><button data-god="out">🔍－</button><button data-god="home">🎯</button></div><div id="creatorPanel"><b>✨ 自由创造新角色</b><label>角色名字</label><input id="creatorName" maxlength="18" value="彩虹怪兽" placeholder="给角色起名字"><label>基础造型</label><select id="creatorBase"><option value="abstract_dragon">🐉 抽象龙</option><option value="abstract_rabbit">🐰 抽象兔</option><option value="abstract_shark">🦈 抽象鲨鱼</option><option value="abstract_pig">🐷 抽象猪</option><option value="abstract_dog">🐶 抽象狗</option><option value="abstract_lizard">🦎 抽象蜥蜴</option><option value="abstract_deer">🦌 抽象鹿</option><option value="object_phone">📱 抽象手机</option><option value="object_computer">💻 抽象电脑</option><option value="object_tv">📺 抽象电视机</option><option value="object_fridge">🧊 抽象电冰箱</option><option value="object_microwave">♨️ 抽象微波炉</option><option value="object_washer">🫧 抽象洗衣机</option><option value="object_cooker">🍚 抽象电饭煲</option><option value="object_heater">🚿 抽象热水器</option><option value="object_fan">🌀 抽象电风扇</option><option value="object_vacuum">🧹 抽象吸尘器</option><option value="object_bed">🛏️ 抽象床</option><option value="object_sofa">🛋️ 抽象沙发</option><option value="object_table">🍽️ 抽象餐桌</option><option value="object_chair">🪑 抽象椅子</option><option value="object_wardrobe">🚪 抽象衣柜</option><option value="object_desk">🖥️ 抽象书桌</option><option value="object_bookshelf">📚 抽象书柜</option><option value="object_coffee_table">☕ 抽象茶几</option><option value="object_tvstand">📺 抽象电视柜</option><option value="object_nightstand">🗄️ 抽象床头柜</option><option value="fantasy_devil">😈 抽象魔鬼</option><option value="fantasy_zombie">🧟 抽象僵尸</option><option value="fantasy_ghost">👻 抽象幽灵</option><option value="fantasy_demon">👹 抽象恶魔</option><option value="fantasy_alien">👽 抽象外星人</option><option value="fantasy_vampire">🧛 抽象吸血鬼</option><option value="fantasy_werewolf">🐺 抽象狼人</option><option value="fantasy_skeleton">💀 抽象骷髅</option><option value="fantasy_ultraman">🦸 抽象光之巨人</option><option value="fantasy_ogre">👺 抽象食人魔</option><option value="robot">🤖 机器人</option><option value="dino">🦖 恐龙</option></select><label>身体颜色</label><input id="creatorColor" type="color" value="#e967ed"><label>搞怪装饰</label><select id="creatorPart"><option value="horn">彩虹双角</option><option value="ears">超长耳朵</option><option value="wings">夸张翅膀</option><option value="crown">国王皇冠</option><option value="antenna">弹簧触角</option></select><label>身体比例（宽度）</label><input id="creatorWidth" type="range" min="65" max="170" value="100"><label>身体比例（高度）</label><input id="creatorTall" type="range" min="65" max="175" value="100"><label>额外装饰（可叠加）</label><div class="creatorChecks"><label><input id="creatorExtraHorns" type="checkbox"> 双角</label><label><input id="creatorExtraWings" type="checkbox"> 翅膀</label><label><input id="creatorExtraTail" type="checkbox"> 长尾巴</label><label><input id="creatorExtraEyes" type="checkbox"> 大眼睛</label></div><div class="actions"><button id="creatorSave">💾 保存蓝图</button><button id="creatorLoad">📂 读取蓝图</button><button id="creatorRandom">🎲 随机捏怪</button></div><label>已保存角色</label><select id="creatorPresets"><option value="">请选择蓝图</option></select><label>角色大小</label><input id="creatorSize" type="range" min="70" max="145" value="100"><div class="actions"><button id="creatorSpawn">➕ 投放地图</button><button id="creatorDrive">🎮 创造并驾驶</button><button id="creatorClose">关闭</button></div><div class="note">上帝视角可俯瞰自由乱斗。新角色使用现有3D动物造型组合，可持续加入战斗，最多65个同时存活。角色仅保存在当前游戏中。</div></div><div id="loader"><span>🧸 玩具大比拼 · 加载3D竞技场…</span></div><div id="top"><div class="pill"><b>🧸 玩具大比拼 V9.1</b><br><small id="modeLabel">自由沙盒 · 精细玩具</small><br><span id="count">场上 0 个玩具</span></div><div style="display:flex;gap:6px"><button id="theme">🌈 糖果擂台</button><button id="quality">🎨 高清</button><button id="autoPerf" aria-pressed="true">⚡ 智能帧率：开</button><button id="camera">📷 视角</button><button id="focus">🎯 聚焦</button><button id="showroom">✨ 展示</button><button id="toyFinish" class="active">💎 玩具质感：开</button><button id="chassis" class="active">🚗 动态底盘：开</button><button id="garage">🔍 玩具展示</button><button id="snapshot">📸 拍照</button><button id="saveScene">💾 保存场景</button><button id="loadScene">📂 读取场景</button><button id="collapse">收起面板</button></div></div><div id="matchHUD">🏁 <strong id="matchState">自由试玩</strong><br>⏱ <span id="matchTime">00:00</span> · 淘汰 <span id="koCount">0</span> · 剩余 <span id="survivors">4</span><br><span id="challengeInfo">点击「全能乱斗」一键体验所有玩法</span></div><div id="combatInfo"><div id="combatName">🎮 玩家</div><div class="healthTrack"><i id="combatHealthFill"></i></div><div class="miniStats"><span id="combatHp">生命 100/100</span><span id="combatScore">积分 0</span></div><div id="combatAbility">技能就绪</div></div><div id="miniMapBox"><canvas id="miniMap" width="224" height="224"></canvas></div><div id="rankingPanel" style="display:none;position:fixed;right:12px;top:calc(env(safe-area-inset-top,12px) + 93px);width:180px;max-height:42vh;overflow:auto;background:#14243be8;color:#fff;padding:10px;border-radius:14px;font-size:12px;z-index:7;line-height:1.75;pointer-events:none"></div><div id="driveBanner">🎮 你正在驾驶 <b id="driveToy">玩具</b><br><span id="driveStats">速度 0</span> · <span id="driveHealth">存活</span><br><button id="exitDrive" style="padding:5px 9px;margin-top:5px">退出驾驶</button></div><div id="driveSettings"><button id="camDrive">📷 追尾镜头</button><button id="camHigh">🛰️ 俯视镜头</button><button id="driveFeel">🎮 操控：标准</button></div><div id="driveControls"><div class="steer"><button data-drive="left">◀ 左转</button><button data-drive="right">右转 ▶</button></div><div class="throttle"><button data-drive="forward">⬆ 加速</button><button data-drive="boost">💥 冲撞</button><button data-drive="back">⬇ 倒车</button><button data-drive="brake">⛔ 刹车</button><button data-drive="skill" id="skillButton">✨ 专属技能</button><button id="gagButton" type="button">🤪 搞怪</button><button id="photoButton" type="button">📸 拍照</button></div></div><div id="battleFx"></div><div id="photoFlash"></div><div id="victoryScreen"><div id="victoryCard"><div id="victoryTitle">🏆 冠军诞生！</div><div id="victorySub">比赛结束</div><button id="heroReplay" type="button" hidden>再来一局</button> <button id="animalChooseAgain" type="button" hidden>更换英雄</button> <button id="victoryClose">继续玩</button></div></div><div id="panel" class="collapsed"><div id="details"><div class="line"><button id="freeWorldPanel">🌍 70角色无限乱斗</button><button id="animalWorldPanel">🐾 10动物无限乱斗</button><button id="fantasyWorldPanel">👻 10怪物无限乱斗</button><button id="objectWorldPanel">🏠 20物品无限乱斗</button><button id="unifiedPanelStart">⚔️ 全能乱斗（综合模式）</button></div><div class="line"><button id="sandbox" class="active">自由沙盒</button><button id="battle">圆圈淘汰</button><button id="reset">重置场地</button></div><div class="line"><button id="auto">⚡ 自动混战：关闭</button><button id="fill">🎲 加入12个玩具</button><button id="clear">🧹 清空</button></div><div class="line"><button id="tournament">🏆 一键开始淘汰赛</button><button id="replay">🔁 再来一局</button></div><div class="line"><button id="survival">🔥 缩圈生存赛</button><button id="scoreBattle">💥 60秒撞击积分赛</button></div><div class="line"><button id="kingBattle">👑 中心争夺赛 · 75秒</button><button id="rulesBtn">📖 玩法说明</button></div><div class="line"><button id="itemBattle">🎁 道具争夺赛 · 90秒</button><button id="itemRules">⚡ 道具说明</button></div><div class="line"><button id="healthBattle">❤️ 生命值乱斗 · 90秒</button><button id="rankToggle">🏅 排行榜</button></div><div class="line"><button id="playerBattle">🎮 我来驾驶 · 1对11</button><button id="driveSelected">🚗 驾驶选中玩具</button></div><div class="line"><button id="importGLB">📦 导入3D玩具(GLB)</button><button id="restoreToy">↩ 恢复原模型</button><button id="armPose">🚜 操作机械臂</button></div><input id="glbFile" type="file" accept=".glb,model/gltf-binary" hidden><div class="line"><button id="undo">↩️ 撤销放置</button><button id="pause">⏸ 暂停</button><button id="orbit">🎥 环绕镜头</button></div><div class="line"><button id="sound">🔊 音效：开启</button><button id="slow">⏱ 慢动作：关闭</button><button id="effects">✨ 特效：开启</button></div><div id="library"></div><div id="colors"></div><div class="line" id="tools"><button data-tool="grab" class="active">✋ 抓取</button><button data-tool="push">👉 推动</button><button data-tool="launch">🚀 弹射</button><button data-tool="rotate">🔄 旋转</button></div><div id="powerline"><span>弹射力度</span><input id="power" type="range" min="20" max="100" value="65"><span id="pv">65%</span></div><div id="status"></div><div id="selectionInfo" style="font-size:12px;color:#ffdd82;margin:4px 0">点选玩具查看名称与速度</div><div id="modelProgress" style="font-size:11px;color:#9de7cf;margin:4px 0">程序模型已就绪</div><div id="powerline"><span>混战速度</span><input id="speed" type="range" min="1" max="5" value="3"><span id="sv">3档</span></div><div id="hint">V7.7新增10种抽象电器和10种抽象家具、60角色混战与20物品专场；V7.4新增多部件怪兽编辑、角色蓝图保存、上帝镜头移动缩放；V7.3新增上帝视角和自定义角色创造；V7.2新增动物专场无限乱斗：10只抽象动物同时登场、AI持续复活、保留60角色混战入口；V7.1新增动物动态表情、张嘴、吐舌和搞怪摇头；V7.0新增10种抽象动物专属技能；V6.8新增10种抽象动物玩具，70种角色全部上场；V6.7新增跳跃平台、加速平台、四种地貌主题与地图事件；V6.6新增可碰撞建筑、路障、坡道和AI避障；V6.5新增智能帧率：自动在清晰、均衡、流畅三档间调整渲染分辨率和阴影，40个玩具同时上场时优先保持操作流畅；V6.0重新修复模拟横屏的画布尺寸与布局，默认收起排行榜；V5.6修复iPhone竖屏遮挡：竖屏可直接游玩，横屏自动适配；V5.5新增横屏驾驶追尾/俯视镜头切换、三档操控灵敏度和触屏按钮布局优化；V5.1新增伤害数字、头顶血条、技能闪光与冠军庆祝；V4.9新增玩具属性差异；原有中心争夺赛；V4.5保留缩圈生存赛和60秒撞击积分赛；原有玩具材质质感切换、轮胎纹理与展示灯光优化；保留场景存档与读取；原有动态底盘、转向车轮、碰撞悬挂回弹和挖掘机机械臂操作；保留V3.6碰撞稳定性改进。双指缩放镜头；点选玩具后点“聚焦”近距离查看；点击场地放置玩具；开启自动混战后玩具会主动追逐碰撞。V3.6内置5款独立GLB模型，首次加载需要网络；同时支持本地GLB模型导入：先放入玩具，再导入GLB替换最近一个玩具的外观。模型只在当前浏览器会话使用，不会上传服务器。原有圆形碰撞地面与物理稳定性：玩具可以真实侧翻、倒扣、互相碰撞；支持抓取、推动和弹射。修复出圈后无法坠落、重置后残留隐形碰撞体等问题。</div></div></div></div><script id="toyLibraries">
 // three 0.170.0
 // The MIT License
 // 
@@ -5342,7 +5388,7 @@ $('snapshot').onclick=async()=>{
   if(!blob)throw new Error('截图失败');
   const file=new File([blob],'toy-battle-v41.png',{type:'image/png'});
   if(navigator.canShare?.({files:[file]})&&navigator.share){
-   await navigator.share({files:[file],title:'玩具大比拼 V8.9'});
+   await navigator.share({files:[file],title:'玩具大比拼 V9.1'});
   }else{
    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
   }
@@ -6044,13 +6090,13 @@ function buildHeroRig(){
 }
 
 function spawnHero(){
- const model=buildHeroRig(),g=new THREE.Group(),mass=2.4;
+ const model=buildAnimalRig(activeAnimal),g=new THREE.Group(),mass=2.4;
  const body=new CANNON.Body({mass,material:heroActorMaterial,fixedRotation:true,allowSleep:false,linearDamping:.07,angularDamping:1,
   shape:new CANNON.Cylinder(HERO_BODY_RADIUS,HERO_BODY_RADIUS,HERO_BODY_HEIGHT,10),
   position:new CANNON.Vec3(0,HERO_GROUND+HERO_BODY_HEIGHT/2+.015,3.5)
  });
  body.angularFactor.setZero();
- const a={g,visual:model.rig,heroRig:model,body,type:'hero',isHero:true,customName:'生存者',radius:HERO_BODY_RADIUS,
+ const a={g,visual:model.rig,heroRig:model,body,type:'hero',isHero:true,customName:activeAnimal.name,radius:HERO_BODY_RADIUS,
   mass,stats:{hp:130,speed:1,attack:1,weight:1},hp:130,skillCooldown:0,skillImpact:1,
   skillPower:0,dead:false,falling:false,heroSwing:0,heroFireFlash:0,walkCycle:0,lookAngle:0};
  g.add(model.rig);g.position.copy(body.position);model.rig.position.y=-HERO_BODY_HEIGHT/2;
@@ -6103,7 +6149,7 @@ function moveHeroBody(a,dt){
  const dash=heroDashTime>0;
  const base=heroScale===.5?8.65:heroScale===3?5.25:7.35;
  const run=heroKeyboard.has('ShiftLeft')||heroKeyboard.has('ShiftRight');
- const speed=dash?heroDashSpeed:base*(run?1.22:1);
+ const speed=dash?heroDashSpeed:base*(run?1.22:1)*(a.animalHero?.speed||1)*(animalRageTime>0?1.24:1)*(animalFlightTime>0?1.13:1);
  const dx=dash?Math.sin(heroDashAngle):mx,dz=dash?-Math.cos(heroDashAngle):mz;
  const v=a.body.velocity;
  const dvx=dx*speed-v.x,dvz=dz*speed-v.z;
@@ -6120,7 +6166,9 @@ function moveHeroBody(a,dt){
 function heroDamagePlayer(damage,source){
  const a=playerToy;
  if(!heroCanAct()||heroHitGrace>0)return;
- const actual=a.powerUp==='shield'?Math.round(damage*.33):damage;
+ const incoming=damage*(a.animalHero?.id==='beetle'?.8:1)*(a.animalHero?.id==='gorilla'&&animalPassiveTime>0?.85:1);
+ const actual=a.powerUp==='shield'?Math.round(incoming*Math.min(.33,animalShieldRatio)):Math.round(incoming);
+ if(a.animalHero?.id==='gorilla')animalPassiveTime=4;
  a.hp=Math.max(0,a.hp-actual);heroHitGrace=.24;
  floatDamage(a,actual);
  const dx=a.body.position.x-source.x,dz=a.body.position.z-source.z,d=Math.max(.25,Math.hypot(dx,dz));
@@ -6129,7 +6177,7 @@ function heroDamagePlayer(damage,source){
 }
 
 function updateHeroEnemies(dt){
- const hero=playerToy,p=hero.body.position;
+ const hero=playerToy,p=animalDecoy&&animalGhostTime>0?animalDecoy.position:hero.body.position;
  const enemies=items.filter(a=>a.heroEnemy&&!a.dead&&!a.falling);
  heroEnemyTime-=dt;
  if(heroEnemyTime<=0){
@@ -6156,17 +6204,17 @@ function updateHeroEnemies(dt){
   if(a.heroHitStun>0)continue;
   const toX=p.x-b.position.x,toZ=p.z-b.position.z,distance=Math.hypot(toX,toZ);
   const reach=.95+HERO_BODY_RADIUS*heroScale+Math.min(.42,a.radius*.35);
-  const close=a.heroChasing&&distance<reach&&heroCoverHit(b.position.x,b.position.z,toX,toZ)===1;
+  const close=a.heroChasing&&animalStealthTime<=0&&distance<reach&&heroCoverHit(b.position.x,b.position.z,toX,toZ)===1;
   if(close&&a.heroAttackTimer===0){
    a.heroAttackTimer=1.02+(a.heroPhase%1)*.55;
-   heroDamagePlayer(Math.round(8+a.stats.attack*4),b.position);
+   heroDamagePlayer(Math.round((8+a.stats.attack*4)*(a.animalWeaken>0?.60:1)),b.position);
   }
   const goal=close?null:a.heroGoal;
   let vx=0,vz=0;
   if(goal){
    const dx=goal[0]-b.position.x,dz=goal[1]-b.position.z,d=Math.hypot(dx,dz);
    if(d>.34){
-    const pace=(a.heroChasing?3.35:1.42)*Math.min(1.4,Math.max(.8,a.stats.speed));
+    const pace=(a.heroChasing?3.35:1.42)*Math.min(1.4,Math.max(.8,a.stats.speed))*(a.animalSlow>0?.53:1);
     vx=dx/d*pace;vz=dz/d*pace;a.lookAngle=Math.atan2(dx,-dz);
    }
   }else if(close){a.lookAngle=Math.atan2(toX,-toZ)}
@@ -6183,19 +6231,22 @@ function updateHeroModels(dt){
  const angleDelta=Math.atan2(Math.sin(heroFacing-a.lookAngle),Math.cos(heroFacing-a.lookAngle));
  a.lookAngle+=angleDelta*Math.min(1,dt*19);
  a.g.rotation.y=-a.lookAngle;
- const stride=Math.min(1,Math.hypot(b.velocity.x,b.velocity.z)/6.2);
+ const stride=Math.min(1.4,Math.hypot(b.velocity.x,b.velocity.z)/6.2);
  a.walkCycle+=dt*(7+stride*9);
- for(let i=0;i<2;i++){
-  const swing=Math.sin(a.walkCycle+i*Math.PI)*stride;
-  rig.legs[i].rotation.x=swing*.72;
-  rig.arms[i].rotation.x=-.55-swing*.16;
+ if(a.animalHero){
+  animateAnimalRig(a,dt,stride);
+ }else{
+  for(let i=0;i<2;i++){
+   const swing=Math.sin(a.walkCycle+i*Math.PI)*stride;
+   rig.legs[i].rotation.x=swing*.72;rig.arms[i].rotation.x=-.55-swing*.16;
+  }
+  rig.rig.position.y=-HERO_BODY_HEIGHT*heroScale/2+Math.abs(Math.sin(a.walkCycle))*stride*.034;
+  a.heroSwing=Math.max(0,a.heroSwing-dt);a.heroFireFlash=Math.max(0,a.heroFireFlash-dt);
+  rig.blade.rotation.y=-.42+Math.sin(Math.PI*a.heroSwing/.30)*2.65;
+  rig.blade.rotation.x=-.22;rig.carbine.rotation.x=heroReloadTime>0?-.28:0;
+  rig.carbine.position.z=-.34+(a.heroFireFlash/.07)*.105;rig.flash.visible=a.heroFireFlash>.028;
+  rig.shield.visible=a.powerUp==='shield';
  }
- rig.rig.position.y=-HERO_BODY_HEIGHT*heroScale/2+Math.abs(Math.sin(a.walkCycle))*stride*.034;
- a.heroSwing=Math.max(0,a.heroSwing-dt);a.heroFireFlash=Math.max(0,a.heroFireFlash-dt);
- rig.blade.rotation.y=-.42+Math.sin(Math.PI*a.heroSwing/.30)*2.65;
- rig.blade.rotation.x=-.22;rig.carbine.rotation.x=heroReloadTime>0?-.28:0;
- rig.carbine.position.z=-.34+(a.heroFireFlash/.07)*.105;rig.flash.visible=a.heroFireFlash>.028;
- rig.shield.visible=a.powerUp==='shield';
  for(let i=items.length-1;i>=0;i--){
   const enemy=items[i];
   if(!enemy.heroEnemy||enemy.dead)continue;
@@ -6298,6 +6349,7 @@ function startHeroReload(){
 }
 
 function swapHeroWeapon(){
+ if(playerToy?.animalHero)return;
  if(!heroCanAct())return;
  heroWeaponId=heroWeaponId==='carbine'?'blade':'carbine';
  heroReloadTime=0;heroAttackCooldown=Math.max(heroAttackCooldown,.18);
@@ -6350,6 +6402,7 @@ function updateHeroShots(dt){
 }
 
 function heroAttack(manualAngle=null){
+ if(playerToy?.animalHero)return animalAttack(manualAngle);
  if(!heroCanAct()||heroAttackCooldown>0||heroReloadTime>0)return;
  const a=playerToy,p=a.body.position,weapon=HERO_WEAPONS[heroWeaponId];
  const gun=heroWeaponId==='carbine';
@@ -6410,6 +6463,7 @@ function advanceHeroMatch(dt){
   moveHeroBody(a,step);
   updateHeroEnemies(step);
   physics.step(step);
+  if(a.animalHero)tickAnimalState(step);
   updateHeroModels(step);
   if(a.hp<=0||a.body.position.y<-4)endHeroSurvival(false);
   else if(heroAliveCount===0)endHeroSurvival(true);
@@ -6439,34 +6493,32 @@ function startHeroSurvival(){
  heroRouteGoal=-1;heroCameraReady=false;shake=0;
  for(const k in heroSkillLevels)delete heroSkillLevels[k];
  for(const k in heroCooldowns)delete heroCooldowns[k];
- heroUnlocked.clear();heroUnlocked.add('dash');heroUnlocked.add('shield');
- heroLoadout=['dash','shield'];heroSkills.splice(0,heroSkills.length,...heroLoadout);
- heroSkillLevels.dash=heroSkillLevels.shield=1;
+ heroUnlocked.clear();heroLoadout=[];heroSkills.length=0;
  clearHeroInput();setGamePaused(false);
  if(godView)toggleGodView();
  $('godTools').classList.remove('active');$('creatorPanel').classList.remove('open');
  $('creatorToggle').classList.remove('on');
- const hero=spawnHero();beginDrive(hero);spawnHeroOpponents();heroAliveCount=items.length-1;
+ const hero=spawnHero();beginDrive(hero);prepareAnimalHero();spawnHeroOpponents();heroAliveCount=items.length-1;
  $('gameRoot').classList.add('hero-match');$('gameRoot').classList.remove('menu-open');
  $('gameRoot').focus({preventScroll:true});
  $('heroHud').classList.add('on');$('heroControls').classList.add('on');$('heroTopTools').hidden=false;
  $('miniMapBox').classList.add('on');$('miniMapBox').classList.remove('map-large');
  $('heroReward').classList.remove('on');
  $('modeLabel').textContent=$('matchState').textContent='主角生存决战';
- $('challengeInfo').textContent='临港街区 · '+heroAliveCount+' 名敌人';
- $('status').textContent='击败敌人，活到最后';
+ $('challengeInfo').textContent=activeAnimal.name+' · 临港街区 · '+heroAliveCount+' 名敌人';
+ $('status').textContent='击杀1个解锁3技能，击杀3个解锁终极大招';
  setHeroMenu(false);updateCount();refreshHeroHUD();drawHeroMinimap();updateHeroCamera(0);
 }
 
 function stopHeroUI(){
  if(!heroSurvival)return;
  heroSurvival=false;heroRewardOpen=false;heroSkillPanelOpen=false;heroPendingRewards=0;
- clearHeroInput();updateHeroShots(1);setHeroDistrict(false);
+ resetAnimalEffects();closeAnimalSelect();clearHeroInput();updateHeroShots(1);setHeroDistrict(false);
  $('gameRoot').classList.remove('hero-match');
  $('heroHud').classList.remove('on');$('heroControls').classList.remove('on');
  $('heroReward').classList.remove('on');$('heroSkillPanel').classList.remove('open');$('heroTopTools').hidden=true;
  $('miniMapBox').classList.remove('on','map-large');
- $('heroReplay').hidden=true;$('victoryClose').textContent='继续玩';
+ $('heroReplay').hidden=true;$('animalChooseAgain').hidden=true;$('victoryClose').textContent='继续玩';
  setGamePaused(false);
 }
 
@@ -6477,7 +6529,7 @@ function endHeroSurvival(won){
  $('heroReward').classList.remove('on');$('heroControls').classList.remove('on');$('heroTopTools').hidden=true;
  $('victoryTitle').textContent=won?'最终胜利':'生存失败';
  $('victorySub').textContent='击杀 '+heroKills+' · '+(won?'你是最后的幸存者':'存活 '+Math.floor(matchSeconds)+' 秒');
- $('heroReplay').hidden=false;$('victoryClose').textContent='选择模式';
+ $('heroReplay').hidden=false;$('animalChooseAgain').hidden=false;$('victoryClose').textContent='选择模式';
  $('victoryScreen').classList.add('show');victoryShown=true;
 }
 
@@ -6491,7 +6543,7 @@ function refreshHeroHUD(){
  $('heroShield').hidden=a.powerUp!=='shield';
  setHeroText('heroWeaponName',weapon.name);
  setHeroText('heroAmmo',weapon.magazine?heroAmmo+' / '+weapon.magazine:'近战');
- setHeroText('heroAttackIcon',weapon.icon);setHeroText('heroAttackText',heroReloadTime>0?'换弹中':weapon.action);
+ setHeroText('heroAttackIcon',a.animalHero?.emoji||weapon.icon);setHeroText('heroAttackText',a.animalHero?'攻击':heroReloadTime>0?'换弹中':weapon.action);
  $('heroAttack').dataset.reload=String(heroReloadTime>0);
  const message=heroReloadTime>0?'换弹 '+heroReloadTime.toFixed(1)+' 秒':heroWeaponMessageTime>0?heroWeaponMessage:'';
  setHeroText('heroWeaponState',message);$('heroWeaponState').hidden=!message;
@@ -6503,7 +6555,7 @@ function refreshHeroHUD(){
   const level=heroSkillLevels[key]||1,cd=Math.ceil(heroCooldowns[key]||0);
   if(button.dataset.skill!==key){
    button.dataset.skill=key;
-   const [icon,name]=key?heroSkillLabel(key).split(' '):['·','空位'];
+   const [icon,name]=key?heroSkillLabel(key).split(' '):['🔒','待解锁'];
    button.replaceChildren();
    for(const [className,value] of [['heroSkillIcon',icon],['heroSkillName',key==='dash'?'冲刺':key==='shield'?'护盾':name],['heroSkillLevel',''],['cdMask','']]){
     const span=document.createElement('span');span.className=className;span.textContent=value;button.append(span);
@@ -6549,7 +6601,8 @@ function drawHeroMinimap(){
 function heroOnKill(){
  heroKills++;heroLevel=1+Math.floor(heroKills/3);
  heroUpgradePoints++;hitScores.set(playerToy,(hitScores.get(playerToy)||0)+50);
- if(HERO_THRESHOLDS.includes(heroKills)){
+ if(playerToy?.animalHero)animalOnKill();
+ if(!playerToy?.animalHero&&HERO_THRESHOLDS.includes(heroKills)){
   heroPendingRewards++;
   if(!heroRewardOpen)showHeroReward();
  }
@@ -6583,6 +6636,7 @@ function showHeroReward(){
 
 let heroPauseBeforePanel=false;
 function refreshHeroSkillPanel(){
+ if(playerToy?.animalHero)return refreshAnimalSkillPanel();
  const list=$('heroSkillList');list.replaceChildren();
  setHeroText('heroSkillNotice','已解锁 '+heroUnlocked.size+' / '+HERO_SKILLS.length+' · 已装备 '+heroLoadout.length+' / 5 · 升级点 '+heroUpgradePoints);
  for(const [key,label,category] of HERO_SKILLS){
@@ -6610,6 +6664,7 @@ function toggleHeroSkillPanel(open){
 }
 
 function heroCast(key,angle=heroFacing){
+ if(animalSkillData.has(key))return castAnimalSkill(key,angle);
  if(!heroCanAct()||!heroSkills.includes(key)||(heroCooldowns[key]||0)>0)return;
  const a=playerToy,p=a.body.position,level=heroSkillLevels[key]||1,boost=1+.18*(level-1);
  const category=HERO_SKILLS.find(s=>s[0]===key)?.[2],ult=category==='终极';
@@ -6789,6 +6844,474 @@ window.addEventListener('keydown',e=>{
  else if(action)heroCast(heroSkills[Number(e.code.slice(-1))-1]);
 });
 window.addEventListener('keyup',e=>heroKeyboard.delete(e.code));
+
+// V9.1: nine stylized 3D animal heroes (procedural prototype), skills and selection UI.
+// Integrated into the existing offline Three.js + cannon-es module before bootstrap.
+const ANIMAL_HEROES=[
+ {id:'mantis',name:'螳螂',title:'暗影收割者',emoji:'🦗',role:'刺客',color:0x74d66b,hp:115,speed:1.20,attack:1.22,damage:24,interval:.38,range:2.65,trait:'猎杀本能：残血目标受到额外伤害',skills:[
+  ['mantis_slash','⚔️ 镰刀斩',5,'连续三次镰刀斩击'],['mantis_dash','💨 幻影突袭',8,'冲锋并斩伤前方敌人'],['mantis_stealth','🌫️ 隐身猎杀',16,'隐身3秒，下一次普攻暴击'],['mantis_ult','✖️ 死亡十字斩',25,'范围多段十字收割']]},
+ {id:'butterfly',name:'蝴蝶',title:'幻彩精灵',emoji:'🦋',role:'法师',color:0x9b86ef,hp:105,speed:1.18,attack:.96,damage:20,interval:.59,range:8.8,trait:'轻盈之翼：移动更快，具备滑翔动作',skills:[
+  ['butterfly_pollen','🌸 花粉风暴',6,'释放持续减速花粉圈'],['butterfly_blink','🪞 蝶影闪烁',10,'闪现并留下幻影'],['butterfly_heal','💗 生命蝶粉',15,'治疗自身并获得护盾'],['butterfly_ult','🦋 万蝶幻境',25,'大范围幻蝶持续攻击']]},
+ {id:'spider',name:'蜘蛛',title:'深渊猎手',emoji:'🕷️',role:'控制',color:0x8b54c7,hp:130,speed:1.12,attack:1,damage:21,interval:.55,range:8.3,trait:'剧毒獠牙：普攻附加毒液',skills:[
+  ['spider_web','🕸️ 蛛丝喷射',8,'捆住敌人1.2秒'],['spider_jump','🕷️ 蛛影跃墙',12,'跃向前方并翻越较窄障碍'],['spider_trap','☠️ 毒液蛛网',10,'布置减速与毒伤陷阱'],['spider_ult','🕸️ 蛛网领域',26,'大范围蛛网控制']]},
+ {id:'beetle',name:'甲壳虫',title:'钢铁堡垒',emoji:'🪲',role:'坦克',color:0x4dbb94,hp:200,speed:.85,attack:.96,damage:23,interval:.64,range:2.7,trait:'坚硬甲壳：常驻减伤20%',skills:[
+  ['beetle_horn','🦏 甲角冲撞',7,'用头角冲锋击退敌人'],['beetle_guard','🛡️ 钢铁护盾',13,'大幅减少所受伤害'],['beetle_shock','💥 地面震击',10,'震击附近地面减速敌人'],['beetle_ult','🛡️ 巨甲战神',26,'变大、获得护盾和范围攻击']]},
+ {id:'caterpillar',name:'毛毛虫',title:'进化吞噬者',emoji:'🐛',role:'成长',color:0xa9dc63,hp:155,speed:.92,attack:1.04,damage:19,interval:.58,range:7.2,trait:'吞噬成长：击杀回复生命',skills:[
+  ['caterpillar_acid','🧪 酸液喷射',5,'范围喷洒腐蚀酸液'],['caterpillar_roll','🌀 弹性翻滚',8,'卷起身体高速撞击'],['caterpillar_cocoon','🥚 蚕茧保护',15,'变成茧并治疗自己'],['caterpillar_ult','🦋 终极进化',28,'破茧成蝶，获得飞行能力']]},
+ {id:'bee',name:'蜜蜂',title:'雷霆毒刺',emoji:'🐝',role:'射手',color:0xffcc58,hp:110,speed:1.24,attack:1.04,damage:21,interval:.33,range:11,trait:'蜂毒：连续攻击叠加中毒',skills:[
+  ['bee_needles','📍 毒针连射',5,'向前方连续发射5枚毒针'],['bee_flight','🪽 蜂翼冲刺',9,'高速飞行躲避伤害'],['bee_honey','🍯 蜂蜜炸弹',12,'释放黏性减速区域'],['bee_ult','🐝 蜂群总攻',26,'蜂群自动持续追击敌人']]},
+ {id:'boar',name:'野猪',title:'狂暴战车',emoji:'🐗',role:'战士',color:0xb77a52,hp:170,speed:1.10,attack:1.13,damage:26,interval:.55,range:2.85,trait:'越战越勇：残血时攻速提高',skills:[
+  ['boar_charge','💨 野蛮冲撞',8,'冲撞敌人并轻度击退'],['boar_tusk','🗡️ 獠牙横扫',6,'大幅扇形近战攻击'],['boar_rage','🔥 狂怒咆哮',15,'提高攻速和移动速度'],['boar_ult','💥 毁灭践踏',26,'冲锋并爆发地面冲击波']]},
+ {id:'gorilla',name:'大猩猩',title:'远古霸主',emoji:'🦍',role:'重战士',color:0x7686a1,hp:190,speed:.93,attack:1.25,damage:33,interval:.68,range:3.1,trait:'霸主怒气：受到攻击后增强力量',skills:[
+  ['gorilla_fist','👊 巨拳重击',6,'近距离巨拳范围攻击'],['gorilla_roar','📣 战争怒吼',12,'周围敌人攻击力降低'],['gorilla_rock','🪨 巨石投掷',10,'投掷远程岩石'],['gorilla_ult','👑 泰坦觉醒',28,'变大并连续砸地']]},
+ {id:'bear',name:'北极熊',title:'极寒领主',emoji:'🐻‍❄️',role:'坦克控制',color:0xa8dff2,hp:205,speed:.90,attack:1.12,damage:27,interval:.61,range:3.2,trait:'寒霜体质：普攻附加减速',skills:[
+  ['bear_claw','❄️ 冰爪横扫',6,'范围冰爪并附加寒冷'],['bear_armor','🛡️ 寒冰护甲',14,'获得强力冰霜护盾'],['bear_charge','🧊 冰川冲锋',10,'冲锋并留下减速冰面'],['bear_ult','🌨️ 绝对零度',28,'暴风雪和短暂冻结']]}
+];
+let activeAnimal=ANIMAL_HEROES[0];
+const animalSkillData=new Map();
+for(const hero of ANIMAL_HEROES)for(let i=0;i<hero.skills.length;i++){
+ const s=hero.skills[i];animalSkillData.set(s[0],{hero,index:i,name:s[1],cooldown:s[2],desc:s[3]});
+ HERO_SKILLS.push([s[0],s[1],i===3?'终极':'动物专属']);
+}
+const animalFields=[],animalBeams=[];
+let animalGhostTime=0,animalRageTime=0,animalMorphTime=0,animalGiantTime=0;
+let animalFlightTime=0,animalStealthTime=0,animalCritReady=false,animalFormScale=1;
+let animalPassiveTime=0,animalShieldRatio=1,animalDecoy=null,animalPreview=null,animalPreviewMesh=null;
+function aGroup(parent,x=0,y=0,z=0){const g=new THREE.Group();g.position.set(x,y,z);parent.add(g);return g}
+function aOval(parent,material,x,y,z,sx,sy,sz){const v=mesh(parent,new THREE.SphereGeometry(1,14,10),material,x,y,z);v.scale.set(sx,sy,sz);return v}
+function aCone(parent,material,x,y,z,r,h,rotX=0,rotZ=0){const v=mesh(parent,new THREE.ConeGeometry(r,h,9),material,x,y,z);v.rotation.x=rotX;v.rotation.z=rotZ;return v}
+function aRod(parent,material,start,end,r1=.07,r2=r1){const a=new THREE.Vector3(...start),b=new THREE.Vector3(...end),d=b.clone().sub(a);const v=mesh(parent,new THREE.CylinderGeometry(r1,r2,d.length(),9),material,...a.clone().add(b).multiplyScalar(.5).toArray());v.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());return v}
+function aLeg(parent,material,x,y,z,endX,endY,endZ,r=.09){const pivot=aGroup(parent,x,y,z);aOval(pivot,material,0,0,0,r*1.35,r*1.3,r*1.3);aRod(pivot,material,[0,0,0],[endX*.55,endY*.48,endZ*.4],r*1.05);aRod(pivot,material,[endX*.55,endY*.48,endZ*.4],[endX,endY,endZ],r*.72);return pivot}
+function aWing(parent,material,x,y,z,sx,sy,rotation=0){const pivot=aGroup(parent,x,y,z);const l=aOval(pivot,material,sx*.50,sy*.23,0,sx*.65,sy*.76,.055);l.rotation.z=rotation;return pivot}
+function buildAnimalRig(hero){
+ const rig=new THREE.Group(),h=hero.id;
+ const surface=mat(hero.color,.16,.46),light=mat(h==='bear'?0xecfaff:0xe3eab8,.04,.7),shadow=mat(h==='gorilla'?0x293441:h==='spider'?0x2c2438:0x253940,.08,.72);
+ const gold=mat(h==='bee'?0xf4a32b:0xe3c775,.36,.3),eyes=mat(0x101e2a,.16,.19),glow=mat(h==='butterfly'?0xf1a6fa:h==='bear'?0x91eaff:0x9eeec6,.15,.27);
+ const armored=mat(h==='gorilla'?0x556579:h==='boar'?0x7c4c36:hero.color,.29,.42);
+ const transparent=new THREE.MeshStandardMaterial({color:hero.color,transparent:true,opacity:.65,side:THREE.DoubleSide,metalness:.05,roughness:.4});
+ const limbs=[],wings=[],segments=[];
+ const push=(v,phase=0,amplitude=.4,kind='leg')=>{limbs.push({v,phase,amplitude,kind});return v};
+ function eyesAt(x,y,z,separation=.19,r=.075){for(const side of [-1,1]){
+  const e=aOval(rig,eyes,x+side*separation,y,z,r,r*1.05,r*.7);aOval(rig,light,x+side*separation-.019,y+.022,z-.035,r*.24,r*.26,r*.17);
+ }}
+ if(h==='mantis'){
+  aOval(rig,surface,0,1.02,.08,.30,.60,.28).rotation.x=-.22;
+  aOval(rig,armored,0,1.38,-.14,.24,.28,.24);
+  const head=aOval(rig,surface,0,1.68,-.28,.36,.23,.26);head.rotation.z=.04;
+  eyesAt(0,1.73,-.53,.23,.105);
+  for(const side of [-1,1]){
+   aRod(rig,shadow,[side*.10,1.87,-.32],[side*.24,2.17,-.42],.027);
+   const leg=aLeg(rig,armored,side*.18,.82,.16,side*.36,-.78,side*.09,.12);push(leg,side?0:Math.PI,.58);
+   const arm=aGroup(rig,side*.24,1.42,-.19);aRod(arm,surface,[0,0,0],[side*.30,-.19,-.33],.095);
+   aRod(arm,armored,[side*.30,-.19,-.33],[side*.17,-.38,-.63],.12);
+   const blade=aCone(arm,light,side*.15,-.50,-.74,.16,.55,Math.PI*.53,side*.18);
+   push(arm,side?Math.PI:0,.56,'arm');
+  }
+  for(const side of [-1,1]){const w=aWing(rig,transparent,side*.14,1.24,.22,side*.33,.52,.4);wings.push(w)}
+ }else if(h==='butterfly'){
+  aOval(rig,surface,0,1.04,.03,.20,.49,.22);
+  aOval(rig,light,0,1.55,-.12,.28,.31,.26);eyesAt(0,1.59,-.37,.15,.062);
+  for(const side of [-1,1]){
+   aRod(rig,shadow,[side*.10,1.82,-.12],[side*.23,2.07,-.16],.023);
+   for(const [x,y,z,sx,sy] of [[.22,1.43,.10,.52,.60],[.22,.97,.18,.39,.43]]){
+    const w=aWing(rig,new THREE.MeshStandardMaterial({color:side<0?0x6b8dfb:0xd68cfb,transparent:true,opacity:.83,side:THREE.DoubleSide,roughness:.35}),side*.13,y,z,side*sx,sy,.3);
+    w.rotation.z=side*.14;wings.push(w);
+    aOval(w,glow,side*sx*.54,sy*.27,-.065,.08,.09,.023);
+   }
+   for(let i=0;i<3;i++)push(aLeg(rig,shadow,side*.12,1.0,i*.1-.12,side*(.21+i*.025),-.70,i*.12,.027),i*1.1,.25);
+  }
+ }else if(h==='spider'){
+  aOval(rig,shadow,0,.92,.34,.54,.52,.59);
+  aOval(rig,surface,0,1.15,-.26,.43,.39,.40);eyesAt(0,1.30,-.62,.2,.06);
+  for(const side of [-1,1])for(let i=0;i<4;i++){
+   const z=-.42+i*.27,leg=aGroup(rig,side*.25,1.12,z);
+   const endX=side*(.98+((i===0||i===3)?.12:0)),endZ=(i-1.5)*.47;
+   aRod(leg,armored,[0,0,0],[endX*.59,.28,endZ*.59],.087);
+   aRod(leg,shadow,[endX*.59,.28,endZ*.59],[endX,-.79,endZ],.070);
+   aOval(leg,surface,endX*.59,.28,endZ*.59,.10,.11,.10);
+   push(leg,i*.95+(side<0?0:Math.PI),.22,'spider');
+  }
+  aCone(rig,gold,0,.79,-.68,.12,.2,Math.PI/2);
+ }else if(h==='beetle'){
+  aOval(rig,surface,0,.98,.17,.63,.63,.65);
+  aOval(rig,armored,-.24,1.07,.18,.34,.52,.52);
+  aOval(rig,armored,.24,1.07,.18,.34,.52,.52);
+  aRod(rig,gold,[0,1.5,.22],[0,1.5,.58],.045);
+  aOval(rig,shadow,0,1.10,-.48,.41,.39,.36);eyesAt(0,1.19,-.74,.24,.067);
+  const horn=aCone(rig,gold,0,1.65,-.71,.18,.66,.35);
+  horn.rotation.x=-.35;
+  for(const side of [-1,1])for(let i=0;i<3;i++)push(aLeg(rig,armored,side*.36,.76,i*.3-.30,side*.55,-.59,i*.25,.11),i*1.5+side,.28);
+ }else if(h==='caterpillar'){
+  for(let i=0;i<6;i++){
+   const s=.43-i*.028,x=0,y=.76,z=-.55+i*.30;
+   const seg=aGroup(rig,x,y,z);aOval(seg,i%2?surface:light,0,0,0,s,s*.84,.21);
+   for(const side of [-1,1])aOval(seg,armored,side*s*.68,-.30,.015,.13,.22,.12);
+   segments.push(seg);
+  }
+  aOval(rig,surface,0,1.08,-.71,.43,.43,.37);eyesAt(0,1.13,-1.035,.21,.095);
+  for(const side of [-1,1])aRod(rig,shadow,[side*.16,1.39,-.78],[side*.26,1.69,-.85],.035);
+  const mw1=aWing(rig,transparent,.17,1.20,.25,.62,.69,.15),mw2=aWing(rig,transparent,-.17,1.20,.25,-.62,.69,.15);
+  mw1.visible=mw2.visible=false;wings.push(mw1,mw2);
+ }else if(h==='bee'){
+  aOval(rig,gold,0,1.05,.10,.40,.43,.62);
+  for(let i=0;i<3;i++){const belt=aOval(rig,shadow,0,1.05,.00+i*.28,.404,.38,.105);belt.rotation.x=.1}
+  aCone(rig,shadow,0,1.03,.77,.17,.39,Math.PI/2);
+  aOval(rig,gold,0,1.26,-.42,.34,.34,.33);eyesAt(0,1.28,-.70,.20,.078);
+  for(const side of [-1,1]){
+   aRod(rig,shadow,[side*.10,1.52,-.53],[side*.24,1.80,-.61],.029);
+   for(let i=0;i<3;i++)push(aLeg(rig,shadow,side*.26,.9,i*.24-.27,side*.3,-.65,i*.06,.047),i*1.3+side,.30);
+   wings.push(aWing(rig,new THREE.MeshStandardMaterial({color:0xd1f9ff,transparent:true,opacity:.68,side:THREE.DoubleSide,roughness:.15}),side*.18,1.45,.02,side*.56,.43,.15));
+  }
+ }else if(h==='boar'){
+  aOval(rig,armored,0,1.02,.08,.63,.58,.93);
+  aOval(rig,surface,0,1.04,-.67,.52,.45,.47);
+  aOval(rig,shadow,0,.91,-1.06,.30,.23,.22);eyesAt(0,1.21,-.96,.34,.075);
+  for(const side of [-1,1]){
+   aCone(rig,gold,side*.34,1.01,-1.02,.13,.38,-.34,side*.30);
+   aCone(rig,surface,side*.32,1.47,-.52,.18,.41,.12,side*.24);
+   for(const z of [-.43,.60])push(aLeg(rig,shadow,side*.40,.76,z,side*.06,-.73,-.10,.15),z+side,.43);
+  }
+  for(let i=0;i<5;i++)aCone(rig,shadow,0,1.54,-.29+i*.24,.11,.32,.10);
+ }else if(h==='gorilla'){
+  aOval(rig,shadow,0,1.25,.13,.64,.75,.43);
+  aOval(rig,armored,0,1.42,-.19,.68,.50,.28);
+  aOval(rig,shadow,0,1.88,-.30,.39,.43,.33);
+  aOval(rig,light,0,1.83,-.53,.29,.25,.16);eyesAt(0,2.03,-.62,.17,.071);
+  for(const side of [-1,1]){
+   const arm=aGroup(rig,side*.60,1.64,0);
+   aOval(arm,shadow,side*.07,-.44,0,.31,.59,.33);
+   aOval(arm,armored,side*.14,-.94,-.21,.32,.29,.32);
+   push(arm,side?.0:Math.PI,.28,'arm');
+   push(aLeg(rig,shadow,side*.26,.80,.16,side*.06,-.74,-.04,.22),side>0?0:Math.PI,.26);
+  }
+  aOval(rig,gold,0,1.36,-.47,.11,.10,.028);
+ }else if(h==='bear'){
+  aOval(rig,light,0,1.10,.17,.65,.61,.97);
+  aOval(rig,surface,0,1.29,-.70,.49,.46,.46);
+  aOval(rig,light,0,1.16,-1.06,.31,.24,.25);aOval(rig,shadow,0,1.20,-1.24,.10,.075,.07);
+  eyesAt(0,1.40,-1.055,.28,.058);
+  for(const side of [-1,1]){
+   aOval(rig,light,side*.32,1.65,-.65,.16,.18,.13);
+   for(const z of [-.43,.72]){
+    const leg=aLeg(rig,surface,side*.43,.88,z,side*.11,-.83,-.04,.19);
+    aOval(leg,light,side*.10,-.82,-.19,.25,.13,.31);
+    push(leg,z+(side>0?0:Math.PI),.31);
+   }
+   aCone(rig,glow,side*.38,1.62,.06,.21,.54,0,side*.3);
+  }
+  aCone(rig,glow,0,1.81,.45,.23,.59);
+ }
+ const aura=new THREE.Mesh(new THREE.RingGeometry(.48,.56,28),new THREE.MeshBasicMaterial({color:hero.color,side:THREE.DoubleSide,transparent:true,opacity:.6,depthWrite:false}));
+ aura.rotation.x=-Math.PI/2;aura.position.y=.03;aura.castShadow=false;rig.add(aura);
+ const shield=new THREE.Mesh(new THREE.SphereGeometry(1.04,16,10),new THREE.MeshBasicMaterial({color:0x83e9ff,wireframe:true,transparent:true,opacity:.22,depthWrite:false}));
+ shield.position.y=.98;shield.visible=false;shield.castShadow=false;rig.add(shield);
+ return {rig,limbs,wings,segments,shield,animal:hero.id,animationClock:0,castTime:0};
+}
+function animateAnimalRig(a,dt,stride){
+ const r=a.heroRig;r.animationClock+=dt;
+ const moving=Math.min(1.5,stride);
+ const phase=r.animationClock*(8+moving*10);
+ for(const limb of r.limbs){
+  const wave=Math.sin(phase+limb.phase)*limb.amplitude*moving;
+  limb.v.rotation.x=wave*(limb.kind==='arm'?.75:1);
+  limb.v.rotation.z=(limb.kind==='arm'?.07:.09)*Math.sin(phase+limb.phase);
+ }
+ for(let i=0;i<r.wings.length;i++){
+  const wing=r.wings[i];if(!wing.visible)continue;
+  wing.rotation.y=Math.sin(r.animationClock*(a.animalHero.id==='bee'?36:12)+i*2)*.36;
+  wing.rotation.z=Math.sin(r.animationClock*13+i)*.09;
+ }
+ for(let i=0;i<r.segments.length;i++)r.segments[i].rotation.y=Math.sin(phase*.5+i*.77)*.07;
+ a.heroSwing=Math.max(0,a.heroSwing-dt);
+ r.rig.position.y=-HERO_BODY_HEIGHT*heroScale/2 + Math.abs(Math.sin(phase)) * moving * .045 +(a.animalHero.id==='butterfly'||a.animalHero.id==='bee'?.12+Math.sin(r.animationClock*5)*.07:0);
+ r.rig.rotation.z=(a.heroSwing>0?Math.sin(a.heroSwing*15)*.13:0);
+ r.rig.rotation.x=(a.animalHero.id==='boar'&&moving>.5?Math.sin(phase)*.035:0);
+ r.shield.visible=(a.powerUp==='shield'||animalShieldRatio<1);
+ if(a.animalHero.id==='caterpillar')for(const wing of r.wings)wing.visible=animalMorphTime>0;
+}
+function resetAnimalEffects(){
+ for(const a of animalFields){scene.remove(a.m);a.m.geometry.dispose();a.m.material.dispose()}animalFields.length=0;
+ for(const a of animalBeams){scene.remove(a.m);a.m.geometry.dispose();a.m.material.dispose()}animalBeams.length=0;
+ if(animalDecoy){scene.remove(animalDecoy);disposeHeroVisual(animalDecoy);animalDecoy=null}
+ animalGhostTime=animalRageTime=animalMorphTime=animalGiantTime=animalFlightTime=animalStealthTime=animalPassiveTime=0;
+ animalCritReady=false;animalShieldRatio=1;animalFormScale=1;
+}
+function animalTint(hero){return hero.color}
+function animalEffectRing(range,color=activeAnimal.color){const p=playerToy.body.position;impactRing(p.x,p.z,range,color)}
+function animalBeamTo(enemy,color,from=null){
+ if(!effectsOn||!playerToy)return;
+ const p=playerToy.body.position,q=enemy?.body?.position||from;
+ if(!q)return;
+ const points=[new THREE.Vector3(p.x,p.y+.72,p.z),new THREE.Vector3(q.x,(q.y||0)+.50,q.z)];
+ const material=new THREE.LineBasicMaterial({color,transparent:true,opacity:.91,depthWrite:false});
+ const m=new THREE.Line(new THREE.BufferGeometry().setFromPoints(points),material);scene.add(m);
+ animalBeams.push({m,life:.22});
+}
+function animalTargets(radius,angle=heroFacing,cone=false){
+ const results=[],fx=Math.sin(angle),fz=-Math.cos(angle);
+ heroNearby(radius,(enemy,d,dx,dz)=>{if(cone&&(dx*fx+dz*fz)/(d||1)<.35)return;results.push({enemy,d,dx,dz})});
+ return results.sort((a,b)=>a.d-b.d);
+}
+function animalStrike(radius,damage,angle=heroFacing,cone=false,{stun=0,slow=0,poison=0,force=3,color=activeAnimal.color}={}){
+ const targets=animalTargets(radius,angle,cone);
+ for(const {enemy} of targets){heroHit(enemy,damage,force);if(enemy.falling)continue;
+  enemy.heroHitStun=Math.max(enemy.heroHitStun||0,stun);
+  enemy.animalSlow=Math.max(enemy.animalSlow||0,slow);
+  if(poison>0)enemy.animalPoison=Math.max(enemy.animalPoison||0,poison);
+  animalBeamTo(enemy,color);
+ }
+ return targets;
+}
+function animalField(kind,angle,distance,radius,life,damage,color){
+ const p=playerToy.body.position,dx=Math.sin(angle)*distance,dz=-Math.cos(angle)*distance,hit=heroCoverHit(p.x,p.z,dx,dz,.45);
+ const x=p.x+dx*Math.max(0,hit-.04),z=p.z+dz*Math.max(0,hit-.04);
+ const m=mesh(scene,new THREE.RingGeometry(0,radius,30),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.27,side:THREE.DoubleSide,depthWrite:false}),x,HERO_GROUND+.12,z);
+ m.rotation.x=-Math.PI/2;m.castShadow=false;m.receiveShadow=false;
+ animalFields.push({m,x,z,kind,radius,life,ttl:life,tick:.08,damage,color});
+ return m;
+}
+function tickAnimalState(dt){
+ if(!heroSurvival||!playerToy?.isHero)return;
+ const a=playerToy;
+ animalGhostTime=Math.max(0,animalGhostTime-dt);
+ if(animalGhostTime===0&&animalDecoy){scene.remove(animalDecoy);disposeHeroVisual(animalDecoy);animalDecoy=null}
+ animalRageTime=Math.max(0,animalRageTime-dt);
+ animalFlightTime=Math.max(0,animalFlightTime-dt);
+ animalStealthTime=Math.max(0,animalStealthTime-dt);
+ animalMorphTime=Math.max(0,animalMorphTime-dt);
+ animalPassiveTime=Math.max(0,animalPassiveTime-dt);
+ if(animalGiantTime>0){animalGiantTime-=dt;if(animalGiantTime<=0&&heroScale!==animalFormScale)setHeroScale(animalFormScale)}
+ for(const enemy of items){
+  if(!enemy.heroEnemy||enemy.falling||enemy.dead)continue;
+  enemy.animalSlow=Math.max(0,(enemy.animalSlow||0)-dt);
+  enemy.animalWeaken=Math.max(0,(enemy.animalWeaken||0)-dt);
+  enemy.animalPoison=Math.max(0,(enemy.animalPoison||0)-dt);
+  if(enemy.animalPoison>0){enemy.animalPoisonTick=(enemy.animalPoisonTick||0)-dt;
+   if(enemy.animalPoisonTick<=0){enemy.animalPoisonTick=.55;heroHit(enemy,5+Math.floor(heroLevel*.3),.08)}
+  }
+ }
+ for(let i=animalFields.length-1;i>=0;i--){const f=animalFields[i];f.life-=dt;f.tick-=dt;
+  const frac=Math.max(.02,f.life/f.ttl);f.m.material.opacity=.23*frac;f.m.rotation.z+=dt*.2;
+  if(f.tick<=0){f.tick=.44;
+   for(const enemy of items){if(!enemy.heroEnemy||enemy.dead||enemy.falling)continue;
+    const p=enemy.body.position;if(Math.hypot(p.x-f.x,p.z-f.z)>f.radius)continue;
+    if(f.damage>0)heroHit(enemy,f.damage,1.1);
+    if(!enemy.falling){
+     if(['web','honey','ice','pollen','blizzard'].includes(f.kind))enemy.animalSlow=Math.max(enemy.animalSlow||0,.65);
+     if(f.kind==='web')enemy.heroHitStun=Math.max(enemy.heroHitStun||0,.38);
+     if(f.kind==='poison'||f.kind==='pollen')enemy.animalPoison=Math.max(enemy.animalPoison||0,1.8);
+     if(f.kind==='blizzard')enemy.heroHitStun=Math.max(enemy.heroHitStun||0,.24);
+    }
+   }
+  }
+  if(f.life<=0){scene.remove(f.m);f.m.geometry.dispose();f.m.material.dispose();animalFields.splice(i,1)}
+ }
+ for(let i=animalBeams.length-1;i>=0;i--){const b=animalBeams[i];b.life-=dt;b.m.material.opacity=Math.max(0,b.life/.22);
+  if(b.life<=0){scene.remove(b.m);b.m.geometry.dispose();b.m.material.dispose();animalBeams.splice(i,1)}
+ }
+}
+function animalAttack(manualAngle=null){
+ if(!heroCanAct()||heroAttackCooldown>0)return;
+ const h=activeAnimal,a=playerToy;
+ let angle=manualAngle??heroFacing,range=h.range,targets=animalTargets(range,angle,manualAngle!==null);
+ if(manualAngle===null&&targets.length){const p=a.body.position,q=targets[0].enemy.body.position;angle=Math.atan2(q.x-p.x,p.z-q.z)}
+ heroFacing=angle; a.heroSwing=.29;
+ const low=a.hp/a.stats.hp<.38;
+ heroAttackCooldown=h.interval*(h.id==='boar'&&low?.76:1)*(animalRageTime>0?.68:1);
+ let damage=h.damage*(animalRageTime>0?1.33:1)*(a.animalHero.id==='gorilla'&&animalPassiveTime>0?1.22:1);
+ if(h.id==='mantis'&&targets.some(t=>t.enemy.hp/t.enemy.stats.hp<.36))damage*=1.23;
+ if(h.id==='mantis'&&animalCritReady){damage*=2.0;animalCritReady=false;animalStealthTime=0;}
+ const melee=['mantis','beetle','boar','gorilla','bear'].includes(h.id);
+ targets=animalTargets(range,angle,melee||manualAngle!==null).slice(0,melee?5:1);
+ for(const {enemy} of targets){
+  heroHit(enemy,damage,melee?3.3:1.5);
+  if(enemy.falling)continue;
+  if(h.id==='bee'||h.id==='spider')enemy.animalPoison=Math.max(enemy.animalPoison||0,2.0);
+  if(h.id==='bear')enemy.animalSlow=Math.max(enemy.animalSlow||0,1.15);
+  if(!melee)animalBeamTo(enemy,h.color);
+ }
+ if(melee)animalEffectRing(1.3,h.color);
+ if(h.id==='caterpillar'||h.id==='bee'||h.id==='butterfly'||h.id==='spider')heroWeaponSound(true);else heroWeaponSound(false);
+ refreshHeroHUD();
+}
+function castAnimalSkill(key,angle=heroFacing){
+ if(!heroCanAct()||!heroSkills.includes(key)||(heroCooldowns[key]||0)>0)return;
+ const entry=animalSkillData.get(key);if(!entry)return;
+ const h=entry.hero;if(h.id!==activeAnimal.id)return;
+ const a=playerToy,boost=1+.18*((heroSkillLevels[key]||1)-1);
+ heroCooldowns[key]=entry.cooldown;
+ const strike=(radius,damage,cone=false,opts={})=>animalStrike(radius,Math.round(damage*boost),angle,cone,opts);
+ const dash=(speed,duration)=>startHeroDash(angle,speed,duration,0);
+ switch(key){
+ case 'mantis_slash':for(let i=0;i<3;i++)strike(3.1,16,true,{force:2});break;
+ case 'mantis_dash':dash(17,.33);strike(4.7,36,true);break;
+ case 'mantis_stealth':animalStealthTime=3;animalCritReady=true;a.heroRig.rig.traverse(m=>{if(m.isMesh&&m.material&&'transparent'in m.material){/* decorative effect is in aura */}});break;
+ case 'mantis_ult':heroTeleport(angle,4.2);for(let i=0;i<6;i++)strike(5,14,false,{force:2});break;
+ case 'butterfly_pollen':animalField('pollen',angle,3.8,3.0,5,8*boost,0xf1a2f4);break;
+ case 'butterfly_blink':{
+   const old=playerToy.body.position.clone();heroTeleport(angle,5.3);animalGhostTime=3;
+   if(animalDecoy){scene.remove(animalDecoy);disposeHeroVisual(animalDecoy)}
+   animalDecoy=new THREE.Group();
+   const illusion=mesh(animalDecoy,new THREE.OctahedronGeometry(.48,1),new THREE.MeshBasicMaterial({color:0xc78cff,transparent:true,opacity:.5,wireframe:true}));
+   illusion.position.y=.6;animalDecoy.position.set(old.x,HERO_GROUND,old.z);scene.add(animalDecoy);
+ }break;
+ case 'butterfly_heal':a.hp=Math.min(a.stats.hp,a.hp+46*boost);a.powerUp='shield';a.powerTime=4.0;break;
+ case 'butterfly_ult':animalField('pollen',angle,4.4,7.7,7,14*boost,0xad8aff);strike(6,26,false,{slow:2});break;
+ case 'spider_web':strike(7,18,true,{stun:1.2,slow:1.6,force:.3});break;
+ case 'spider_jump':{
+  const p=a.body.position,dx=Math.sin(angle),dz=-Math.cos(angle);
+  let found=false;
+  // A short leap across narrow obstacles only if the landing spot is valid.
+  for(const length of [5.1,4.5,3.8,3.0,2.0]){
+   const x=p.x+dx*length,z=p.z+dz*length;
+   if(heroMapOpen(x,z,HERO_BODY_RADIUS*heroScale+.12)&&!items.some(e=>e.heroEnemy&&!e.falling&&!e.dead&&Math.hypot(e.body.position.x-x,e.body.position.z-z)<1)){
+    p.set(x,p.y,z);a.body.previousPosition.copy(p);a.body.interpolatedPosition.copy(p);a.body.velocity.x=a.body.velocity.z=0;a.body.aabbNeedsUpdate=true;found=true;break;
+   }
+  }
+  if(!found)dash(12,.25);else strike(3,18,false);
+ }break;
+ case 'spider_trap':animalField('web',angle,4.2,2.9,7,6*boost,0x914db4);break;
+ case 'spider_ult':animalField('web',angle,3.5,7.8,7,12*boost,0x9847d1);strike(8,20,false,{stun:1.1});break;
+ case 'beetle_horn':dash(14,.35);strike(4.7,37,true,{force:6});break;
+ case 'beetle_guard':a.powerUp='shield';a.powerTime=4.5*boost;animalShieldRatio=.22;break;
+ case 'beetle_shock':strike(5.0,28,false,{slow:2.5,force:3});break;
+ case 'beetle_ult':animalFormScale=heroScale;setHeroScale(Math.max(1.5,heroScale));animalGiantTime=8;a.powerUp='shield';a.powerTime=8;strike(6,35,false,{force:5});break;
+ case 'caterpillar_acid':strike(6,28,true,{poison:3,force:1});break;
+ case 'caterpillar_roll':dash(13,.55);strike(4.4,30,true,{force:4});break;
+ case 'caterpillar_cocoon':a.powerUp='shield';a.powerTime=4;a.hp=Math.min(a.stats.hp,a.hp+39*boost);animalShieldRatio=.30;break;
+ case 'caterpillar_ult':animalMorphTime=9;animalFlightTime=9;a.powerUp='shield';a.powerTime=3;dash(15,.40);strike(6,35,false);break;
+ case 'bee_needles':for(let i=0;i<5;i++)strike(9,9,true,{poison:2.8,force:.4});break;
+ case 'bee_flight':animalFlightTime=2;dash(19,.42);break;
+ case 'bee_honey':animalField('honey',angle,5.0,3.4,7,5*boost,0xfcc45e);break;
+ case 'bee_ult':animalField('swarm',angle,3.5,8.8,6,15*boost,0xffc64d);strike(8,21,false,{poison:3});break;
+ case 'boar_charge':dash(17,.42);strike(5.0,34,true,{force:5});break;
+ case 'boar_tusk':strike(3.7,39,true,{force:4});break;
+ case 'boar_rage':animalRageTime=5.5*boost;break;
+ case 'boar_ult':dash(19,.48);strike(7,48,false,{force:7});animalField('damage',angle,3.8,3.3,2.5,15*boost,0xe9a36a);break;
+ case 'gorilla_fist':strike(3.8,43,true,{force:5});break;
+ case 'gorilla_roar':strike(6,12,false,{stun:.5});for(const t of animalTargets(6))t.enemy.animalWeaken=4;break;
+ case 'gorilla_rock':strike(12,43,true,{force:3,color:0xcdb69c});break;
+ case 'gorilla_ult':animalFormScale=heroScale;setHeroScale(Math.max(1.5,heroScale));animalGiantTime=7;strike(6,34,false,{force:4});animalField('damage',angle,0,6,3.5,18*boost,0xb3b4cc);break;
+ case 'bear_claw':strike(4,37,true,{slow:2.6,color:0xb3f3ff});break;
+ case 'bear_armor':a.powerUp='shield';a.powerTime=5.5*boost;animalShieldRatio=.20;break;
+ case 'bear_charge':dash(14,.4);strike(4.5,29,true,{slow:2});animalField('ice',angle,3.8,3.3,4,7*boost,0x97ecff);break;
+ case 'bear_ult':animalField('blizzard',angle,3.5,8.0,6,14*boost,0x99e8ff);strike(8,42,false,{stun:1.1,slow:2.5,color:0x99e8ff});break;
+ }
+ if(entry.index===3)animalEffectRing(4.8,h.color);else animalEffectRing(entry.index===2?2.7:1.8,h.color);
+ a.heroSwing=.35;refreshHeroHUD();
+}
+function setAnimalHUD(){
+ const h=activeAnimal;
+ document.querySelector('#heroHud .heroHudTitle strong').textContent=h.emoji+' '+h.name+' · '+h.title;
+ $('heroHpBar').setAttribute('aria-valuemax',String(h.hp));
+ $('heroWeaponDock').hidden=true;
+ $('heroKeyboardHelp').textContent='WASD移动 · 空格攻击 · 数字1–4技能 · 击杀解锁新技能';
+ $('heroAttackIcon').textContent=h.emoji;
+ $('heroAttackText').textContent='攻击';
+ const sr=$('heroSkillPanel').querySelector('.skillPanelHead b');if(sr)sr.textContent=h.name+' · 专属技能升级';
+}
+function prepareAnimalHero(){
+ resetAnimalEffects();
+ const h=activeAnimal;
+ const hero=playerToy;hero.animalHero=h;hero.customName=h.name+'·'+h.title;
+ hero.stats={hp:h.hp,speed:h.speed,attack:h.attack,weight:1};hero.hp=h.hp;
+ hero.heroRig.rig.name=h.id+'_3d';
+ heroWeaponId='blade';heroReloadTime=0;heroAmmo=0;heroAttackCooldown=0;
+ heroUnlocked.clear();heroLoadout=[];
+ for(const key of Object.keys(heroSkillLevels))delete heroSkillLevels[key];
+ for(const key of Object.keys(heroCooldowns))delete heroCooldowns[key];
+ for(let i=0;i<2;i++){
+  const key=h.skills[i][0];heroUnlocked.add(key);heroLoadout.push(key);heroSkillLevels[key]=1;
+ }
+ heroSkills.splice(0,heroSkills.length,...heroLoadout);
+ heroPendingRewards=0;
+ setAnimalHUD();
+}
+function animalOnKill(){
+ const h=activeAnimal,k=heroKills;
+ if(h.id==='caterpillar')playerToy.hp=Math.min(playerToy.stats.hp,playerToy.hp+11);
+ if(k===1||k===3){
+  const idx=k===1?2:3,key=h.skills[idx][0];
+  if(!heroUnlocked.has(key)){
+   heroUnlocked.add(key);heroSkillLevels[key]=1;heroLoadout.push(key);
+   heroSkills.splice(0,heroSkills.length,...heroLoadout);
+   heroWeaponFeedback('已解锁 '+h.skills[idx][1]);
+  }
+ }else if(k===5||k===8){
+  playerToy.hp=Math.min(playerToy.stats.hp,playerToy.hp+(k===8?35:18));
+  heroWeaponFeedback(k===8?'英雄觉醒！体力恢复':'生存强化：恢复生命');
+ }
+}
+// Skill panel is a read-only portrait of this hero's four skills; upgrades still use the floating + buttons.
+function refreshAnimalSkillPanel(){
+ const host=$('heroSkillList');host.replaceChildren();
+ setHeroText('heroSkillNotice','已解锁 '+heroUnlocked.size+' / 4 · 技能升级点 '+heroUpgradePoints+' · 第1次击杀解锁3技能，第3次击杀解锁大招');
+ for(const [id,label,cd,desc] of activeAnimal.skills){
+  const owned=heroUnlocked.has(id),level=heroSkillLevels[id]||0;
+  const b=document.createElement('button');b.type='button';b.disabled=true;
+  b.className='heroSkillItem'+(owned?' equipped':'');
+  b.textContent=label+' · '+(owned?'Lv.'+level:'尚未解锁')+' · '+cd+'秒\n'+desc;
+  b.style.whiteSpace='pre-line';host.append(b);
+ }
+}
+function animalInfoUI(){
+ const h=activeAnimal;const grid=$('animalHeroGrid');grid.replaceChildren();
+ for(const opt of ANIMAL_HEROES){
+  const b=document.createElement('button');b.type='button';b.className='animalHeroCard'+(opt.id===h.id?' selected':'');
+  b.setAttribute('aria-pressed',String(opt.id===h.id));b.innerHTML='<span class="animalEmoji"></span><span class="animalCardName"></span><small></small>';
+  b.querySelector('.animalEmoji').textContent=opt.emoji;b.querySelector('.animalCardName').textContent=opt.name;b.querySelector('small').textContent=opt.role;
+  b.style.setProperty('--animal-color','#'+opt.color.toString(16).padStart(6,'0'));
+  b.onclick=()=>{activeAnimal=opt;animalInfoUI();drawAnimalPreview(opt)};
+  grid.append(b);
+ }
+ $('animalInfoTitle').textContent=h.emoji+' '+h.name+' · '+h.title;
+ $('animalInfoRole').textContent=h.role+' · HP '+h.hp+' · 速度 '+Math.round(h.speed*100)+'%';
+ $('animalInfoTrait').textContent=h.trait;
+ const ul=$('animalInfoSkills');ul.replaceChildren();
+ for(const [id,label,cd,desc] of h.skills){const li=document.createElement('li');li.textContent=label+'（'+cd+'秒） '+desc;ul.append(li)}
+}
+function drawAnimalPreview(hero){
+ if(!animalPreview){
+  const canvas=$('animalPreview');const view=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'low-power'});
+  view.setPixelRatio(Math.min(1.7,window.devicePixelRatio||1));view.setSize(300,220,false);
+  view.outputColorSpace=THREE.SRGBColorSpace;view.toneMapping=THREE.ACESFilmicToneMapping;view.toneMappingExposure=1.45;
+  const scene2=new THREE.Scene(),camera2=new THREE.PerspectiveCamera(35,300/220,.1,100);
+  camera2.position.set(4.5,3.5,5.4);camera2.lookAt(0,1,0);
+  const lit=new THREE.HemisphereLight(0xffffff,0x536071,2.8);scene2.add(lit);
+  const sun2=new THREE.DirectionalLight(0xffffff,3);sun2.position.set(-3,7,5);scene2.add(sun2);
+  const base=mesh(scene2,new THREE.CylinderGeometry(1.38,1.56,.25,42),mat(0x364e63,.34,.36),0,-.10,0);base.receiveShadow=true;
+  animalPreview={scene:scene2,view,camera:camera2};
+ }
+ if(animalPreviewMesh){animalPreview.scene.remove(animalPreviewMesh);disposeHeroVisual(animalPreviewMesh)}
+ const model=buildAnimalRig(hero);animalPreviewMesh=model.rig;animalPreview.scene.add(animalPreviewMesh);
+ const ticker=()=>{
+  if(!$('animalSelect').classList.contains('open'))return;
+  if(animalPreviewMesh){animalPreviewMesh.rotation.y+=.008;animalPreviewMesh.position.y=Math.sin(performance.now()*.0018)*.02;}
+  animalPreview.view.render(animalPreview.scene,animalPreview.camera);
+  requestAnimationFrame(ticker);
+ };
+ if(!animalPreview.active){animalPreview.active=true;requestAnimationFrame(()=>{
+  const update=()=>{if(!$('animalSelect').classList.contains('open')){animalPreview.active=false;return}
+   if(animalPreviewMesh){animalPreviewMesh.rotation.y+=.008;animalPreviewMesh.position.y=Math.sin(performance.now()*.0018)*.02;}
+   animalPreview.view.render(animalPreview.scene,animalPreview.camera);requestAnimationFrame(update);};update();
+ })}
+}
+function openAnimalSelect(){
+ if(heroSurvival&&!matchEnded)return;
+ // The other modes and map remain untouched until the user confirms the selection.
+ $('victoryScreen').classList.remove('show');$('animalSelect').classList.add('open');
+ $('animalSelect').setAttribute('aria-hidden','false');
+ animalInfoUI();drawAnimalPreview(activeAnimal);
+}
+function closeAnimalSelect(){
+ $('animalSelect').classList.remove('open');$('animalSelect').setAttribute('aria-hidden','true');
+}
+$('animalStartBattle').addEventListener('click',()=>{closeAnimalSelect();startHeroSurvival()});
+$('animalSelectClose').addEventListener('click',closeAnimalSelect);
+$('animalChooseAgain').addEventListener('click',openAnimalSelect);
+// Redirect only the survival entry; replay keeps the last selected character.
+$('heroSurvivalStart').onclick=openAnimalSelect;
+$('heroReplay').onclick=startHeroSurvival;
 
 for(let i=0;i<4;i++){selected=i;selectedColor=colors[i];const a=i*Math.PI/2;spawn(Math.cos(a)*2.8,Math.sin(a)*2.8)}selected=0;selectedColor=colors[0];applyPerformanceTier();requestAnimationFrame(animate);$('loader').classList.add('hide');window.addEventListener('resize',fitGameViewport);fitGameViewport();
 </script><script id="v83UiLogic">(function(){
